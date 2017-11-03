@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerPultMX">
+   <children>
+      <ComboBox fx:id="ComboBoxPort" layoutX="18.0" layoutY="25.0" prefHeight="25.0" prefWidth="78.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <AnchorPane fx:id="PaneComPort" blendMode="DARKEN" focusTraversable="true" layoutX="5.0" layoutY="55.0" prefHeight="661.0" prefWidth="925.0" style="-fx-border-color: blue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
+         <children>
+            <TextField fx:id="TextFieldTerminal" layoutX="11.0" layoutY="714.0" prefHeight="25.0" prefWidth="713.0" />
+            <Button fx:id="ButtoncomPortSend" layoutX="741.0" layoutY="661.0" mnemonicParsing="false" onAction="#ActionComSend" prefHeight="25.0" prefWidth="78.0" text="Отправить" AnchorPane.bottomAnchor="5.0" />
+            <TextArea fx:id="TextAriaTerminal" layoutX="609.0" layoutY="42.0" prefHeight="698.0" prefWidth="150.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
+            <Label layoutX="894.0" layoutY="14.0" text="Логи">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <VBox layoutX="7.0" layoutY="7.0" prefHeight="698.0" prefWidth="95.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="95.0" text="выкл    вкл" />
+                  <JFXToggleButton fx:id="out1" onAction="#Out1Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out1" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out2" onAction="#Out2Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out2" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out3" onAction="#Out3Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out3" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out4" onAction="#Out4Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out4" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out5" onAction="#Out5Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out5" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out6" onAction="#Out6Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out6" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out7" onAction="#Out7Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out7" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out8" onAction="#Out8Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out8" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out9" onAction="#Out9Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out9" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out10" onAction="#Out10Action" prefHeight="48.0" prefWidth="101.0" size="8.0" text="out10" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="out11" onAction="#Out11Action" prefHeight="48.0" prefWidth="98.0" size="8.0" text="out11" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+               </children>
+            </VBox>
+            <FlowPane alignment="TOP_RIGHT" layoutX="214.0" layoutY="80.0" prefHeight="200.0" prefWidth="111.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input1" />
+                  <Button fx:id="Inp1" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input2" />
+                  <Button fx:id="Inp2" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input3" />
+                   <Button fx:id="Inp3" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input4" />
+                   <Button fx:id="Inp4" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input5" />
+                   <Button fx:id="Inp5" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input6" />
+                   <Button fx:id="Inp6" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input7" />
+                   <Button fx:id="Inp7" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input8" />
+                   <Button fx:id="Inp8" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input9" />
+                   <Button fx:id="Inp9" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input10" />
+                   <Button fx:id="Inp10" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input11" />
+                   <Button fx:id="Inp11" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input12" />
+                   <Button fx:id="Inp12" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input13" />
+                   <Button fx:id="Inp13" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input14" />
+                   <Button fx:id="Inp14" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input15" />
+                   <Button fx:id="Inp15" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input16" />
+                   <Button fx:id="Inp16" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input17" />
+                   <Button fx:id="Inp17" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input18" />
+                   <Button fx:id="Inp18" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="232.0" layoutY="7.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.bottomAnchor="611.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC1" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
+                  <JFXToggleButton fx:id="adc1on" onAction="#Adc1onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <TextField fx:id="ADC1text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="251.0" layoutY="146.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="251.0" AnchorPane.topAnchor="146.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC2" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
+                  <JFXToggleButton fx:id="adc2on" onAction="#Adc2onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <TextField fx:id="ADC2text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="251.0" layoutY="290.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="251.0" AnchorPane.topAnchor="290.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC3" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
+                  <JFXToggleButton fx:id="adc3on" onAction="#Adc3onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <TextField fx:id="ADC3text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="361.0" layoutY="5.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="361.0" AnchorPane.topAnchor="5.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC4" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
+                  <JFXToggleButton fx:id="adc4on" onAction="#Adc4onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <TextField fx:id="ADC4text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </FlowPane>
+            <FlowPane prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="145.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC5" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
+                  <JFXToggleButton fx:id="adc5on" onAction="#Adc5onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <TextField fx:id="ADC5text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </FlowPane>
+            <FlowPane layoutX="362.0" layoutY="290.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="362.0" AnchorPane.topAnchor="290.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC6" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
+                  <JFXToggleButton fx:id="adc6on" onAction="#Adc6onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <TextField fx:id="ADC6text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+               </children>
+            </FlowPane>
+         </children>
+      </AnchorPane>
+      <ToggleButton fx:id="ToogleButComPort" layoutX="123.0" layoutY="25.0" mnemonicParsing="false" onAction="#ConnectComPort" prefHeight="25.0" prefWidth="78.0" text="Открыть" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0" />
+   </children>
+</AnchorPane>
