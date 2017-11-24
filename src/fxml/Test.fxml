@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerTest">
+   <children>
+      <JFXToggleButton fx:id="Pult" layoutX="478.0" layoutY="14.0" onAction="#PultAction" prefHeight="48.0" prefWidth="108.0" size="8.0" text="Пульт " />
+   </children>
+</AnchorPane>

@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerPultMX">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerPultMX">
    <children>
       <ComboBox fx:id="ComboBoxPort" layoutX="18.0" layoutY="25.0" prefHeight="25.0" prefWidth="78.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <AnchorPane fx:id="PaneComPort" blendMode="DARKEN" focusTraversable="true" layoutX="5.0" layoutY="55.0" prefHeight="661.0" prefWidth="925.0" style="-fx-border-color: blue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
          <children>
-            <TextField fx:id="TextFieldTerminal" layoutX="11.0" layoutY="714.0" prefHeight="25.0" prefWidth="713.0" />
+            <TextField fx:id="TextFieldTerminal" layoutX="11.0" layoutY="714.0" prefHeight="25.0" prefWidth="713.0" AnchorPane.bottomAnchor="5.0" />
             <Button fx:id="ButtoncomPortSend" layoutX="741.0" layoutY="661.0" mnemonicParsing="false" onAction="#ActionComSend" prefHeight="25.0" prefWidth="78.0" text="Отправить" AnchorPane.bottomAnchor="5.0" />
-            <TextArea fx:id="TextAriaTerminal" layoutX="609.0" layoutY="42.0" prefHeight="698.0" prefWidth="150.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="40.0" />
-            <Label layoutX="894.0" layoutY="14.0" text="Логи">
+            <TextArea fx:id="TextAriaTerminal" layoutX="609.0" layoutY="42.0" prefHeight="698.0" prefWidth="150.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0" />
+            <Label layoutX="894.0" layoutY="14.0" text="Логи" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="10.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <VBox layoutX="7.0" layoutY="7.0" prefHeight="698.0" prefWidth="95.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+            <VBox layoutX="7.0" layoutY="7.0" prefHeight="698.0" prefWidth="95.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="30.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="95.0" text="выкл    вкл" />
                   <JFXToggleButton fx:id="out1" onAction="#Out1Action" prefHeight="25.0" prefWidth="85.0" size="8.0" text="out1" unToggleColor="#e40808" unToggleLineColor="#da7781" />
@@ -41,47 +48,101 @@
                   <JFXToggleButton fx:id="out11" onAction="#Out11Action" prefHeight="48.0" prefWidth="98.0" size="8.0" text="out11" unToggleColor="#e40808" unToggleLineColor="#da7781" />
                </children>
             </VBox>
-            <FlowPane alignment="TOP_RIGHT" layoutX="214.0" layoutY="80.0" prefHeight="200.0" prefWidth="111.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="5.0">
+            <FlowPane alignment="TOP_RIGHT" layoutX="109.0" layoutY="33.0" prefHeight="670.0" prefWidth="120.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="30.0">
                <children>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input1" />
-                  <Button fx:id="Inp1" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Button fx:id="Inp1" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input2" />
-                  <Button fx:id="Inp2" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                  <Button fx:id="Inp2" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input3" />
-                   <Button fx:id="Inp3" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp3" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input4" />
-                   <Button fx:id="Inp4" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp4" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input5" />
-                   <Button fx:id="Inp5" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp5" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input6" />
-                   <Button fx:id="Inp6" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp6" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input7" />
-                   <Button fx:id="Inp7" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp7" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input8" />
-                   <Button fx:id="Inp8" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp8" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input9" />
-                   <Button fx:id="Inp9" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp9" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input10" />
-                   <Button fx:id="Inp10" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp10" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input11" />
-                   <Button fx:id="Inp11" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp11" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input12" />
-                   <Button fx:id="Inp12" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp12" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input13" />
-                   <Button fx:id="Inp13" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp13" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input14" />
-                   <Button fx:id="Inp14" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp14" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input15" />
-                   <Button fx:id="Inp15" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp15" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input16" />
-                   <Button fx:id="Inp16" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp16" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input17" />
-                   <Button fx:id="Inp17" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp17" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="input18" />
-                   <Button fx:id="Inp18" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-" />
+                   <Button fx:id="Inp18" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0" text="-">
+                     <FlowPane.margin>
+                        <Insets right="5.0" />
+                     </FlowPane.margin></Button>
                </children>
             </FlowPane>
-            <FlowPane layoutX="232.0" layoutY="7.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.bottomAnchor="611.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="5.0">
+            <FlowPane alignment="CENTER" layoutX="252.0" layoutY="32.0" prefHeight="130.0" prefWidth="106.0" style="-fx-border-color: #da7781; -fx-border-width: 2;" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="30.0">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC1" textAlignment="CENTER">
                      <font>
@@ -91,10 +152,10 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
                   <JFXToggleButton fx:id="adc1on" onAction="#Adc1onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
-                  <TextField fx:id="ADC1text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="ADC1text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
-            <FlowPane layoutX="251.0" layoutY="146.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="251.0" AnchorPane.topAnchor="146.0">
+            <FlowPane alignment="CENTER" layoutX="251.0" layoutY="146.0" prefHeight="130.0" prefWidth="100.0" style="-fx-border-color: #da7781; -fx-border-width: 2;" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="170.0">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC2" textAlignment="CENTER">
                      <font>
@@ -104,10 +165,10 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
                   <JFXToggleButton fx:id="adc2on" onAction="#Adc2onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
-                  <TextField fx:id="ADC2text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="ADC2text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
-            <FlowPane layoutX="251.0" layoutY="290.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="251.0" AnchorPane.topAnchor="290.0">
+            <FlowPane alignment="CENTER" layoutX="251.0" layoutY="290.0" prefHeight="130.0" prefWidth="100.0" style="-fx-border-color: #da7781; -fx-border-width: 2;" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="310.0">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC3" textAlignment="CENTER">
                      <font>
@@ -117,10 +178,10 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
                   <JFXToggleButton fx:id="adc3on" onAction="#Adc3onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
-                  <TextField fx:id="ADC3text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="ADC3text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
-            <FlowPane layoutX="361.0" layoutY="5.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="361.0" AnchorPane.topAnchor="5.0">
+            <FlowPane alignment="CENTER" layoutX="361.0" layoutY="5.0" prefHeight="130.0" prefWidth="100.0" style="-fx-border-color: #da7781; -fx-border-width: 2;" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="30.0">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC4" textAlignment="CENTER">
                      <font>
@@ -130,10 +191,10 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
                   <JFXToggleButton fx:id="adc4on" onAction="#Adc4onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
-                  <TextField fx:id="ADC4text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="ADC4text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
-            <FlowPane prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="145.0">
+            <FlowPane alignment="CENTER" prefHeight="130.0" prefWidth="100.0" style="-fx-border-color: #da7781; -fx-border-width: 2;" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="170.0">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC5" textAlignment="CENTER">
                      <font>
@@ -143,10 +204,10 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
                   <JFXToggleButton fx:id="adc5on" onAction="#Adc5onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
-                  <TextField fx:id="ADC5text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="ADC5text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
-            <FlowPane layoutX="362.0" layoutY="290.0" prefHeight="130.0" prefWidth="100.0" AnchorPane.leftAnchor="362.0" AnchorPane.topAnchor="290.0">
+            <FlowPane alignment="CENTER" layoutX="362.0" layoutY="290.0" prefHeight="130.0" prefWidth="100.0" style="-fx-border-color: #da7781; -fx-border-width: 2;" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="310.0">
                <children>
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="97.0" text="ADC6" textAlignment="CENTER">
                      <font>
@@ -156,9 +217,171 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
                   <JFXToggleButton fx:id="adc6on" onAction="#Adc6onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
-                  <TextField fx:id="ADC6text" editable="false" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="ADC6text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
+            <Label alignment="CENTER" layoutX="9.0" layoutY="13.0" prefHeight="20.0" prefWidth="91.0" text="Выходы" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+            <Label alignment="CENTER" layoutX="107.0" layoutY="15.0" prefHeight="17.0" prefWidth="112.0" text="Входы" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="484.0" layoutY="33.0" prefHeight="673.0" prefWidth="334.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.leftAnchor="483.0" AnchorPane.topAnchor="32.0">
+               <children>
+                  <VBox layoutX="14.0" layoutY="29.0" prefHeight="60.0" prefWidth="112.0" style="-fx-border-color: #e07f69; -fx-border-width: 2; -fx-border-radius: 10;" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="27.0">
+                     <children>
+                        <RadioButton fx:id="radioGpsTime5zero" mnemonicParsing="false" selected="true" text="00000.000">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GroupTimeForm" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioGpsTimeNull" mnemonicParsing="false" text="--" toggleGroup="$GroupTimeForm">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="9.0" mnemonicParsing="true" prefHeight="20.0" prefWidth="112.0" text="Формат времени" wrapText="true" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="5.0" />
+                  <VBox layoutX="135.0" layoutY="31.0" prefHeight="60.0" prefWidth="53.0" style="-fx-border-color: #e07f69; -fx-border-width: 2; -fx-border-radius: 10;" AnchorPane.leftAnchor="133.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <RadioButton fx:id="radioGpsValidA" mnemonicParsing="false" selected="true" text="A">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GroupValidGPS" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioGpsValidV" mnemonicParsing="false" text="V" toggleGroup="$GroupValidGPS">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+                  <Label alignment="CENTER" layoutX="132.0" layoutY="11.0" mnemonicParsing="true" prefHeight="20.0" prefWidth="53.0" text="AV" wrapText="true" AnchorPane.topAnchor="5.0" />
+                  <AnchorPane layoutX="16.0" layoutY="106.0" prefHeight="115.0" prefWidth="160.0" style="-fx-border-color: #e07f69; -fx-border-width: 2; -fx-border-radius: 10;" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="104.0">
+                     <children>
+                        <Label layoutX="-19.0" layoutY="17.0" text="N:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                        <TextField fx:id="textGpsCoordN" layoutX="3.0" layoutY="11.0" onAction="#ActionGpscoordN" prefHeight="25.0" prefWidth="123.0" text="59.93223558200364" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="9.0" />
+                        <Label layoutX="9.0" layoutY="44.0" text="E:" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="44.0" />
+                        <TextField fx:id="textGpsCoordE" alignment="TOP_RIGHT" layoutX="33.0" layoutY="40.0" onAction="#ActiongpsCoordE" prefHeight="25.0" prefWidth="123.0" text="30.29650098724369" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="40.0" />
+                        <Button fx:id="butGpsResetCoord" layoutX="9.0" layoutY="76.0" mnemonicParsing="false" onAction="#ActionGpsResetCoord" prefHeight="25.0" prefWidth="142.0" text="Сбросить координаты" AnchorPane.topAnchor="74.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="87.0" prefHeight="17.0" prefWidth="160.0" text="Координаты" />
+                  <VBox layoutX="196.0" layoutY="31.0" prefHeight="60.0" prefWidth="123.0" style="-fx-border-color: #e07f69; -fx-border-width: 2; -fx-border-radius: 10;" AnchorPane.leftAnchor="194.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <RadioButton fx:id="radioGpsStrokaGPRMC" mnemonicParsing="false" selected="true" text="GPRMC">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GroupGpsType" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioGpsStrokaNull" mnemonicParsing="false" text="--" toggleGroup="$GroupGpsType">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+                  <Label alignment="CENTER" layoutX="195.0" layoutY="13.0" prefHeight="17.0" prefWidth="123.0" text="Тип строки" AnchorPane.topAnchor="5.0" />
+                  <AnchorPane layoutX="182.0" layoutY="106.0" prefHeight="116.0" prefWidth="133.0" style="-fx-border-color: #e07f69; -fx-border-radius: 10; -fx-border-width: 2;">
+                     <children>
+                        <Label layoutX="25.0" layoutY="14.0" text="м/с" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                        <TextField fx:id="textGpsSpeed" alignment="CENTER" layoutX="36.0" layoutY="12.0" onAction="#ActionGpsSpeed" prefHeight="25.0" prefWidth="62.0" text="1" AnchorPane.topAnchor="10.0" />
+                        <Label layoutX="7.0" layoutY="42.0" text="узлы" AnchorPane.topAnchor="40.0" />
+                        <Label layoutX="7.0" layoutY="75.0" text="км/ч" AnchorPane.topAnchor="70.0" />
+                        <TextField fx:id="textGpsSpeedYz" alignment="CENTER" editable="false" layoutX="36.0" layoutY="42.0" prefHeight="25.0" prefWidth="62.0" text="1.94" AnchorPane.topAnchor="40.0" />
+                        <TextField fx:id="textGpsSpeedKm" alignment="CENTER" editable="false" layoutX="36.0" layoutY="72.0" prefHeight="25.0" prefWidth="62.0" text="3.6" AnchorPane.topAnchor="70.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label alignment="CENTER" layoutX="182.0" layoutY="87.0" prefHeight="17.0" prefWidth="133.0" text="Скорость" />
+                  <AnchorPane layoutX="18.0" layoutY="242.0" prefHeight="140.0" prefWidth="123.0" style="-fx-border-color: #e07f69; -fx-border-radius: 10; -fx-border-width: 2;" AnchorPane.leftAnchor="16.0">
+                     <children>
+                        <Label layoutX="52.0" layoutY="35.0" text="угол" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <TextField fx:id="textGpsAzimut" alignment="CENTER" layoutX="46.0" layoutY="12.0" onAction="#ActionGpsAzimut" prefHeight="25.0" prefWidth="70.0" text="0.00" AnchorPane.topAnchor="5.0" />
+                        <CheckBox fx:id="checkGpsAzimetChange" layoutX="10.0" layoutY="44.0" mnemonicParsing="false" onAction="#ActionGpsAzimetChange" text="Вращать" AnchorPane.leftAnchor="10.0" />
+                        <TextField fx:id="textGpsAzimetChangeVar" alignment="CENTER" layoutX="14.0" layoutY="69.0" onAction="#ActionGpsAzimetChangeVar" prefHeight="17.0" prefWidth="53.0" text="0.10" AnchorPane.leftAnchor="10.0" />
+                        <Label layoutX="67.0" layoutY="73.0" text="гр/такт" />
+                        <Label layoutX="10.0" layoutY="103.0" text="А=" AnchorPane.leftAnchor="10.0" />
+                        <TextField fx:id="textGpsAzimutItigo" alignment="CENTER" editable="false" layoutX="31.0" layoutY="99.0" prefHeight="25.0" prefWidth="85.0" text="0.00" />
+                     </children>
+                  </AnchorPane>
+                  <Label alignment="CENTER" layoutX="13.0" layoutY="222.0" prefHeight="17.0" prefWidth="133.0" text="Азимут" />
+                  <ComboBox fx:id="comboxGPSSpeed" layoutX="159.0" layoutY="242.0" prefHeight="25.0" prefWidth="160.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="2400" />
+                           <String fx:value="4800" />
+                           <String fx:value="9600" />
+                           <String fx:value="14400" />
+                           <String fx:value="19200" />
+                           <String fx:value="28800" />
+                           <String fx:value="38400" />
+                           <String fx:value="56000" />
+                           <String fx:value="57600" />
+                           <String fx:value="115200" />
+                           <String fx:value="128000" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <Label alignment="CENTER" layoutX="159.0" layoutY="222.0" prefHeight="17.0" prefWidth="160.0" text="Скорость GPS-приёмника" />
+                  <Button fx:id="butGPSSetSpeed" alignment="CENTER" layoutX="159.0" layoutY="273.0" mnemonicParsing="false" onAction="#ActionGpsSetSpeed" prefHeight="25.0" prefWidth="160.0" text="Установить скорость" />
+                  <JFXToggleButton fx:id="toogleGpsOn" layoutX="160.0" layoutY="353.0" onAction="#ActionGpsOn" prefHeight="58.0" prefWidth="160.0" text="GPS" />
+                  <Label layoutX="193.0" layoutY="345.0" prefHeight="17.0" prefWidth="95.0" text="выкл    вкл" />
+                  <Label layoutX="160.0" layoutY="305.0" prefHeight="40.0" prefWidth="70.0" text="Период сообщений" wrapText="true" />
+                  <ComboBox fx:id="comboboxGPSTimeout" layoutX="240.0" layoutY="313.0" prefHeight="25.0" prefWidth="78.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="1сек" />
+                           <String fx:value="2сек" />
+                           <String fx:value="3сек" />
+                           <String fx:value="4сек" />
+                           <String fx:value="5сек" />
+                           <String fx:value="1мин" />
+                           <String fx:value="2мин" />
+                           <String fx:value="5мин" />
+                           
+                        </FXCollections>
+                     </items>
+
+                  </ComboBox>
+                  <TextArea fx:id="textGpsLog" editable="false" layoutX="6.0" layoutY="408.0" prefHeight="250.0" prefWidth="323.0">
+                     <font>
+                        <Font size="9" />
+                     </font>
+                  </TextArea>
+
+               </children>
+            </AnchorPane>
+            <Label alignment="CENTER" layoutX="481.0" layoutY="13.0" prefHeight="20.0" prefWidth="334.0" text="GPS" AnchorPane.topAnchor="12.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="242.0" layoutY="475.0" prefHeight="230.0" prefWidth="230.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="475.0">
+               <children>
+                  <JFXToggleButton fx:id="pwrOn" layoutX="14.0" layoutY="14.0" onAction="#pwrOnAction" prefHeight="58.0" prefWidth="178.0" text="Основное питание" />
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="95.0" text="выкл    вкл" />
+                  <JFXSlider fx:id="pwrSlider" blockIncrement="1.0" layoutX="26.0" layoutY="106.0" majorTickUnit="5.0" max="15.0" minorTickCount="5" prefHeight="38.0" prefWidth="178.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="6.0" />
+                  <Button fx:id="pwrChange" layoutX="25.0" layoutY="154.0" mnemonicParsing="false" onAction="#pwrChangeAction" prefHeight="48.0" prefWidth="178.0" text="Изменить основное напряжение" textAlignment="CENTER" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <Label layoutX="301.0" layoutY="456.0" text="Основное питание" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="455.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <ToggleButton fx:id="ToogleButComPort" layoutX="123.0" layoutY="25.0" mnemonicParsing="false" onAction="#ConnectComPort" prefHeight="25.0" prefWidth="78.0" text="Открыть" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0" />

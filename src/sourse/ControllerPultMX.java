@@ -1,9 +1,12 @@
 package sourse;
 
 
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -20,8 +23,10 @@ import jssc.*;
 import java.awt.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -81,11 +86,41 @@ public class ControllerPultMX implements Initializable {
     public TextField ADC5text;
     public JFXToggleButton adc6on;
     public TextField ADC6text;
+    public ComboBox comboxGPSSpeed;
+    public ComboBox comboboxGPSTimeout;
+    public RadioButton radioGpsTime5zero;
+    public ToggleGroup GroupTimeForm;
+    public RadioButton radioGpsTimeNull;
+    public RadioButton radioGpsValidA;
+    public ToggleGroup GroupValidGPS;
+    public RadioButton radioGpsValidV;
+    public TextField textGpsCoordN;
+    public TextField textGpsCoordE;
+    public Button butGpsResetCoord;
+    public RadioButton radioGpsStrokaGPRMC;
+    public ToggleGroup GroupTimeForm1;
+    public RadioButton radioGpsStrokaNull;
+    public TextField textGpsSpeed;
+    public TextField textGpsSpeedYz;
+    public TextField textGpsSpeedKm;
+    public TextField textGpsAzimut;
+    public TextField textGpsAzimetChangeVar;
+    public CheckBox checkGpsAzimetChange;
+    public TextField textGpsAzimutItigo;
+    public Button butGPSSetSpeed;
+    public JFXToggleButton toogleGpsOn;
+    public ToggleGroup GroupGpsType;
+    public TextArea textGpsLog;
 
+
+    public static LinkedList<String> toStend = new LinkedList<String>();
+    public JFXToggleButton pwrOn;
+    public JFXSlider pwrSlider;
+    public Button pwrChange;
     //SerialPort serialPort;
     boolean ComPortTread = false;
     ComPort comPort1= new ComPort();
-
+    GPS gps = new GPS();
 
 
 
@@ -98,6 +133,8 @@ public class ControllerPultMX implements Initializable {
             ComboBoxPort.getItems().add(i,portNames[i] );
         }
         ComboBoxPort.getSelectionModel().select(0);
+        comboxGPSSpeed.getSelectionModel().select(1);
+        comboboxGPSTimeout.getSelectionModel().select(0);
         PaneComPort.setDisable(true);
         ADC1text.setDisable(true);
         ADC2text.setDisable(true);
@@ -105,10 +142,89 @@ public class ControllerPultMX implements Initializable {
         ADC4text.setDisable(true);
         ADC5text.setDisable(true);
         ADC6text.setDisable(true);
+
+
+
+
+        GroupTimeForm = new ToggleGroup();
+        radioGpsTime5zero.setToggleGroup(GroupTimeForm);
+        radioGpsTimeNull.setToggleGroup(GroupTimeForm);
+        GroupTimeForm.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                if(GroupTimeForm.getSelectedToggle() != null){
+                    System.out.println(GroupTimeForm.getSelectedToggle().toString());
+                }
+            }
+        });
+
+        GroupValidGPS = new ToggleGroup();
+        radioGpsValidA.setToggleGroup(GroupValidGPS);
+        radioGpsValidV.setToggleGroup(GroupValidGPS);
+        GroupValidGPS.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                if (GroupValidGPS.getSelectedToggle() == radioGpsValidA){
+                    gps.SetValid("A");
+                } else {
+                    gps.SetValid("V");
+                }
+            }
+        });
+
+        GroupGpsType = new ToggleGroup();
+        radioGpsStrokaGPRMC.setToggleGroup(GroupGpsType);
+        radioGpsStrokaNull.setToggleGroup(GroupGpsType);
+        GroupGpsType.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                if(GroupGpsType.getSelectedToggle() != null){
+                    System.out.println(GroupGpsType.getSelectedToggle().toString());
+                }
+            }
+        });
+
+        UpdateGPS();
+
     }
 
+    private void UpdateGPS() {
+        if (GroupTimeForm.getSelectedToggle() == radioGpsTime5zero) {
+            gps.SetFormatTime("00000.000");
+        } else {
+            gps.SetFormatTime("00.0");
+        }
+        if (GroupValidGPS.getSelectedToggle() == radioGpsValidA){
+            gps.SetValid("A");
+        } else {
+            gps.SetValid("V");
+        }
+
+        if (GroupGpsType.getSelectedToggle()==radioGpsStrokaGPRMC){
+            gps.SetType(1);
+        } else {
+            gps.SetType(0);
+        }
+
+        gps.SetCoordN(textGpsCoordN.getText());
+        gps.SetCoordE(textGpsCoordE.getText());
+        gps.SetSpeed(textGpsSpeed.getText());
+        gps.SetAzimut(textGpsAzimut.getText());
+        gps.SetAzimutChange(checkGpsAzimetChange.isSelected());
+        gps.SetAzimutChangeVar(textGpsAzimetChangeVar.getText());
 
 
+    }
+    public void CloseWin(){
+        System.out.println("Stopeee");
+        updateDataState = false;
+        if (comPort1.serialPort.isOpened()){
+            comPort1.Close();
+        }
+        gps.StopGps();
+    }
+
+    //@Override
     public void ConnectComPort(ActionEvent actionEvent) throws SerialPortException {
         if (ToogleButComPort.isSelected()){
             if (comPort1.Open((String) ComboBoxPort.getSelectionModel().getSelectedItem())) {
@@ -120,18 +236,18 @@ public class ControllerPultMX implements Initializable {
                 stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                     @Override
                     public void handle(WindowEvent event) {
-                        System.out.println("Stopeee");
-                        updateDataState = false;
-                        if (comPort1.serialPort.isOpened()){
-                        comPort1.Close();
-                        }
+                        CloseWin();
                     }
                 });
 
             } else {
-                PaneComPort.setDisable(true);
+
+
                 ToogleButComPort.setText("Ошибка");
                 comPort1.Close();
+
+                gps.StopGps();
+                PaneComPort.setDisable(true);
             }
 
 
@@ -143,6 +259,8 @@ public class ControllerPultMX implements Initializable {
             ComPortTread = false;
             comPort1.Close();
             TextAriaTerminal.clear();
+            toogleGpsOn.setSelected(false);
+            gps.StopGps();
 
         }
     }
@@ -160,21 +278,21 @@ public class ControllerPultMX implements Initializable {
     public void Out1Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Adc1onAction(ActionEvent actionEvent) {
 
         if(adc1on.isSelected()){
-            comPort1.Send("adc1:1");
+            toStend.add("adc1:1");
             ADC1text.setDisable(false);
         }else {
-            comPort1.Send("adc1:0");
+            toStend.add("adc1:0");
             ADC1text.setDisable(true);
             ADC1text.clear();
         }
@@ -183,33 +301,33 @@ public class ControllerPultMX implements Initializable {
     public void Out2Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out3Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out4Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+           //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+           // TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
 
 
@@ -218,86 +336,86 @@ public class ControllerPultMX implements Initializable {
     public void Out5Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out6Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out7Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out8Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out9Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out10Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Out11Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
         if (xz.isSelected()){
-            comPort1.Send(xz.getId()+":1");
-            TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+            toStend.add(xz.getId()+":1");
+            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
         } else {
-            comPort1.Send(xz.getId()+":0");
-            TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            toStend.add(xz.getId()+":0");
+            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
         }
     }
 
     public void Adc2onAction(ActionEvent actionEvent) {
         if(adc2on.isSelected()){
-            comPort1.Send("adc2:1");
+            toStend.add("adc2:1");
             ADC2text.setDisable(false);
         }else {
-            comPort1.Send("adc2:0");
+            toStend.add("adc2:0");
             ADC2text.setDisable(true);
             ADC2text.clear();
         }
@@ -305,10 +423,10 @@ public class ControllerPultMX implements Initializable {
 
     public void Adc3onAction(ActionEvent actionEvent) {
         if(adc3on.isSelected()){
-            comPort1.Send("adc3:1");
+            toStend.add("adc3:1");
             ADC3text.setDisable(false);
         }else {
-            comPort1.Send("adc3:0");
+            toStend.add("adc3:0");
             ADC3text.setDisable(true);
             ADC3text.clear();
         }
@@ -316,10 +434,10 @@ public class ControllerPultMX implements Initializable {
 
     public void Adc4onAction(ActionEvent actionEvent) {
         if(adc4on.isSelected()){
-            comPort1.Send("adc4:1");
+            toStend.add("adc4:1");
             ADC4text.setDisable(false);
         }else {
-            comPort1.Send("adc4:0");
+            toStend.add("adc4:0");
             ADC4text.setDisable(true);
             ADC4text.clear();
         }
@@ -327,10 +445,10 @@ public class ControllerPultMX implements Initializable {
 
     public void Adc5onAction(ActionEvent actionEvent) {
         if(adc5on.isSelected()){
-            comPort1.Send("adc5:1");
+            toStend.add("adc5:1");
             ADC5text.setDisable(false);
         }else {
-            comPort1.Send("adc5:0");
+            toStend.add("adc5:0");
             ADC5text.setDisable(true);
             ADC5text.clear();
         }
@@ -338,13 +456,81 @@ public class ControllerPultMX implements Initializable {
 
     public void Adc6onAction(ActionEvent actionEvent) {
         if(adc6on.isSelected()){
-            comPort1.Send("adc6:1");
+            toStend.add("adc6:1");
             ADC6text.setDisable(false);
         }else {
-            comPort1.Send("adc6:0");
+            toStend.add("adc6:0");
             ADC6text.setDisable(true);
             ADC6text.clear();
         }
+    }
+
+    public void ActionGpscoordN(ActionEvent actionEvent) {
+        gps.SetCoordN(textGpsCoordN.getText());
+    }
+
+    public void ActiongpsCoordE(ActionEvent actionEvent) {
+        gps.SetCoordE(textGpsCoordE.getText());
+    }
+
+    public void ActionGpsResetCoord(ActionEvent actionEvent) {
+        gps.SetDefCoord();
+        textGpsCoordN.setText(gps.GetCoordN());
+        textGpsCoordE.setText(gps.GetCoordE());
+    }
+
+    public void ActionGpsSpeed(ActionEvent actionEvent) {
+        gps.SetSpeed(textGpsSpeed.getText());
+        float speed = Float.parseFloat(textGpsSpeed.getText());
+        float speedYz = (float) (speed*1.94);
+        float speedKm = (float) (speed*3.6);
+        String stSpeedYz = new DecimalFormat("#0.00").format(speedYz).replace(",",".");
+        textGpsSpeedYz.setText(stSpeedYz);
+        String stSpeedKm = new DecimalFormat("#0.00").format(speedKm).replace(",",".");
+        textGpsSpeedKm.setText(stSpeedKm);
+    }
+
+    public void ActionGpsAzimut(ActionEvent actionEvent) {
+        gps.SetAzimut(textGpsAzimut.getText());
+    }
+
+    public void ActionGpsAzimetChange(ActionEvent actionEvent) {
+        gps.SetAzimutChange(checkGpsAzimetChange.isSelected());
+        gps.SetAzimutChangeVar(textGpsAzimetChangeVar.getText());
+    }
+
+    public void ActionGpsAzimetChangeVar(ActionEvent actionEvent) {
+        gps.SetAzimutChangeVar(textGpsAzimetChangeVar.getText());
+    }
+
+    public void ActionGpsSetSpeed(ActionEvent actionEvent) {
+        gps.SetSpeedUart(comboxGPSSpeed.getSelectionModel().getSelectedIndex());
+    }
+
+    public void ActionGpsOn(ActionEvent actionEvent) {
+        if (toogleGpsOn.isSelected()){
+            gps.SetInterval(comboboxGPSTimeout.getSelectionModel().getSelectedIndex());
+            gps.StartGps();
+        } else {
+            gps.StopGps();
+        }
+
+    }
+
+    public void pwrOnAction(ActionEvent actionEvent) {
+        if(pwrOn.isSelected()){
+            toStend.add("pwr1:0");
+        } else {
+            toStend.add("pwr1:1");
+        }
+    }
+
+    public void pwrChangeAction(ActionEvent actionEvent) {
+        int pos = (int) pwrSlider.getValue();
+        toStend.add("pwr1="+pos);
+    }
+
+    public void init(ControllerTest controllerTest) {
     }
 
 
@@ -415,6 +601,24 @@ public class ControllerPultMX implements Initializable {
 
                             TextAriaTerminal.appendText(mess);
                         });
+                    }
+
+                    while (!gps.messGPS.isEmpty())
+                    {
+                        String gpsMess = gps.messGPS.poll();
+                        comPort1.Send("gps="+gpsMess);
+                        Platform.runLater(() -> {
+
+                            textGpsLog.appendText(gpsMess+"\r\n");
+                            textGpsAzimutItigo.setText(gps.GetAzimutStr());
+                        });
+
+
+                    }
+                    while (!toStend.isEmpty()){
+                        String txMess = toStend.poll();
+                        comPort1.Send(txMess);
+                        TextAriaTerminal.appendText(txMess+"\r\n");
                     }
                 
 

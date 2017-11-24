@@ -29,6 +29,7 @@ public class Controller implements Initializable {
     public Button OkBut;
     public ComboBox ComboboxComplect;
 
+
     public void CancelButClick(ActionEvent actionEvent) {
         Stage stage = (Stage) CancelBut.getScene().getWindow();
         stage.close();
@@ -45,11 +46,17 @@ public class Controller implements Initializable {
         {
             Stage stage = (Stage) OkBut.getScene().getWindow();
             stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/PultMX.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Test.fxml"));
             stage = new Stage();
            // stage.setResizable(false);
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initModality(Modality.WINDOW_MODAL);
+
+            //Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/Test.fxml"));
+            //stage = new Stage();
+            // stage.setResizable(false);
+            //stage.setScene(new Scene(root1));
+            //stage.initModality(Modality.WINDOW_MODAL);
 
             stage.show();
         }
