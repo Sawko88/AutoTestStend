@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.PersonTestController">
+   <children>
+      <AnchorPane layoutX="25.0" layoutY="63.0" prefHeight="308.0" prefWidth="635.0" style="-fx-border-color: #DC143C; -fx-border-width: 2;" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0">
+         <children>
+            <VBox layoutX="7.0" layoutY="9.0" prefHeight="399.0" prefWidth="656.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+               <children>
+                  <ToolBar prefHeight="37.0" prefWidth="652.0">
+                     <items>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="161.0" text="Начальное состояние">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="28.0" prefWidth="8.0" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="251.0" text="Тест">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="25.0" prefWidth="5.0" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="198.0" text="Результат">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </items>
+                  </ToolBar>
+                  <HBox prefHeight="325.0" prefWidth="654.0">
+                     <children>
+                        <ScrollPane prefHeight="324.0" prefWidth="174.0">
+                           <content>
+                              <VBox prefHeight="316.0" prefWidth="172.0">
+                                 <children>
+                                    <ToolBar prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <ComboBox prefHeight="25.0" prefWidth="159.0" />
+                                       </items>
+                                    </ToolBar>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane prefHeight="298.0" prefWidth="264.0">
+                           <content>
+                              <VBox fx:id="vbSpisokTest" prefHeight="317.0" prefWidth="261.0" />
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane prefHeight="324.0" prefWidth="215.0">
+                           <content>
+                              <VBox prefHeight="317.0" prefWidth="211.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="176.0" text="  " />
+                        <Button fx:id="btnAddTest" mnemonicParsing="false" onAction="#BtnAddTestAct" prefHeight="35.0" prefWidth="258.0" text="Добавить действие">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Label prefHeight="17.0" prefWidth="213.0" text="  " />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnOk" layoutX="517.0" layoutY="386.0" mnemonicParsing="false" onAction="#BtnOkAct" prefHeight="25.0" prefWidth="60.0" text="ОК" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="90.0" />
+      <Button fx:id="btnCancel" layoutX="608.0" layoutY="386.0" mnemonicParsing="false" onAction="#BtnCancelAct" prefHeight="25.0" prefWidth="60.0" text="Отмена" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <TextField fx:id="tfName" layoutX="181.0" layoutY="24.0" AnchorPane.topAnchor="10.0" />
+      <Label layoutX="22.0" layoutY="14.0" text="№" AnchorPane.leftAnchor="10.0" />
+      <TextField fx:id="tfPos" alignment="CENTER" editable="false" layoutX="31.0" layoutY="10.0" prefHeight="25.0" prefWidth="38.0" AnchorPane.topAnchor="10.0" />
+      <Label layoutX="94.0" layoutY="14.0" prefHeight="17.0" prefWidth="87.0" text="Название теста" />
+   </children>
+</AnchorPane>
