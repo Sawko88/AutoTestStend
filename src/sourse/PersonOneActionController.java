@@ -49,7 +49,8 @@ public class PersonOneActionController implements Initializable {
             "Питание реле2",
             "Питание реле3",
             "Послать команду",
-            "Команда CAN"
+            "Команда CAN",
+            "Пауза"
             );
 
     public void SetOneAction(OneActionController oneActionController) {
@@ -80,8 +81,8 @@ public class PersonOneActionController implements Initializable {
             case 18: LoadResursOn();break;
             case 19: LoadREsursNap();break;
             case 20: LoadResursOn();break;
-            case 21: break;
-            case 22: break;
+            case 21: LoadREsursNap();break;
+            case 22: LoadResursOborotu(); break;
             case 23: LoadResurs();break;
             case 24: LoadResursOn();break;
             case 25: LoadResursOn();break;
@@ -90,6 +91,18 @@ public class PersonOneActionController implements Initializable {
             case 28: break;
             default: break;
         }
+    }
+
+    private void LoadResursOborotu() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Oborotu10000.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        Oborotu10000 oborotu10000  = loader.getController();
+
+        oborotu10000.SetMainApp(this);
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
     }
 
     private void LoadREsursNap() throws IOException {

@@ -42,6 +42,10 @@ public class Metka33OneController implements Initializable{
         slMetka.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                double value = (Math.round(slMetka.getValue()*10));
+                //System.out.println(value);
+                value = value/10;
+                slMetka.setValue(value);
                 NumberFormat formater = new DecimalFormat("#0.0");
                 lbPos.setText(formater.format(slMetka.getValue()));
             }
