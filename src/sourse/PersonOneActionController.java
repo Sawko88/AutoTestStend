@@ -78,7 +78,7 @@ public class PersonOneActionController implements Initializable {
             case 16: LoadResursOn();break;
             case 17: LoadResursOn();break;
             case 18: LoadResursOn();break;
-            case 19: break;
+            case 19: LoadREsursNap();break;
             case 20: LoadResursOn();break;
             case 21: break;
             case 22: break;
@@ -90,6 +90,18 @@ public class PersonOneActionController implements Initializable {
             case 28: break;
             default: break;
         }
+    }
+
+    private void LoadREsursNap() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Pitanie9_15.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        Pitanie9_15Controller pitanie9_15Controller = loader.getController();
+
+        pitanie9_15Controller.SetMainApp(this);
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
     }
 
     private void LoadResursMetka() throws IOException {
