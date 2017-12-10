@@ -86,11 +86,47 @@ public class PersonOneActionController implements Initializable {
             case 23: LoadResurs();break;
             case 24: LoadResursOn();break;
             case 25: LoadResursOn();break;
-            case 26: break;
-            case 27: break;
-            case 28: break;
+            case 26: LoadResursKomand();break;
+            case 27: LoadResursCan(); break;
+            case 28: LoadResursPausa();break;
             default: break;
         }
+    }
+
+    private void LoadResursKomand() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/KomandaForma.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        KomandaFormaController komandaFormaController  = loader.getController();
+
+        komandaFormaController.SetMainApp(this);
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+    }
+
+    private void LoadResursCan() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/CanForma.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        CanFormaController canFormaController  = loader.getController();
+
+        canFormaController.SetMainApp(this);
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+    }
+
+    private void LoadResursPausa() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Pausa.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        PausaController pausaController  = loader.getController();
+
+        pausaController.SetMainApp(this);
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
     }
 
     private void LoadResursOborotu() throws IOException {

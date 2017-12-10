@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="130.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.KomandaFormaController">
+   <children>
+      <ComboBox fx:id="cbKomand" layoutX="35.0" layoutY="26.0" onAction="#ActCbKomand" prefWidth="150.0" />
+      <TextField fx:id="tfKomanda" layoutX="36.0" layoutY="74.0" onAction="#ActTfKomand" />
+   </children>
+</AnchorPane>
