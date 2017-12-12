@@ -10,4 +10,9 @@ public class Can {
         this.index = index;
         this.state = state;
     }
+
+    public Can(int index, int state) {
+        this.index = index;
+        this.state = state;
+    }
 }

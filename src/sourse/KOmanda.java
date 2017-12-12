@@ -10,4 +10,9 @@ public class KOmanda {
         this.name = name;
         this.komanda = s;
     }
+
+    public KOmanda(int index, String komanda) {
+        this.index = index;
+        this.komanda = komanda;
+    }
 }

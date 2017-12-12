@@ -3,10 +3,17 @@ package sourse;
 public class Nastroika {
     public int index = 0;
     public String name = "-";
-    public int parametrInt = 0;
-    public double parametrDouble = 0;
-    public String parametrStirng = "";
+    public int onOff = 0;
+    public String nameParam = " ";
+    public double metka33;
+    public double pitanie;
+    public double obooti;
+    public double pause = 1;
+    public Can can = new Can(0, 0);
+    public KOmanda komanda = new KOmanda(0,"");
 
-    public Nastroika(int i) {
+    public Nastroika(int index) {
+        //this.pause = 1;
+        this.index = index;
     }
 }

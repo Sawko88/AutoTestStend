@@ -25,4 +25,14 @@ public class CanCollection {
         }
 
     }
+
+    public Can GetCan(int selectedIndex) {
+        Can cann;
+        cann = canSpisok.get(selectedIndex);
+        return cann;
+    }
+
+    public String GetName(int selectedIndex) {
+        return (canSpisok.get(selectedIndex)).name;
+    }
 }

@@ -32,6 +32,7 @@ public class CanFormaController implements Initializable {
 
     public void ActCbCan(ActionEvent actionEvent) {
         tbCAn.setSelected(canCollection.getState(cbCan.getSelectionModel().getSelectedIndex()));
+        UpdateNastroika();
     }
 
     public void ActTbCan(ActionEvent actionEvent) {
@@ -40,5 +41,23 @@ public class CanFormaController implements Initializable {
         } else {
             canCollection.setState(cbCan.getSelectionModel().getSelectedIndex(), 0);
         }
+        UpdateNastroika();
+    }
+
+    public void SetParam(Nastroika nastroika) {
+        int index = nastroika.can.index;
+        cbCan.getSelectionModel().select(index);
+        if (nastroika.can.state == 1){
+            tbCAn.setSelected(true);
+        } else {
+            tbCAn.setSelected(false);
+        }
+        UpdateNastroika();
+    }
+
+    private void UpdateNastroika() {
+        personOneActionController.nastroika.can = canCollection.GetCan(cbCan.getSelectionModel().getSelectedIndex());
+        personOneActionController.nastroika.nameParam = canCollection.GetName(cbCan.getSelectionModel().getSelectedIndex());
+        personOneActionController.nastroika.nameParam += (tbCAn.isSelected())? " вкл" : " выкл";
     }
 }

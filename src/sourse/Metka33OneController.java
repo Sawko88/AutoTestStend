@@ -48,7 +48,19 @@ public class Metka33OneController implements Initializable{
                 slMetka.setValue(value);
                 NumberFormat formater = new DecimalFormat("#0.0");
                 lbPos.setText(formater.format(slMetka.getValue()));
+                UpdateNastroika();
+
             }
         });
+    }
+
+    private void UpdateNastroika() {
+        personOneActionController.nastroika.metka33 = slMetka.getValue();
+        personOneActionController.nastroika.nameParam = lbPos.getText();
+    }
+
+
+    public void SetParam(Nastroika nastroika) {
+        slMetka.setValue(nastroika.metka33);
     }
 }

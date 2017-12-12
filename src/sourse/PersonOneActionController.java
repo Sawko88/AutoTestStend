@@ -1,5 +1,7 @@
 package sourse;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,8 @@ public class PersonOneActionController implements Initializable {
     public AnchorPane anPersonOne;
     public Button btnCancelPersonOne;
     public Button btnOkPersonOne;
+    public Nastroika nastroika;
+
 
     public  static List<String> spisokCb = Arrays.asList(
             "",
@@ -59,6 +63,150 @@ public class PersonOneActionController implements Initializable {
     }
 
     public void ActCbPersonOne(ActionEvent actionEvent) throws IOException {
+
+    }
+
+    private void LoadResursKomand() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/KomandaForma.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        KomandaFormaController komandaFormaController  = loader.getController();
+
+        komandaFormaController.SetMainApp(this);
+        komandaFormaController.SetParam(nastroika);
+
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+
+    }
+
+    private void LoadResursCan() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/CanForma.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        CanFormaController canFormaController  = loader.getController();
+
+        canFormaController.SetMainApp(this);
+        canFormaController.SetParam(nastroika);
+
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+    }
+
+    private void LoadResursPausa() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Pausa.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        PausaController pausaController  = loader.getController();
+
+        pausaController.SetMainApp(this);
+        pausaController.SetParam(nastroika);
+
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+    }
+
+    private void LoadResursOborotu() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Oborotu10000.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        Oborotu10000 oborotu10000  = loader.getController();
+
+        oborotu10000.SetMainApp(this);
+        oborotu10000.SetParam(nastroika);
+
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+    }
+
+    private void LoadREsursNap() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Pitanie9_15.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        Pitanie9_15Controller pitanie9_15Controller = loader.getController();
+
+        pitanie9_15Controller.SetMainApp(this);
+        pitanie9_15Controller.SetParam(nastroika);
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+    }
+
+    private void LoadResursMetka() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Metka33One.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        Metka33OneController metka33OneController = loader.getController();
+
+        metka33OneController.SetMainApp(this);
+        metka33OneController.SetParam(nastroika);
+
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+    }
+
+    private void LoadResurs() {
+        anPersonOne.getChildren().clear();
+    }
+
+    private void LoadResursOn() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonOneActionController.class.getResource("/fxml/OnOffOne.fxml"));
+        AnchorPane anchorPane = loader.load();
+
+        OnOffOneController onOffOneController = loader.getController();
+
+        onOffOneController.SetMainApp(this);
+        onOffOneController.SetParam(nastroika);
+        anPersonOne.getChildren().clear();
+        anPersonOne.getChildren().add(anchorPane);
+        //onOffOneController.SetParam(nastroika);
+    }
+
+    public void ActBtnCancelPersonOne(ActionEvent actionEvent) {
+        Stage stage = (Stage) btnOkPersonOne.getScene().getWindow();
+        stage.close();
+    }
+
+    public void ActBtnOkPersonOne(ActionEvent actionEvent) {
+        UpdateNastroika();
+
+        Stage stage = (Stage) btnCancelPersonOne.getScene().getWindow();
+        stage.close();
+    }
+
+    private void UpdateNastroika() {
+
+        nastroika.index = cbPersonOne.getSelectionModel().getSelectedIndex();
+        nastroika.name = (String) cbPersonOne.getValue();
+        oneActionController.SetNastroika(nastroika);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Iterator<String> iterator = spisokCb.iterator();
+        while (iterator.hasNext()){
+            cbPersonOne.getItems().add(iterator.next());
+        }
+        cbPersonOne.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                try {
+                    ShowParametr();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //cbPersonOne.getSelectionModel().select(nastroika.index);
+    }
+
+    private void ShowParametr() throws IOException {
         switch (cbPersonOne.getSelectionModel().getSelectedIndex()){
             case 0: LoadResurs();break;
             case 1: LoadResursOn();break;
@@ -91,112 +239,12 @@ public class PersonOneActionController implements Initializable {
             case 28: LoadResursPausa();break;
             default: break;
         }
+        //nastroika.index = cbPersonOne.getSelectionModel().getSelectedIndex();
     }
 
-    private void LoadResursKomand() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonOneActionController.class.getResource("/fxml/KomandaForma.fxml"));
-        AnchorPane anchorPane = loader.load();
+    public void ShowNastroika(Nastroika nastroika) {
+        this.nastroika = nastroika;
+        cbPersonOne.getSelectionModel().select(nastroika.index);
 
-        KomandaFormaController komandaFormaController  = loader.getController();
-
-        komandaFormaController.SetMainApp(this);
-        anPersonOne.getChildren().clear();
-        anPersonOne.getChildren().add(anchorPane);
-    }
-
-    private void LoadResursCan() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonOneActionController.class.getResource("/fxml/CanForma.fxml"));
-        AnchorPane anchorPane = loader.load();
-
-        CanFormaController canFormaController  = loader.getController();
-
-        canFormaController.SetMainApp(this);
-        anPersonOne.getChildren().clear();
-        anPersonOne.getChildren().add(anchorPane);
-    }
-
-    private void LoadResursPausa() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Pausa.fxml"));
-        AnchorPane anchorPane = loader.load();
-
-        PausaController pausaController  = loader.getController();
-
-        pausaController.SetMainApp(this);
-        anPersonOne.getChildren().clear();
-        anPersonOne.getChildren().add(anchorPane);
-    }
-
-    private void LoadResursOborotu() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Oborotu10000.fxml"));
-        AnchorPane anchorPane = loader.load();
-
-        Oborotu10000 oborotu10000  = loader.getController();
-
-        oborotu10000.SetMainApp(this);
-        anPersonOne.getChildren().clear();
-        anPersonOne.getChildren().add(anchorPane);
-    }
-
-    private void LoadREsursNap() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Pitanie9_15.fxml"));
-        AnchorPane anchorPane = loader.load();
-
-        Pitanie9_15Controller pitanie9_15Controller = loader.getController();
-
-        pitanie9_15Controller.SetMainApp(this);
-        anPersonOne.getChildren().clear();
-        anPersonOne.getChildren().add(anchorPane);
-    }
-
-    private void LoadResursMetka() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonOneActionController.class.getResource("/fxml/Metka33One.fxml"));
-        AnchorPane anchorPane = loader.load();
-
-        Metka33OneController metka33OneController = loader.getController();
-
-        metka33OneController.SetMainApp(this);
-        anPersonOne.getChildren().clear();
-        anPersonOne.getChildren().add(anchorPane);
-    }
-
-    private void LoadResurs() {
-        anPersonOne.getChildren().clear();
-    }
-
-    private void LoadResursOn() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonOneActionController.class.getResource("/fxml/OnOffOne.fxml"));
-        AnchorPane anchorPane = loader.load();
-
-        OnOffOneController onOffOneController = loader.getController();
-
-        onOffOneController.SetMainApp(this);
-        anPersonOne.getChildren().clear();
-        anPersonOne.getChildren().add(anchorPane);
-    }
-
-    public void ActBtnCancelPersonOne(ActionEvent actionEvent) {
-        Stage stage = (Stage) btnOkPersonOne.getScene().getWindow();
-        stage.close();
-    }
-
-    public void ActBtnOkPersonOne(ActionEvent actionEvent) {
-        Stage stage = (Stage) btnCancelPersonOne.getScene().getWindow();
-        stage.close();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        Iterator<String> iterator = spisokCb.iterator();
-        while (iterator.hasNext()){
-            cbPersonOne.getItems().add(iterator.next());
-        }
-        cbPersonOne.getSelectionModel().select(0);
     }
 }

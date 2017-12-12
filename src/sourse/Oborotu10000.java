@@ -22,11 +22,22 @@ public class Oborotu10000 implements Initializable {
                 value = value*500;
                 slOborotu.setValue(value);
                 lbPos.setText(String.valueOf((int)slOborotu.getValue()));
+                UpdateNastroika();
             }
         });
     }
+
+    private void UpdateNastroika() {
+        personOneActionController.nastroika.obooti = slOborotu.getValue();
+        personOneActionController.nastroika.nameParam = lbPos.getText();
+    }
+
     public PersonOneActionController personOneActionController;
     public void SetMainApp(PersonOneActionController personOneActionController) {
         this.personOneActionController = personOneActionController;
+    }
+
+    public void SetParam(Nastroika nastroika) {
+        slOborotu.setValue(nastroika.obooti);
     }
 }

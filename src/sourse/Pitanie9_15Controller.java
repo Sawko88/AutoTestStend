@@ -27,8 +27,14 @@ public class Pitanie9_15Controller implements Initializable {
                 slNap.setValue(value);
                 NumberFormat formater = new DecimalFormat("#0.0");
                 lbPos.setText(formater.format(slNap.getValue()));
+                UpdateNastroika();
             }
         });
+    }
+
+    private void UpdateNastroika() {
+        personOneActionController.nastroika.pitanie = slNap.getValue();
+        personOneActionController.nastroika.nameParam = lbPos.getText();
     }
 
     public PersonOneActionController personOneActionController;
@@ -42,5 +48,9 @@ public class Pitanie9_15Controller implements Initializable {
         //value = value/2;
         //System.out.println(value);
         //slNap.setValue(value);
+    }
+
+    public void SetParam(Nastroika nastroika) {
+        slNap.setValue(nastroika.pitanie);
     }
 }

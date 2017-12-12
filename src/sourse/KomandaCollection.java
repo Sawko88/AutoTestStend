@@ -21,4 +21,12 @@ public class KomandaCollection {
     public String GetKonamda(int selectedIndex) {
         return (komndaSpisok.get(selectedIndex)).komanda;
     }
+
+    public KOmanda Get(int selectedIndex) {
+        return komndaSpisok.get(selectedIndex);
+    }
+
+    public String GetName(int selectedIndex) {
+        return (komndaSpisok.get(selectedIndex)).name;
+    }
 }

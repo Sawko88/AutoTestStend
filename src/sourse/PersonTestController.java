@@ -61,6 +61,7 @@ public class PersonTestController {
 
         oneAct.SetMainApp(this);
         oneAct.initOneAct();
+        oneAct.SetLabel(vbSpisokTest.getChildren().indexOf(toolBar));
     }
 
     private void addWithDragging(final VBox root, final ToolBar toolBar) {

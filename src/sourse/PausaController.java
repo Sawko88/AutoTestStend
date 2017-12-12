@@ -29,11 +29,23 @@ public class PausaController implements Initializable{
                 double value = Math.round(slTime.getValue());
                 slTime.setValue(value);
                 lbTime.setText(String.valueOf((int)slTime.getValue())+" "+cbTime.getValue());
+                UpdateNastroika();
             }
         });
 
 
     }
+
+    private void UpdateNastroika() {
+        switch (cbTime.getSelectionModel().getSelectedIndex()){
+            case 0: personOneActionController.nastroika.pause = slTime.getValue()*1; break;
+            case 1: personOneActionController.nastroika.pause = slTime.getValue()*60; break;
+            case 2: personOneActionController.nastroika.pause = slTime.getValue()*3600; break;
+            default: personOneActionController.nastroika.pause = slTime.getValue()*1; break;
+        }
+        personOneActionController.nastroika.nameParam = lbTime.getText();
+    }
+
     public PersonOneActionController personOneActionController;
     public void SetMainApp(PersonOneActionController personOneActionController) {
         this.personOneActionController = personOneActionController;
@@ -43,5 +55,22 @@ public class PausaController implements Initializable{
         double value = Math.round(slTime.getValue());
         slTime.setValue(value);
         lbTime.setText(String.valueOf((int)slTime.getValue())+" "+cbTime.getValue());
+        UpdateNastroika();
+    }
+
+    public void SetParam(Nastroika nastroika) {
+        //nastroika.pause = slTime.getValue();
+
+        slTime.setValue(nastroika.pause);
+        cbTime.getSelectionModel().select(0);
+        if (nastroika.pause >= 60){
+            cbTime.getSelectionModel().select(1);
+            slTime.setValue(nastroika.pause/60);
+        }
+        if (nastroika.pause>=3600){
+            cbTime.getSelectionModel().select(2);
+            slTime.setValue(nastroika.pause/3600);
+        }
+        UpdateNastroika();
     }
 }

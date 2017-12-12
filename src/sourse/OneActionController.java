@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -23,7 +25,10 @@ public class OneActionController implements Initializable {
     public ToolBar tbOne;
     public Button btnDelOne;
     public Button btnOneSet;
-
+    public Label lbPos;
+    public Nastroika nastroika = new Nastroika(0);
+    public TextField tfName;
+    public TextField tfNameParam;
 
     public void SetMainApp(PersonTestController personTestController) {
         this.personTest = personTestController;
@@ -33,6 +38,7 @@ public class OneActionController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
 
     }
 
@@ -59,7 +65,21 @@ public class OneActionController implements Initializable {
         PersonOneActionController personOneActionController = loader.getController();
         personOneActionController.SetOneAction(this);
         //personTestController.SetPerson();
-
+        personOneActionController.ShowNastroika(nastroika);
         stage.showAndWait();
+
+
+
+    }
+
+    public void SetLabel(int i) {
+        lbPos.setText(String.valueOf(i));
+    }
+
+    public void SetNastroika(Nastroika nastroika) {
+        this.nastroika = nastroika;
+        tfName.setText(this.nastroika.name);
+        tfNameParam.setText(this.nastroika.nameParam);
+        
     }
 }

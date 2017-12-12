@@ -33,6 +33,7 @@ public class KomandaFormaController implements Initializable {
                     tfKomanda.setDisable(true);
                     tfKomanda.clear();
                 }
+                Updatenastroika();
             }
         });
 
@@ -41,8 +42,9 @@ public class KomandaFormaController implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (cbKomand.getSelectionModel().getSelectedIndex()==0) {
                     komandaCollection.SetKomand(tfKomanda.getText());
-                    System.out.println(tfKomanda.getText());
+                    //System.out.println(tfKomanda.getText());
                 }
+                Updatenastroika();
             }
         });
 
@@ -60,5 +62,24 @@ public class KomandaFormaController implements Initializable {
     public PersonOneActionController personOneActionController;
     public void SetMainApp(PersonOneActionController personOneActionController) {
         this.personOneActionController = personOneActionController;
+    }
+
+    public void SetParam(Nastroika nastroika) {
+        int index = nastroika.komanda.index;
+        cbKomand.getSelectionModel().select(index);
+        if (index == 0){
+            tfKomanda.setText(nastroika.komanda.komanda);
+        }
+        Updatenastroika();
+
+    }
+
+    private void Updatenastroika() {
+        if (personOneActionController!=null) {
+            int index = cbKomand.getSelectionModel().getSelectedIndex();
+            personOneActionController.nastroika.komanda = komandaCollection.Get(index);
+            personOneActionController.nastroika.nameParam = komandaCollection.GetName(index);
+            personOneActionController.nastroika.nameParam += " "+komandaCollection.GetKonamda(index);
+        }
     }
 }
