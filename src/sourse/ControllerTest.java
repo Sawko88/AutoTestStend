@@ -154,7 +154,7 @@ public  class ControllerTest implements Initializable{
             while (begin<=end){
                 ToolBar tt = (ToolBar) root.getChildren().get(begin);
                 (tableTb.get(tt)).element.SetPosition(begin);
-                System.out.println("index = " + tableTb.get(tt).index);
+                //System.out.println("index = " + tableTb.get(tt).index);
                 begin++;
             }
 

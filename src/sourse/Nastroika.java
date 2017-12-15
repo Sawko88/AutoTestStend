@@ -16,4 +16,8 @@ public class Nastroika {
         //this.pause = 1;
         this.index = index;
     }
+
+    public Nastroika(String nameParam){
+        this.nameParam = nameParam;
+    }
 }

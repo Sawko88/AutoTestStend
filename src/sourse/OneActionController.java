@@ -30,6 +30,8 @@ public class OneActionController implements Initializable {
     public TextField tfName;
     public TextField tfNameParam;
 
+    PersonOneActionController personOneActionController;
+
     public void SetMainApp(PersonTestController personTestController) {
         this.personTest = personTestController;
     }
@@ -48,7 +50,9 @@ public class OneActionController implements Initializable {
 
 
     public void BtnDelOneAct(ActionEvent actionEvent) {
-        ((VBox) tbOne.getParent()).getChildren().remove(tbOne);
+        personTest.DeleteTest(tbOne);
+        //((VBox) tbOne.getParent()).getChildren().remove(tbOne);
+
     }
 
 
@@ -62,7 +66,7 @@ public class OneActionController implements Initializable {
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
 
-        PersonOneActionController personOneActionController = loader.getController();
+        personOneActionController = loader.getController();
         personOneActionController.SetOneAction(this);
         //personTestController.SetPerson();
         personOneActionController.ShowNastroika(nastroika);
@@ -81,5 +85,12 @@ public class OneActionController implements Initializable {
         tfName.setText(this.nastroika.name);
         tfNameParam.setText(this.nastroika.nameParam);
         
+    }
+
+
+    public void GetNastroika() {
+        this.nastroika = personOneActionController.GetNastroika();
+        tfName.setText(this.nastroika.name);
+        tfNameParam.setText(this.nastroika.nameParam);
     }
 }

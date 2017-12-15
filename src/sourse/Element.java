@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 
@@ -32,6 +34,7 @@ public class Element implements Initializable {
     public Button btDel;
     public ControllerTest controllerTest;
     TableElement te;
+    public Map<Integer, TableTest> actionList = new LinkedHashMap<Integer, TableTest>();
 
     public void MouseClickTbTest(MouseEvent mouseEvent) {
 

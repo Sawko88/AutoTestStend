@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class PersonTestController {
     public Button btnOk;
@@ -23,6 +25,9 @@ public class PersonTestController {
     public VBox vbSpisokTest;
     public Button btnAddTest;
 
+    //public  Map<Integer, TableTest> actionList = new LinkedHashMap<Integer, TableTest>();
+    public Map<ToolBar, OneActionController> controllerList = new LinkedHashMap<ToolBar, OneActionController>();
+
     public void BtnOkAct(ActionEvent actionEvent) {
         SetParamElement();
         Stage stage = (Stage) btnOk.getScene().getWindow();
@@ -31,6 +36,16 @@ public class PersonTestController {
 
     private void SetParamElement() {
         element.SetName(tfName.getText());
+        element.actionList.clear();
+        //System.out.println(vbSpisokTest.getChildren().size());
+        if (vbSpisokTest.getChildren().size()>0) {
+            for (int i = 0; i < (vbSpisokTest.getChildren().size()); i++) {
+                OneActionController one = controllerList.get(vbSpisokTest.getChildren().get(i));
+                one.GetNastroika();
+                element.actionList.put(i, new TableTest(i,  one, (ToolBar)vbSpisokTest.getChildren().get(i)));
+            }
+        }
+        //System.out.println("finish");
     }
 
     public void BtnCancelAct(ActionEvent actionEvent) {
@@ -45,10 +60,23 @@ public class PersonTestController {
         this.element = element;
     }
 
-    public void SetPerson() {
+    public void SetPerson() throws IOException {
         tfName.setText(element.getName());
         tfPos.setText(element.getPos());
+        for (int i = 0; i<element.actionList.size() ; i++) {
+            LoadTests(element.actionList.get(i).oneActionController, element.actionList.get(i).toolBar);
+        }
     }
+
+    private void LoadTests(OneActionController oneActionController, ToolBar toolBar) {
+        OneActionController oneAct = oneActionController;
+        addWithDragging(vbSpisokTest, toolBar);
+        oneAct.SetMainApp(this);
+        oneAct.SetLabel(vbSpisokTest.getChildren().indexOf(toolBar));
+        controllerList.put(toolBar, oneAct);
+
+    }
+
 
     public void BtnAddTestAct(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -59,10 +87,16 @@ public class PersonTestController {
 
         addWithDragging(vbSpisokTest, toolBar);
 
+
+
         oneAct.SetMainApp(this);
         oneAct.initOneAct();
         oneAct.SetLabel(vbSpisokTest.getChildren().indexOf(toolBar));
+        //actionList.put(toolBar, new TableTest(vbSpisokTest.getChildren().indexOf(toolBar),oneAct, toolBar));
+        controllerList.put(toolBar, oneAct);
     }
+
+
 
     private void addWithDragging(final VBox root, final ToolBar toolBar) {
         toolBar.setOnDragDetected(new EventHandler<MouseEvent>() {
@@ -93,7 +127,7 @@ public class PersonTestController {
                 int indexOfDraggingNode = root.getChildren().indexOf(event.getGestureSource());
                 int indexOfDropTarget = root.getChildren().indexOf(toolBar);
                 rotateNodes1(root, indexOfDraggingNode, indexOfDropTarget);
-
+                //RotatePos();
                 event.consume();
             }
         });
@@ -108,18 +142,36 @@ public class PersonTestController {
             final Node node = root.getChildren().remove(indexOfDraggingNode);
             root.getChildren().add(indexOfDropTarget, node);
 
-           /* int begin =0;
+            int begin =0;
             int end = 0;
             begin = (indexOfDraggingNode>indexOfDropTarget)? indexOfDropTarget: indexOfDraggingNode;
             end = (indexOfDraggingNode>indexOfDropTarget)? indexOfDraggingNode: indexOfDropTarget;
             //int cur = begin;
             while (begin<=end){
                 ToolBar tt = (ToolBar) root.getChildren().get(begin);
-                (tableTb.get(tt)).element.SetPosition(begin);
-                System.out.println("index = " + tableTb.get(tt).index);
+                (controllerList.get(tt)).SetLabel(begin);
+                //System.out.println("index = " + tableTb.get(tt).index);
                 begin++;
-            }*/
+            }
 
         }
+    }
+
+    public void DeleteTest(ToolBar tbOne) {
+        int begin = vbSpisokTest.getChildren().indexOf(tbOne);
+        System.out.println("begin="+begin);
+        controllerList.remove(tbOne);
+        //tbOne.getParent().getChildrenUnmodifiable().remove(tbOne);
+        vbSpisokTest.getChildren().remove(tbOne);
+
+        int index = vbSpisokTest.getChildren().size();
+        System.out.println("index="+index);
+
+        while (begin<=(index-1)){
+            ToolBar tt = (ToolBar) vbSpisokTest.getChildren().get(begin);
+            (controllerList.get(tt)).SetLabel(begin);
+            begin++;
+        }
+
     }
 }

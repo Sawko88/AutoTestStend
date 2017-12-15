@@ -24,7 +24,7 @@ public class OnOffOneController implements Initializable{
         } else {
             tbOn.setSelected(false);
         }
-        GetTbState();
+        //GetTbState();
 
     }
 
@@ -46,8 +46,18 @@ public class OnOffOneController implements Initializable{
     }
 
     public void ActTbOn(ActionEvent actionEvent) {
-        GetTbState();
+        //GetTbState();
     }
 
 
+    public void GetNastroika(Nastroika nastroika) {
+        if (tbOn.isSelected()){
+            nastroika.onOff = 1;
+            nastroika.nameParam = "вкл";
+
+        } else {
+            nastroika.onOff = 0;
+            nastroika.nameParam = "выкл";
+        }
+    }
 }

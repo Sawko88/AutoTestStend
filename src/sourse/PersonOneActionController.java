@@ -22,11 +22,11 @@ public class PersonOneActionController implements Initializable {
     public AnchorPane anPersonOne;
     public Button btnCancelPersonOne;
     public Button btnOkPersonOne;
-    public Nastroika nastroika;
+    public Nastroika nastroika = new Nastroika(0);
 
 
     public  static List<String> spisokCb = Arrays.asList(
-            "",
+            "-",
             "Замок зажигания",
             "Дверь",
             "Капот",
@@ -72,7 +72,7 @@ public class PersonOneActionController implements Initializable {
         AnchorPane anchorPane = loader.load();
 
         KomandaFormaController komandaFormaController  = loader.getController();
-
+        object = loader.getController();
         komandaFormaController.SetMainApp(this);
         komandaFormaController.SetParam(nastroika);
 
@@ -87,7 +87,7 @@ public class PersonOneActionController implements Initializable {
         AnchorPane anchorPane = loader.load();
 
         CanFormaController canFormaController  = loader.getController();
-
+        object = loader.getController();
         canFormaController.SetMainApp(this);
         canFormaController.SetParam(nastroika);
 
@@ -101,7 +101,7 @@ public class PersonOneActionController implements Initializable {
         AnchorPane anchorPane = loader.load();
 
         PausaController pausaController  = loader.getController();
-
+        object = loader.getController();
         pausaController.SetMainApp(this);
         pausaController.SetParam(nastroika);
 
@@ -115,7 +115,7 @@ public class PersonOneActionController implements Initializable {
         AnchorPane anchorPane = loader.load();
 
         Oborotu10000 oborotu10000  = loader.getController();
-
+        object = loader.getController();
         oborotu10000.SetMainApp(this);
         oborotu10000.SetParam(nastroika);
 
@@ -129,7 +129,7 @@ public class PersonOneActionController implements Initializable {
         AnchorPane anchorPane = loader.load();
 
         Pitanie9_15Controller pitanie9_15Controller = loader.getController();
-
+        object = loader.getController();
         pitanie9_15Controller.SetMainApp(this);
         pitanie9_15Controller.SetParam(nastroika);
         anPersonOne.getChildren().clear();
@@ -142,7 +142,7 @@ public class PersonOneActionController implements Initializable {
         AnchorPane anchorPane = loader.load();
 
         Metka33OneController metka33OneController = loader.getController();
-
+        object = loader.getController();
         metka33OneController.SetMainApp(this);
         metka33OneController.SetParam(nastroika);
 
@@ -152,17 +152,21 @@ public class PersonOneActionController implements Initializable {
 
     private void LoadResurs() {
         anPersonOne.getChildren().clear();
+        NullNastroika nullNastroika = new NullNastroika(" ");
+        object = nullNastroika;
     }
-
+    public Object object;
     private void LoadResursOn() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(PersonOneActionController.class.getResource("/fxml/OnOffOne.fxml"));
         AnchorPane anchorPane = loader.load();
 
         OnOffOneController onOffOneController = loader.getController();
-
+        object = loader.getController();
         onOffOneController.SetMainApp(this);
-        onOffOneController.SetParam(nastroika);
+        if (nastroika.index == cbPersonOne.getSelectionModel().getSelectedIndex()) {
+            onOffOneController.SetParam(nastroika);
+        }
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
         //onOffOneController.SetParam(nastroika);
@@ -184,7 +188,48 @@ public class PersonOneActionController implements Initializable {
 
         nastroika.index = cbPersonOne.getSelectionModel().getSelectedIndex();
         nastroika.name = (String) cbPersonOne.getValue();
-        oneActionController.SetNastroika(nastroika);
+
+        //System.out.println(object.getClass());
+
+        OnOffOneController onOffOneController = new OnOffOneController();
+        Metka33OneController metka33OneController = new Metka33OneController();
+        Pitanie9_15Controller pitanie9_15Controller = new Pitanie9_15Controller();
+        Oborotu10000 oborotu10000 = new Oborotu10000();
+        PausaController pausaController = new PausaController();
+        CanFormaController canFormaController = new CanFormaController();
+        KomandaFormaController komandaFormaController = new KomandaFormaController();
+        NullNastroika nullNastroika = new NullNastroika();
+
+        //System.out.println(object.(onOffOneController));
+        if (object.getClass() == onOffOneController.getClass()) {
+           // System.out.println(object.getClass());
+            onOffOneController = (OnOffOneController) object;
+            onOffOneController.GetNastroika(nastroika);
+            //oneActionController.SetNastroika(nastroika);
+        }
+        if (object.getClass() == metka33OneController.getClass()) {
+           // System.out.println(object.getClass());
+        }
+        if (object.getClass() == pitanie9_15Controller.getClass()) {
+            //System.out.println(object.getClass());
+        }
+        if (object.getClass() == oborotu10000.getClass()) {
+            //System.out.println(object.getClass());
+        }
+        if (object.getClass() == pausaController.getClass()) {
+           // System.out.println(object.getClass());
+        }
+        if (object.getClass() == canFormaController.getClass()) {
+            //System.out.println(object.getClass());
+        }
+        if (object.getClass() == komandaFormaController.getClass()) {
+           // System.out.println(object.getClass());
+        }
+        if (object.getClass() == nullNastroika.getClass()) {
+           // System.out.println(object.getClass());
+        }
+
+
     }
 
     @Override
@@ -246,5 +291,9 @@ public class PersonOneActionController implements Initializable {
         this.nastroika = nastroika;
         cbPersonOne.getSelectionModel().select(nastroika.index);
 
+    }
+
+    public Nastroika GetNastroika() {
+        return  nastroika;
     }
 }
