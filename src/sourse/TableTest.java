@@ -5,7 +5,7 @@ import javafx.scene.control.ToolBar;
 import javax.print.attribute.standard.MediaSize;
 
 public class TableTest {
-    public int index;
+    /*public int index;
     public OneActionController oneActionController;
     public ToolBar toolBar;
 
@@ -17,5 +17,10 @@ public class TableTest {
 
     public TableTest(int i, OneActionController oneActionController) {
 
+    }*/
+    Nastroika nnn = new Nastroika(0);
+
+    public TableTest(Nastroika nasBuf) {
+        this.nnn = nasBuf;
     }
 }

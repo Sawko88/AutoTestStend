@@ -77,9 +77,9 @@ public class KomandaFormaController implements Initializable {
     private void Updatenastroika() {
         if (personOneActionController!=null) {
             int index = cbKomand.getSelectionModel().getSelectedIndex();
-            personOneActionController.nastroika.komanda = komandaCollection.Get(index);
-            personOneActionController.nastroika.nameParam = komandaCollection.GetName(index);
-            personOneActionController.nastroika.nameParam += " "+komandaCollection.GetKonamda(index);
+            personOneActionController.nastroika1.komanda = komandaCollection.Get(index);
+            personOneActionController.nastroika1.nameParam = komandaCollection.GetName(index);
+            personOneActionController.nastroika1.nameParam += " "+komandaCollection.GetKonamda(index);
         }
     }
 }

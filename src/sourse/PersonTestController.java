@@ -25,7 +25,7 @@ public class PersonTestController {
     public VBox vbSpisokTest;
     public Button btnAddTest;
 
-    //public  Map<Integer, TableTest> actionList = new LinkedHashMap<Integer, TableTest>();
+    public  Map<Integer, TableTest> actionListbuf = new LinkedHashMap<Integer, TableTest>();
     public Map<ToolBar, OneActionController> controllerList = new LinkedHashMap<ToolBar, OneActionController>();
 
     public void BtnOkAct(ActionEvent actionEvent) {
@@ -41,14 +41,16 @@ public class PersonTestController {
         if (vbSpisokTest.getChildren().size()>0) {
             for (int i = 0; i < (vbSpisokTest.getChildren().size()); i++) {
                 OneActionController one = controllerList.get(vbSpisokTest.getChildren().get(i));
-                one.GetNastroika();
-                element.actionList.put(i, new TableTest(i,  one, (ToolBar)vbSpisokTest.getChildren().get(i)));
+                Nastroika nasBuf = new Nastroika(0);
+                nasBuf = one.GetNastroika();
+                element.actionList.put(i, new TableTest(nasBuf));//
             }
         }
         //System.out.println("finish");
     }
 
     public void BtnCancelAct(ActionEvent actionEvent) {
+        element.actionList = actionListbuf;
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
     }
@@ -58,20 +60,30 @@ public class PersonTestController {
 
     public void SetElement(Element element) {
         this.element = element;
+        actionListbuf = element.actionList;
     }
 
     public void SetPerson() throws IOException {
         tfName.setText(element.getName());
         tfPos.setText(element.getPos());
         for (int i = 0; i<element.actionList.size() ; i++) {
-            LoadTests(element.actionList.get(i).oneActionController, element.actionList.get(i).toolBar);
+            LoadTests((element.actionList.get(i)).nnn);//element.actionList.get(i).oneActionController, element.actionList.get(i).toolBar
         }
     }
 
-    private void LoadTests(OneActionController oneActionController, ToolBar toolBar) {
-        OneActionController oneAct = oneActionController;
+    private void LoadTests(Nastroika nastroika) throws IOException {//OneActionController oneActionController, ToolBar toolBar
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(PersonTestController.class.getResource("/fxml/OneAction.fxml"));
+        ToolBar toolBar = loader.load();
+        //ToolBar toolBarMy = (ToolBar) FXMLLoader.load(getClass().getResource("/fxml/Element.fxml"));
+        OneActionController oneAct = loader.getController();
+
         addWithDragging(vbSpisokTest, toolBar);
+
+
+
         oneAct.SetMainApp(this);
+        oneAct.SetNastroika(nastroika);
         oneAct.SetLabel(vbSpisokTest.getChildren().indexOf(toolBar));
         controllerList.put(toolBar, oneAct);
 

@@ -28,8 +28,8 @@ public class Oborotu10000 implements Initializable {
     }
 
     private void UpdateNastroika() {
-        personOneActionController.nastroika.obooti = slOborotu.getValue();
-        personOneActionController.nastroika.nameParam = lbPos.getText();
+        personOneActionController.nastroika1.obooti = slOborotu.getValue();
+        personOneActionController.nastroika1.nameParam = lbPos.getText();
     }
 
     public PersonOneActionController personOneActionController;

@@ -34,23 +34,14 @@ public class OnOffOneController implements Initializable{
         //nastroika.nameParam = "0";
     }
 
-    public void GetTbState() {
-        if (tbOn.isSelected()){
-            personOneActionController.nastroika.onOff = 1;
-            personOneActionController.nastroika.nameParam = "вкл";
 
-        } else {
-            personOneActionController.nastroika.onOff = 0;
-            personOneActionController.nastroika.nameParam = "выкл";
-        }
-    }
 
     public void ActTbOn(ActionEvent actionEvent) {
         //GetTbState();
     }
 
 
-    public void GetNastroika(Nastroika nastroika) {
+    public Nastroika GetNastroika(Nastroika nastroika) {
         if (tbOn.isSelected()){
             nastroika.onOff = 1;
             nastroika.nameParam = "вкл";
@@ -59,5 +50,7 @@ public class OnOffOneController implements Initializable{
             nastroika.onOff = 0;
             nastroika.nameParam = "выкл";
         }
+
+        return nastroika;
     }
 }

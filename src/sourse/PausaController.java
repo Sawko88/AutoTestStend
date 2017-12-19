@@ -38,12 +38,12 @@ public class PausaController implements Initializable{
 
     private void UpdateNastroika() {
         switch (cbTime.getSelectionModel().getSelectedIndex()){
-            case 0: personOneActionController.nastroika.pause = slTime.getValue()*1; break;
-            case 1: personOneActionController.nastroika.pause = slTime.getValue()*60; break;
-            case 2: personOneActionController.nastroika.pause = slTime.getValue()*3600; break;
-            default: personOneActionController.nastroika.pause = slTime.getValue()*1; break;
+            case 0: personOneActionController.nastroika1.pause = slTime.getValue()*1; break;
+            case 1: personOneActionController.nastroika1.pause = slTime.getValue()*60; break;
+            case 2: personOneActionController.nastroika1.pause = slTime.getValue()*3600; break;
+            default: personOneActionController.nastroika1.pause = slTime.getValue()*1; break;
         }
-        personOneActionController.nastroika.nameParam = lbTime.getText();
+        personOneActionController.nastroika1.nameParam = lbTime.getText();
     }
 
     public PersonOneActionController personOneActionController;

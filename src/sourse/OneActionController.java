@@ -9,11 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +27,7 @@ public class OneActionController implements Initializable {
     public TextField tfName;
     public TextField tfNameParam;
 
-    PersonOneActionController personOneActionController;
+    PersonOneActionController personOneActionController = new PersonOneActionController();
 
     public void SetMainApp(PersonTestController personTestController) {
         this.personTest = personTestController;
@@ -82,15 +79,26 @@ public class OneActionController implements Initializable {
 
     public void SetNastroika(Nastroika nastroika) {
         this.nastroika = nastroika;
-        tfName.setText(this.nastroika.name);
-        tfNameParam.setText(this.nastroika.nameParam);
+        //personOneActionController.SetNastroika(nastroika);
+        tfName.setText(nastroika.name);
+        tfNameParam.setText(nastroika.nameParam);
         
     }
 
 
-    public void GetNastroika() {
-        this.nastroika = personOneActionController.GetNastroika();
-        tfName.setText(this.nastroika.name);
-        tfNameParam.setText(this.nastroika.nameParam);
+    public Nastroika GetNastroika() {
+
+        //this.nastroika = ;
+        //tfName.setText(this.nastroika.name);
+        //tfNameParam.setText(this.nastroika.nameParam);
+        return personOneActionController.GetNastroika();
     }
+
+    public void ShowNastroika(Nastroika nastroika) {
+        //this.nastroika = nastroika;
+        tfName.setText(nastroika.name);
+        tfNameParam.setText(nastroika.nameParam);
+    }
+
+
 }
