@@ -25,7 +25,7 @@ public class PersonTestController {
     public VBox vbSpisokTest;
     public Button btnAddTest;
 
-    public  Map<Integer, TableTest> actionListbuf = new LinkedHashMap<Integer, TableTest>();
+    //public Map<Integer, TableTest> actionListbuf = new LinkedHashMap<Integer, TableTest>();
     public Map<ToolBar, OneActionController> controllerList = new LinkedHashMap<ToolBar, OneActionController>();
 
     public void BtnOkAct(ActionEvent actionEvent) {
@@ -41,7 +41,7 @@ public class PersonTestController {
         if (vbSpisokTest.getChildren().size()>0) {
             for (int i = 0; i < (vbSpisokTest.getChildren().size()); i++) {
                 OneActionController one = controllerList.get(vbSpisokTest.getChildren().get(i));
-                Nastroika nasBuf = new Nastroika(0);
+                Nastroika nasBuf ;
                 nasBuf = one.GetNastroika();
                 element.actionList.put(i, new TableTest(nasBuf));//
             }
@@ -50,7 +50,7 @@ public class PersonTestController {
     }
 
     public void BtnCancelAct(ActionEvent actionEvent) {
-        element.actionList = actionListbuf;
+        //element.actionList = actionListbuf;
         Stage stage = (Stage) btnOk.getScene().getWindow();
         stage.close();
     }
@@ -60,7 +60,7 @@ public class PersonTestController {
 
     public void SetElement(Element element) {
         this.element = element;
-        actionListbuf = element.actionList;
+        //actionListbuf = element.actionList;
     }
 
     public void SetPerson() throws IOException {
@@ -79,8 +79,6 @@ public class PersonTestController {
         OneActionController oneAct = loader.getController();
 
         addWithDragging(vbSpisokTest, toolBar);
-
-
 
         oneAct.SetMainApp(this);
         oneAct.SetNastroika(nastroika);

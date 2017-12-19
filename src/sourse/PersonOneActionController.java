@@ -22,7 +22,7 @@ public class PersonOneActionController implements Initializable {
     public AnchorPane anPersonOne;
     public Button btnCancelPersonOne;
     public Button btnOkPersonOne;
-    public Nastroika nastroika1 = new Nastroika(0);
+    private Nastroika nastroika1 = new Nastroika(0);
 
 
     public  static List<String> spisokCb = Arrays.asList(
@@ -182,15 +182,17 @@ public class PersonOneActionController implements Initializable {
 
     public void ActBtnOkPersonOne(ActionEvent actionEvent) {
         UpdateNastroika();
-
+        oneActionController.SetNastroika(nastroika1);
         Stage stage = (Stage) btnCancelPersonOne.getScene().getWindow();
         stage.close();
     }
 
-    private void UpdateNastroika() {
+    public void UpdateNastroika() {
 
-        nastroika1.index = cbPersonOne.getSelectionModel().getSelectedIndex();
-        nastroika1.name = (String) cbPersonOne.getValue();
+        Nastroika nastroikaBuf = new Nastroika(0);
+
+        nastroikaBuf.index = cbPersonOne.getSelectionModel().getSelectedIndex();
+        nastroikaBuf.name = (String) cbPersonOne.getValue();
 
         //System.out.println(object.getClass());
 
@@ -207,13 +209,13 @@ public class PersonOneActionController implements Initializable {
         if (object.getClass() == onOffOneController.getClass()) {
            // System.out.println(object.getClass());
             onOffOneController = (OnOffOneController) object;
-            nastroika1 = onOffOneController.GetNastroika(nastroika1);
+            nastroikaBuf = onOffOneController.GetNastroika(nastroikaBuf);
             //oneActionController.SetNastroika(nastroika);
         }
         if (object.getClass() == metka33OneController.getClass()) {
            // System.out.println(object.getClass());
             metka33OneController = (Metka33OneController) object;
-            nastroika1= metka33OneController.GetNastroika(nastroika1);
+            nastroikaBuf= metka33OneController.GetNastroika(nastroikaBuf);
         }
         if (object.getClass() == pitanie9_15Controller.getClass()) {
             //System.out.println(object.getClass());
@@ -233,8 +235,9 @@ public class PersonOneActionController implements Initializable {
         if (object.getClass() == nullNastroika.getClass()) {
            // System.out.println(object.getClass());
         }
-        oneActionController.ShowNastroika(nastroika1);
-
+        oneActionController.ShowNastroika(nastroikaBuf);
+        nastroika1 = nastroikaBuf;
+        //return nastroikaBuf;
     }
 
     @Override

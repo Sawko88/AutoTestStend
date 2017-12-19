@@ -33,8 +33,8 @@ public class Pitanie9_15Controller implements Initializable {
     }
 
     private void UpdateNastroika() {
-        personOneActionController.nastroika1.pitanie = slNap.getValue();
-        personOneActionController.nastroika1.nameParam = lbPos.getText();
+        //personOneActionController.nastroika1.pitanie = slNap.getValue();
+        //personOneActionController.nastroika1.nameParam = lbPos.getText();
     }
 
     public PersonOneActionController personOneActionController;

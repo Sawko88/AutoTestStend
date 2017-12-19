@@ -56,8 +56,8 @@ public class CanFormaController implements Initializable {
     }
 
     private void UpdateNastroika() {
-        personOneActionController.nastroika1.can = canCollection.GetCan(cbCan.getSelectionModel().getSelectedIndex());
-        personOneActionController.nastroika1.nameParam = canCollection.GetName(cbCan.getSelectionModel().getSelectedIndex());
-        personOneActionController.nastroika1.nameParam += (tbCAn.isSelected())? " вкл" : " выкл";
+        //personOneActionController.nastroika1.can = canCollection.GetCan(cbCan.getSelectionModel().getSelectedIndex());
+        //personOneActionController.nastroika1.nameParam = canCollection.GetName(cbCan.getSelectionModel().getSelectedIndex());
+        //personOneActionController.nastroika1.nameParam += (tbCAn.isSelected())? " вкл" : " выкл";
     }
 }

@@ -23,7 +23,7 @@ public class OneActionController implements Initializable {
     public Button btnDelOne;
     public Button btnOneSet;
     public Label lbPos;
-    public Nastroika nastroika = new Nastroika(0);
+    private Nastroika nastroika = new Nastroika(0);
     public TextField tfName;
     public TextField tfNameParam;
 

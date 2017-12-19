@@ -55,8 +55,8 @@ public class Metka33OneController implements Initializable{
     }
 
     private void UpdateNastroika() {
-        personOneActionController.nastroika1.metka33 = slMetka.getValue();
-        personOneActionController.nastroika1.nameParam = lbPos.getText();
+        //personOneActionController.nastroika1.metka33 = slMetka.getValue();
+        //personOneActionController.nastroika1.nameParam = lbPos.getText();
     }
 
 
