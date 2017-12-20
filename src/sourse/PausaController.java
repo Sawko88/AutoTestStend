@@ -29,7 +29,7 @@ public class PausaController implements Initializable{
                 double value = Math.round(slTime.getValue());
                 slTime.setValue(value);
                 lbTime.setText(String.valueOf((int)slTime.getValue())+" "+cbTime.getValue());
-                UpdateNastroika();
+                //UpdateNastroika();
             }
         });
 
@@ -55,7 +55,7 @@ public class PausaController implements Initializable{
         double value = Math.round(slTime.getValue());
         slTime.setValue(value);
         lbTime.setText(String.valueOf((int)slTime.getValue())+" "+cbTime.getValue());
-        UpdateNastroika();
+        //UpdateNastroika();
     }
 
     public void SetParam(Nastroika nastroika) {
@@ -71,6 +71,17 @@ public class PausaController implements Initializable{
             cbTime.getSelectionModel().select(2);
             slTime.setValue(nastroika.pause/3600);
         }
-        UpdateNastroika();
+        //UpdateNastroika();
+    }
+
+    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+        switch (cbTime.getSelectionModel().getSelectedIndex()){
+         case 0: nastroikaBuf.pause = slTime.getValue()*1; break;
+         case 1: nastroikaBuf.pause = slTime.getValue()*60; break;
+         case 2: nastroikaBuf.pause = slTime.getValue()*3600; break;
+         default: nastroikaBuf.pause = slTime.getValue()*1; break;
+        }
+        nastroikaBuf.nameParam = lbTime.getText();
+        return nastroikaBuf;
     }
 }

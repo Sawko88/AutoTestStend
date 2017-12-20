@@ -32,7 +32,7 @@ public class CanFormaController implements Initializable {
 
     public void ActCbCan(ActionEvent actionEvent) {
         tbCAn.setSelected(canCollection.getState(cbCan.getSelectionModel().getSelectedIndex()));
-        UpdateNastroika();
+        //UpdateNastroika();
     }
 
     public void ActTbCan(ActionEvent actionEvent) {
@@ -41,7 +41,7 @@ public class CanFormaController implements Initializable {
         } else {
             canCollection.setState(cbCan.getSelectionModel().getSelectedIndex(), 0);
         }
-        UpdateNastroika();
+        //UpdateNastroika();
     }
 
     public void SetParam(Nastroika nastroika) {
@@ -52,12 +52,19 @@ public class CanFormaController implements Initializable {
         } else {
             tbCAn.setSelected(false);
         }
-        UpdateNastroika();
+        //UpdateNastroika();
     }
 
     private void UpdateNastroika() {
         //personOneActionController.nastroika1.can = canCollection.GetCan(cbCan.getSelectionModel().getSelectedIndex());
         //personOneActionController.nastroika1.nameParam = canCollection.GetName(cbCan.getSelectionModel().getSelectedIndex());
         //personOneActionController.nastroika1.nameParam += (tbCAn.isSelected())? " вкл" : " выкл";
+    }
+
+    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+        nastroikaBuf.can = canCollection.GetCan(cbCan.getSelectionModel().getSelectedIndex());
+        nastroikaBuf.nameParam = canCollection.GetName(cbCan.getSelectionModel().getSelectedIndex());
+        nastroikaBuf.nameParam += (tbCAn.isSelected())? " вкл" : " выкл";
+        return nastroikaBuf;
     }
 }

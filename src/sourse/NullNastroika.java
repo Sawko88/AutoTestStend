@@ -10,4 +10,10 @@ public class NullNastroika {
     public NullNastroika() {
 
     }
+
+    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+        nastroikaBuf.name = "-";
+        nastroikaBuf.nameParam = "";
+        return  nastroikaBuf;
+    }
 }

@@ -33,7 +33,7 @@ public class KomandaFormaController implements Initializable {
                     tfKomanda.setDisable(true);
                     tfKomanda.clear();
                 }
-                Updatenastroika();
+                //Updatenastroika();
             }
         });
 
@@ -44,7 +44,7 @@ public class KomandaFormaController implements Initializable {
                     komandaCollection.SetKomand(tfKomanda.getText());
                     //System.out.println(tfKomanda.getText());
                 }
-                Updatenastroika();
+                //Updatenastroika();
             }
         });
 
@@ -70,7 +70,7 @@ public class KomandaFormaController implements Initializable {
         if (index == 0){
             tfKomanda.setText(nastroika.komanda.komanda);
         }
-        Updatenastroika();
+        //Updatenastroika();
 
     }
 
@@ -81,5 +81,15 @@ public class KomandaFormaController implements Initializable {
             //personOneActionController.nastroika1.nameParam = komandaCollection.GetName(index);
             //personOneActionController.nastroika1.nameParam += " "+komandaCollection.GetKonamda(index);
         }//
+    }
+
+    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+        if (personOneActionController!=null) {
+            int index = cbKomand.getSelectionModel().getSelectedIndex();
+            nastroikaBuf.komanda = komandaCollection.Get(index);
+            nastroikaBuf.nameParam = komandaCollection.GetName(index);
+            nastroikaBuf.nameParam += " "+komandaCollection.GetKonamda(index);
+        }//
+        return nastroikaBuf;
     }
 }

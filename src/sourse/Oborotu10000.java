@@ -40,4 +40,10 @@ public class Oborotu10000 implements Initializable {
     public void SetParam(Nastroika nastroika) {
         slOborotu.setValue(nastroika.obooti);
     }
+
+    public Nastroika GetNastoika(Nastroika nastroikaBuf) {
+        nastroikaBuf.obooti = slOborotu.getValue();
+        nastroikaBuf.nameParam = lbPos.getText();
+        return nastroikaBuf;
+    }
 }

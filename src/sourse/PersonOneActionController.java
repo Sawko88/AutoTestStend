@@ -219,21 +219,33 @@ public class PersonOneActionController implements Initializable {
         }
         if (object.getClass() == pitanie9_15Controller.getClass()) {
             //System.out.println(object.getClass());
+            pitanie9_15Controller = (Pitanie9_15Controller) object;
+            nastroikaBuf = pitanie9_15Controller.GetNastroika(nastroikaBuf);
         }
         if (object.getClass() == oborotu10000.getClass()) {
             //System.out.println(object.getClass());
+            oborotu10000 = (Oborotu10000) object;
+            nastroikaBuf = oborotu10000.GetNastoika(nastroikaBuf);
         }
         if (object.getClass() == pausaController.getClass()) {
            // System.out.println(object.getClass());
+            pausaController= (PausaController) object;
+            nastroikaBuf = pausaController.GetNastroika(nastroikaBuf);
         }
         if (object.getClass() == canFormaController.getClass()) {
             //System.out.println(object.getClass());
+            canFormaController = (CanFormaController) object;
+            nastroikaBuf = canFormaController.GetNastroika(nastroikaBuf);
         }
         if (object.getClass() == komandaFormaController.getClass()) {
            // System.out.println(object.getClass());
+            komandaFormaController = (KomandaFormaController) object;
+            nastroikaBuf = komandaFormaController.GetNastroika(nastroikaBuf);
         }
         if (object.getClass() == nullNastroika.getClass()) {
            // System.out.println(object.getClass());
+            nullNastroika = (NullNastroika) object;
+            nastroikaBuf = nullNastroika.GetNastroika(nastroikaBuf);
         }
         oneActionController.ShowNastroika(nastroikaBuf);
         nastroika1 = nastroikaBuf;
