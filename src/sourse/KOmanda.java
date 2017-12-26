@@ -1,6 +1,8 @@
 package sourse;
 
-public class KOmanda {
+import java.io.Serializable;
+
+public class KOmanda implements Serializable{
     Integer index = 0;
     String name = "";
     String komanda= "";

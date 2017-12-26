@@ -3,8 +3,9 @@ package sourse;
 import javafx.scene.control.ToolBar;
 
 import javax.print.attribute.standard.MediaSize;
+import java.io.Serializable;
 
-public class TableTest {
+public class TableTest implements Serializable{
     /*public int index;
     public OneActionController oneActionController;
     public ToolBar toolBar;

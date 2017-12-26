@@ -15,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ import java.util.ResourceBundle;
 
 
 
-public class Element implements Initializable {
+public class Element implements Initializable{
 
     public ToolBar tbTest;
     public Label labPos;
@@ -57,14 +58,16 @@ public class Element implements Initializable {
 
         PersonTestController personTestController = loader.getController();
         personTestController.SetElement(this);
+
         personTestController.SetPerson();
 
         stage.showAndWait();
     }
 
     public void ActBtDel(ActionEvent actionEvent) {
-        controllerTest.tableTb.remove(tbTest);
-        ((VBox) tbTest.getParent()).getChildren().remove(tbTest);
+        controllerTest.DeleteTest(tbTest);
+        //controllerTest.tableTb.remove(tbTest);
+        //((VBox) tbTest.getParent()).getChildren().remove(tbTest);
     }
 
     public void MouseMovedTbTest(MouseEvent mouseEvent) {
@@ -105,5 +108,9 @@ public class Element implements Initializable {
     public String getPos() {
 
         return String.valueOf(controllerTest.tableTb.get(tbTest).index);
+    }
+
+    public void SetActionList(Map<Integer, TableTest> personlist) {
+        actionList = personlist;
     }
 }

@@ -1,6 +1,8 @@
 package sourse;
 
-public class Can {
+import java.io.Serializable;
+
+public class Can implements Serializable{
     String name = "";
     Integer index;
     Integer state;

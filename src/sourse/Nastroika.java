@@ -1,6 +1,9 @@
 package sourse;
 
-public class Nastroika {
+import java.io.Serializable;
+
+public class Nastroika implements Serializable{
+    private static final long serialVersionUID = 1L;
     public int index = 0;
     public String name = "-";
     public int onOff = 0;
@@ -20,4 +23,9 @@ public class Nastroika {
     public Nastroika(String nameParam){
         this.nameParam = nameParam;
     }
+
+    //@Override
+    //public String toString(){
+       // return name+"1111"+nameParam;
+    //}
 }

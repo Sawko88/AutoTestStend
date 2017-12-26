@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane focusTraversable="true" prefHeight="500.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerTest">
+<AnchorPane fx:id="anMain" focusTraversable="true" prefHeight="500.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerTest">
    <children>
       <JFXToggleButton fx:id="Pult" layoutX="632.0" layoutY="14.0" onAction="#PultAction" prefHeight="48.0" prefWidth="97.0" size="8.0" text="Пульт " AnchorPane.topAnchor="50.0" />
       <ScrollPane layoutX="105.0" layoutY="32.0" prefHeight="398.0" prefWidth="518.0" AnchorPane.topAnchor="50.0">
@@ -17,19 +17,19 @@
          </content>
       </ScrollPane>
       <Button fx:id="btnAdd" layoutX="11.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActBtnAdd" prefHeight="25.0" prefWidth="77.0" text="add" AnchorPane.topAnchor="50.0" />
-      <ToolBar layoutX="5.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ToolBar layoutX="5.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
+          <Button fx:id="btnNewFile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnNewFileAction" prefHeight="35.0" prefWidth="35.0">
                <graphic>
                   <FontIcon iconColor="#d03ba1" iconLiteral="fa-file" iconSize="24" />
                </graphic>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
+            <Button fx:id="btnLoad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnLoadAction" prefHeight="35.0" prefWidth="35.0">
                <graphic>
                   <FontIcon iconColor="#618a11" iconLiteral="fa-folder-open" iconSize="24" />
                </graphic>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
+            <Button fx:id="btnSave" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnSaveAction" prefHeight="35.0" prefWidth="35.0">
                <graphic>
                   <FontIcon iconColor="#2013d0" iconLiteral="fa-save" iconSize="26" />
                </graphic>
@@ -39,7 +39,7 @@
                   <FontIcon iconColor="#cf1525" iconLiteral="fa-gears" iconSize="26" />
                </graphic>
             </Button>
-            <Button layoutX="127.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
+            <Button fx:id="btnInfo" layoutX="127.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnInfoAction" prefHeight="35.0" prefWidth="35.0">
                <graphic>
                   <FontIcon iconColor="#0f90d1" iconLiteral="fa-info-circle" iconSize="26" />
                </graphic>

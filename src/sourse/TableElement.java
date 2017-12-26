@@ -1,6 +1,8 @@
 package sourse;
 
-public class TableElement {
+import java.io.Serializable;
+
+public class TableElement implements Serializable{
     public Element element;
     public int index;
 

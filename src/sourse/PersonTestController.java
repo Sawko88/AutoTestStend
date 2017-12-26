@@ -150,7 +150,9 @@ public class PersonTestController {
                               final int indexOfDropTarget) {
         if (indexOfDraggingNode >= 0 && indexOfDropTarget >= 0) {
             final Node node = root.getChildren().remove(indexOfDraggingNode);
+
             root.getChildren().add(indexOfDropTarget, node);
+
 
             int begin =0;
             int end = 0;
@@ -169,7 +171,7 @@ public class PersonTestController {
 
     public void DeleteTest(ToolBar tbOne) {
         int begin = vbSpisokTest.getChildren().indexOf(tbOne);
-        System.out.println("begin="+begin);
+        //System.out.println("begin="+begin);
         controllerList.remove(tbOne);
         //tbOne.getParent().getChildrenUnmodifiable().remove(tbOne);
         vbSpisokTest.getChildren().remove(tbOne);

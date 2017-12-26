@@ -91,7 +91,7 @@ public class OneActionController implements Initializable {
         //this.nastroika = ;
         //tfName.setText(this.nastroika.name);
         //tfNameParam.setText(this.nastroika.nameParam);
-        return personOneActionController.GetNastroika();
+        return nastroika;
     }
 
     public void ShowNastroika(Nastroika nastroika) {
