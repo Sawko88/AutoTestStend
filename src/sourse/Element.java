@@ -36,6 +36,7 @@ public class Element implements Initializable{
     public ControllerTest controllerTest;
     TableElement te;
     public Map<Integer, TableTest> actionList = new LinkedHashMap<Integer, TableTest>();
+    private Resultat resElement = new Resultat();
 
     public void MouseClickTbTest(MouseEvent mouseEvent) {
 
@@ -60,6 +61,7 @@ public class Element implements Initializable{
         personTestController.SetElement(this);
 
         personTestController.SetPerson();
+        personTestController.SerResultat(resElement);
 
         stage.showAndWait();
     }
@@ -112,5 +114,13 @@ public class Element implements Initializable{
 
     public void SetActionList(Map<Integer, TableTest> personlist) {
         actionList = personlist;
+    }
+
+    public void SetResultat(Resultat resultat) {
+        this.resElement = resultat;
+    }
+
+    public Resultat GetResultat() {
+        return resElement;
     }
 }

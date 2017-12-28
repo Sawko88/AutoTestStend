@@ -1,8 +1,14 @@
 package sourse;
 
+import com.jfoenix.controls.JFXCheckBox;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -11,12 +17,15 @@ import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.controlsfx.control.CheckComboBox;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-public class PersonTestController {
+public class PersonTestController implements Initializable{
     public Button btnOk;
     public Button btnCancel;
     public TextField tfName;
@@ -27,6 +36,32 @@ public class PersonTestController {
 
     //public Map<Integer, TableTest> actionListbuf = new LinkedHashMap<Integer, TableTest>();
     public Map<ToolBar, OneActionController> controllerList = new LinkedHashMap<ToolBar, OneActionController>();
+    public JFXCheckBox cbSignal;
+    public CheckComboBox ccbSignal;
+    private SignalCollection signalCollection = new SignalCollection();
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //final ObservableList<String> strings = FXCollections.observableArrayList();
+        for (int i = 0; i < signalCollection.signalSpisok.size(); i++) {
+            ccbSignal.getItems().add(signalCollection.signalSpisok.get(i).name);
+
+        }
+        ccbSignal.setDisable(true);
+        cbSignal.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (cbSignal.isSelected()){
+                    ccbSignal.setDisable(false);
+                } else {
+                    ccbSignal.setDisable(true);
+                    ccbSignal.getCheckModel().clearChecks();
+                }
+            }
+        });
+
+    }
 
     public void BtnOkAct(ActionEvent actionEvent) {
         SetParamElement();
@@ -43,9 +78,13 @@ public class PersonTestController {
                 OneActionController one = controllerList.get(vbSpisokTest.getChildren().get(i));
                 Nastroika nasBuf ;
                 nasBuf = one.GetNastroika();
+
                 element.actionList.put(i, new TableTest(nasBuf));//
             }
         }
+        Resultat resultat = getResultat();
+        element.SetResultat(resultat);
+
         //System.out.println("finish");
     }
 
@@ -185,5 +224,34 @@ public class PersonTestController {
             begin++;
         }
 
+    }
+
+    public void CbSignalAction(ActionEvent actionEvent) {
+
+    }
+
+
+    public Resultat getResultat() {
+        Resultat resbuf = new Resultat();
+        resbuf.stateSignal = cbSignal.isSelected();
+        if (cbSignal.isSelected()){
+            for (int i = 0; i < ccbSignal.getItems().size(); i ++){
+                if (ccbSignal.getCheckModel().isChecked(i)){
+                    resbuf.signalSResultat.add(SignalCollection.signalSpisok.get(i));
+                }
+            }
+        }else {
+            resbuf.signalSResultat.clear();
+        }
+        return resbuf;
+    }
+
+    public void SerResultat(Resultat resElement) {
+        cbSignal.setSelected(resElement.stateSignal);
+        if (resElement.stateSignal) {
+            for (int i = 0; i < resElement.signalSResultat.size(); i++) {
+                ccbSignal.getCheckModel().check(resElement.signalSResultat.get(i).index);
+            }
+        }
     }
 }

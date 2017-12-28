@@ -20,6 +20,7 @@ public class TableTest implements Serializable{
 
     }*/
     Nastroika nnn = new Nastroika(0);
+    //Resultat res = new Resultat();
 
     public TableTest(Nastroika nasBuf) {
         this.nnn = nasBuf;

@@ -223,6 +223,7 @@ public  class ControllerTest implements Initializable{
                 mySaveParam.name = tableTb.get(myTT).element.labName.getText();
                 mySaveParam.pos = Integer.parseInt(tableTb.get(myTT).element.labPos.getText());
                 mySaveParam.personlist = tableTb.get(myTT).element.actionList;
+                mySaveParam.res = tableTb.get(myTT).element.GetResultat();
 
                 savePAramList.add(mySaveParam);
                 //oos.writeObject();
@@ -267,6 +268,7 @@ public  class ControllerTest implements Initializable{
         element.SetPosition(saveParam.pos);
         element.SetName(saveParam.name);
         element.SetActionList(saveParam.personlist);
+        element.SetResultat(saveParam.res);
         //element.init();
     }
 
