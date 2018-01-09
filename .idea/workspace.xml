@@ -69,14 +69,61 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ControllerTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Element.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/Element.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="65" column="28" lean-forward="true" selection-start-line="50" selection-start-column="8" selection-end-line="65" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ControllerTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sourse/ControllerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="296" column="15" lean-forward="true" selection-start-line="296" selection-start-column="11" selection-end-line="296" selection-end-column="15" />
+            <state relative-caret-position="486">
+              <caret line="307" column="31" lean-forward="false" selection-start-line="307" selection-start-column="31" selection-end-line="307" selection-end-column="31" />
               <folding>
-                <marker date="1515501841117" expanded="true" signature="9967:9973" ph="{...}" />
+                <marker date="1515507647228" expanded="true" signature="9967:9973" ph="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Settings.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/fxml/Settings.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="109" column="98" lean-forward="false" selection-start-line="109" selection-start-column="98" selection-end-line="109" selection-end-column="98" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SettingsController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sourse/SettingsController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="22" lean-forward="false" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#595#596#0" expanded="true" />
+                <element signature="e#647#648#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersonTestController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/PersonTestController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="333">
+              <caret line="292" column="22" lean-forward="true" selection-start-line="291" selection-start-column="8" selection-end-line="292" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -86,8 +133,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -117,8 +164,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/fxml/KomandaForma.fxml" />
-        <option value="$PROJECT_DIR$/src/fxml/OnOffOne.fxml" />
         <option value="$PROJECT_DIR$/src/sourse/GetNastr.java" />
         <option value="$PROJECT_DIR$/src/fxml/OneAction.fxml" />
         <option value="$PROJECT_DIR$/src/sourse/CanCollection.java" />
@@ -167,7 +212,9 @@
         <option value="$PROJECT_DIR$/src/sourse/PovorotCollection.java" />
         <option value="$PROJECT_DIR$/src/sourse/Resultat.java" />
         <option value="$PROJECT_DIR$/src/sourse/PersonTestController.java" />
+        <option value="$PROJECT_DIR$/src/fxml/Settings.fxml" />
         <option value="$PROJECT_DIR$/src/sourse/ControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/sourse/SettingsController.java" />
       </list>
     </option>
   </component>
@@ -223,6 +270,12 @@
               <item name="AutoTestStend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="fxml" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="AutoTestStend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="AutoTestStend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="sourse" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="AutoTestStend" type="b2602c69:ProjectViewProjectNode" />
@@ -438,7 +491,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3257329" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27359492" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2733189" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24466951" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2407211" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329718" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -535,20 +588,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sourse/Metka33OneController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="58" column="35" lean-forward="false" selection-start-line="58" selection-start-column="35" selection-end-line="58" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/OnOffOneController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="19" column="16" lean-forward="false" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sourse/Pitanie9_15Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -710,14 +749,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="91" column="25" lean-forward="false" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -948,14 +979,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/PersonTestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="514" column="73" lean-forward="false" selection-start-line="514" selection-start-column="73" selection-end-line="514" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/fxml/Test.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -967,12 +990,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxml/Settings.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="109" column="98" lean-forward="false" selection-start-line="109" selection-start-column="98" selection-end-line="109" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="65" column="28" lean-forward="true" selection-start-line="50" selection-start-column="8" selection-end-line="65" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/sourse/ControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="296" column="15" lean-forward="true" selection-start-line="296" selection-start-column="11" selection-end-line="296" selection-end-column="15" />
+        <state relative-caret-position="486">
+          <caret line="307" column="31" lean-forward="false" selection-start-line="307" selection-start-column="31" selection-end-line="307" selection-end-column="31" />
           <folding>
-            <marker date="1515501841117" expanded="true" signature="9967:9973" ph="{...}" />
+            <marker date="1515507647228" expanded="true" signature="9967:9973" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/PersonTestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="292" column="22" lean-forward="true" selection-start-line="291" selection-start-column="8" selection-end-line="292" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/SettingsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="22" lean-forward="false" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#595#596#0" expanded="true" />
+            <element signature="e#647#648#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -34,7 +34,7 @@
                   <FontIcon iconColor="#2013d0" iconLiteral="fa-save" iconSize="26" />
                </graphic>
             </Button>
-            <Button layoutX="88.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
+            <Button fx:id="btnSettings" layoutX="88.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnSettingsAction" prefHeight="35.0" prefWidth="35.0">
                <graphic>
                   <FontIcon iconColor="#cf1525" iconLiteral="fa-gears" iconSize="26" />
                </graphic>

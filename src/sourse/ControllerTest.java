@@ -294,6 +294,19 @@ public  class ControllerTest implements Initializable{
         tableTb.clear();
     }
 
-    public void BtnSettingsAction(ActionEvent actionEvent) {
+    public void BtnSettingsAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ControllerTest.class.getResource("/fxml/Settings.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        // stage.setResizable(false);
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        SettingsController settingsController = loader.getController();
+        settingsController.SetTest(this);
+
+        stage.showAndWait();
     }
 }
