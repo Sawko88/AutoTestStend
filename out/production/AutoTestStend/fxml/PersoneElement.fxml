@@ -62,15 +62,85 @@
                               <VBox fx:id="vbSpisokTest" prefHeight="317.0" prefWidth="341.0" />
                            </content>
                         </ScrollPane>
-                        <ScrollPane prefHeight="322.0" prefWidth="298.0">
+                        <ScrollPane prefHeight="409.0" prefWidth="298.0">
                            <content>
-                              <VBox prefHeight="320.0" prefWidth="294.0">
+                              <VBox prefHeight="350.0" prefWidth="281.0">
                                  <children>
-                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="298.0">
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="263.0">
                                        <items>
                                           <JFXCheckBox fx:id="cbSignal" checkedColor="#eb335b" onAction="#CbSignalAction" text=" " />
-                                          <Label text="Сигналы:" />
-                                          <CheckComboBox fx:id="ccbSignal" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="190.0" />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Сигналы:" />
+                                          <CheckComboBox fx:id="ccbSignal" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbIndikacia" checkedColor="#eb335b" onAction="#CbIndikaciaAction" text=" " />
+                                          <Label prefWidth="110.0" text="Индикация:" />
+                                          <ComboBox fx:id="cboxIndikacia" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbReleProv" checkedColor="#eb335b" onAction="#CbReleProvAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Реле проводное:" />
+                                          <ComboBox fx:id="cboxReleProv" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbReleBezprov" checkedColor="#eb335b" onAction="#CbReleBezprovAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Реле безпроводое:" />
+                                          <ComboBox fx:id="cboxReleBezprov" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbSirena" checkedColor="#eb335b" onAction="#CbSirenaAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Сирена:" />
+                                          <ComboBox fx:id="cboxSirena" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbBagagnik" checkedColor="#eb335b" onAction="#CbBagagnikAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Отп. багажника:" />
+                                          <ComboBox fx:id="cboxBagagnik" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbWebasto" checkedColor="#eb335b" onAction="#CbWebastoAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Вебасто:" />
+                                          <ComboBox fx:id="cboxWebasto" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbAutozap" checkedColor="#eb335b" onAction="#CbAutozapAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Автозапуск:" />
+                                          <ComboBox fx:id="cboxAutozap" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbZumerSnatie" checkedColor="#eb335b" onAction="#CbZumerSnatieAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер пост/снятие:" />
+                                          <ComboBox fx:id="cboxZumerSnatie" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbZumerMetki" checkedColor="#eb335b" onAction="#CbZumerMetkiAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер метки:" />
+                                          <ComboBox fx:id="cboxZumerMetki" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbPovorot" checkedColor="#eb335b" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Поворотники:" />
+                                          <ComboBox fx:id="cboxPovorot" prefHeight="25.0" prefWidth="120.0" />
                                        </items>
                                     </ToolBar>
                                  </children></VBox>

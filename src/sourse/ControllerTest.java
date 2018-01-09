@@ -36,6 +36,7 @@ public  class ControllerTest implements Initializable{
     public AnchorPane anMain;
     public Button btnLoad;
     public Button btnNewFile;
+    public Button btnSettings;
 
 
     public void PultAction(ActionEvent actionEvent) throws IOException {
@@ -291,5 +292,8 @@ public  class ControllerTest implements Initializable{
     public void BtnNewFileAction(ActionEvent actionEvent) {
         vbAdd.getChildren().clear();
         tableTb.clear();
+    }
+
+    public void BtnSettingsAction(ActionEvent actionEvent) {
     }
 }
