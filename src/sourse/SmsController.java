@@ -1,5 +1,6 @@
 package sourse;
 
+import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -28,8 +30,8 @@ public class SmsController extends Application implements Initializable {
     public TextField tfSend;
     public Button btClear;
     public TextFlow tfMess;
-    public TextField tfMesssss;
-    public WebView wvMess;
+    public TextArea taMess;
+
     ControllerTest controllerTest;
 
     private final static Logger LOGGER =  Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
@@ -64,8 +66,19 @@ public class SmsController extends Application implements Initializable {
         if (!tfSend.getText().equals("")) {
             socket.sendMessage(tfSend.getText());
             PrintText(tfSend.getText(), Color.BLUE);
+            PrintTextArea(tfSend.getText(), "--->");
         }
 
+    }
+
+    private void PrintTextArea(String text, String sim) {
+        String s;
+        Format format;
+        Date date = new Date();
+        format = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
+        s = format.format(date);
+        taMess.appendText(s+sim+text);
+        taMess.appendText("\r\n");
     }
 
     private void PrintText(String text, Color color) {
@@ -80,7 +93,9 @@ public class SmsController extends Application implements Initializable {
         t.setFill(color);
         t.setFocusTraversable(true);
         tfMess.getChildren().add(t);
-        
+
+
+
 
     }
 
@@ -101,6 +116,8 @@ public class SmsController extends Application implements Initializable {
         System.out.println("Sms - run");
         //taMess.appendText("Begin\r\n");
         PrintText("Begin", Color.GREEN);
+        PrintTextArea("Begin", "----");
+
     }
 
     @Override
@@ -214,6 +231,8 @@ public class SmsController extends Application implements Initializable {
             if (line != null && !line.equals("")) {
                 //rcvdMsgsData.add(line);
                 PrintText(line, Color.RED);
+                PrintTextArea(line, "<---");
+
             }
         }
 
