@@ -1,31 +1,37 @@
 package sourse;
 
 import com.jfoenix.controls.JFXToggleButton;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
-import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.CharBuffer;
 import java.util.*;
 
-public  class ControllerTest implements Initializable{
+public  class ControllerTest extends Application implements Initializable {
     public JFXToggleButton Pult;
     public Stage stagePult;
     public ControllerPultMX controllerPultMX;
-
+    public Stage stageSms = new Stage();
 
     public Button btnAdd;
     public VBox vbAdd;
@@ -37,7 +43,11 @@ public  class ControllerTest implements Initializable{
     public Button btnLoad;
     public Button btnNewFile;
     public Button btnSettings;
+    public ToggleButton tbSms;
+    public ToggleButton tbGprs;
+    public Button btnConnect;
 
+    private Setting setting = new Setting();
 
     public void PultAction(ActionEvent actionEvent) throws IOException {
         if (Pult.isSelected()){
@@ -51,7 +61,7 @@ public  class ControllerTest implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        System.out.println("initialize");
         stagePult = new Stage();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/PultMX.fxml"));
@@ -59,7 +69,6 @@ public  class ControllerTest implements Initializable{
             stagePult.initModality(Modality.WINDOW_MODAL);
 
             //stagePult.show();
-
 
 
         } catch (IOException e) {
@@ -70,9 +79,139 @@ public  class ControllerTest implements Initializable{
 
         Pult.setSelected(false);
 
+        try {
+            LoadfileSettings();
+        } catch (IOException e) {
+
+        }
+
+        SmsQuipLoad();
+        MyTbSmsListener();
 
     }
 
+    private void MyTbSmsListener() {
+        tbSms.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (tbSms.isSelected()){
+                    stageSms.show();
+                } else {
+                    stageSms.hide();
+                }
+            }
+        });
+    }
+
+    private SmsController smsController;
+
+    private void SmsQuipLoad() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ControllerTest.class.getResource("/fxml/SMS.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        stageSms.setTitle("SMS-диспетчер");
+        stageSms.setScene(new Scene(root));
+        stageSms.initModality(Modality.WINDOW_MODAL);
+        stageSms.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                tbSms.setSelected(false);
+            }
+        });
+        smsController = loader.getController();
+        smsController.SetControllerTest(this);
+
+    }
+
+    public void TbSmsAction(ActionEvent event) {
+
+    }
+
+    private void LoadfileSettings() throws IOException {
+        File fileSet = new File("settingsControl.ini");
+        if(!fileSet.exists()) {
+            fileSet.createNewFile();
+        } else {
+            FileReader fileReader = new FileReader(fileSet);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String buf=null;
+
+            while ((buf = bufferedReader.readLine())!=null){
+                int index = buf.indexOf("=");
+                if (buf.contains("comPort")) {
+
+                    setting.comPort = buf.substring(index+1);
+                }
+                if (buf.contains("smsIp")){setting.smsIp = buf.substring(index+1);}
+                if (buf.contains("smsPort")){setting.smsPort = buf.substring(index+1);}
+                if (buf.contains("smsPas")){setting.smsPas = buf.substring(index+1);}
+                if (buf.contains("gprsIp")){setting.gprsIp = buf.substring(index+1);}
+                if (buf.contains("gprsPort")){setting.gprsPort = buf.substring(index+1);}
+                if (buf.contains("gprsPas")){setting.gprsPas = buf.substring(index+1);}
+                if (buf.contains("bdIp")){setting.bdIp = buf.substring(index+1);}
+                if (buf.contains("bdName")){setting.bdName = buf.substring(index+1);}
+                if (buf.contains("bdUser")){setting.bdUser = buf.substring(index+1);}
+                if (buf.contains("bdPas")){setting.bdPas = buf.substring(index+1);}
+
+            }
+        }
+    }
+
+
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {}
+
+    public void shutdoun() {
+        //System.out.println("Stop");
+        SaveFileSettings();
+        smsController.DisconnectSMS();
+        Platform.exit();
+    }
+
+    //private File fileSet=new File("settingsControl.ini");
+    private void SaveFileSettings()  {
+        File fileSet = new File("settingsControl.ini");
+        try {
+            FileWriter fileWriter = new FileWriter(fileSet);
+            BufferedWriter bf = new BufferedWriter(fileWriter);
+
+            WriteLineSettings(bf, "comPort", setting.comPort);
+            WriteLineSettings(bf, "smsIp", setting.smsIp);
+            WriteLineSettings(bf, "smsPort", setting.smsPort);
+            WriteLineSettings(bf, "smsPas", setting.smsPas);
+            WriteLineSettings(bf, "gprsIp", setting.gprsIp);
+            WriteLineSettings(bf, "gprsPort", setting.gprsPort);
+            WriteLineSettings(bf, "gprsPas", setting.gprsPas);
+            WriteLineSettings(bf, "bdIp", setting.bdIp);
+            WriteLineSettings(bf, "bdName", setting.bdName);
+            WriteLineSettings(bf, "bdUser", setting.bdUser);
+            WriteLineSettings(bf, "bdPas", setting.bdPas);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void WriteLineSettings(BufferedWriter bf, String name, String value) {
+        try {
+            bf.write(name+"="+value);
+            bf.newLine();
+            bf.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     //public int count = 0;
@@ -307,6 +446,17 @@ public  class ControllerTest implements Initializable{
         SettingsController settingsController = loader.getController();
         settingsController.SetTest(this);
 
+        settingsController.SetSettings(setting);
+
         stage.showAndWait();
+    }
+
+    public void SetSettigs(Setting setting) {
+        this.setting = setting;
+    }
+
+
+    public void BtnConnectAction(ActionEvent event) {
+        smsController.ConnectSMS();
     }
 }

@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
@@ -46,12 +48,20 @@ public class Controller implements Initializable {
         {
             Stage stage = (Stage) OkBut.getScene().getWindow();
             stage.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Test.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Test.fxml"));
+            Parent root = loader.load();
+            ControllerTest controllerTest = loader.getController();
             stage = new Stage();
-           // stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.WINDOW_MODAL);
 
+           // stage.setResizable(false);
+            stage.setTitle("ControlTest");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setOnHidden(event -> {
+
+                    controllerTest.shutdoun();
+
+            });
             //Parent root1 = FXMLLoader.load(getClass().getResource("/fxml/Test.fxml"));
             //stage = new Stage();
             // stage.setResizable(false);

@@ -129,7 +129,7 @@ public class ControllerPultMX implements Initializable {
         System.out.println("Start2");
         String[] portNames = SerialPortList.getPortNames();
         for(int i = 0; i < portNames.length; i++) {
-            System.out.println(portNames[i]);
+            //System.out.println(portNames[i]);
             ComboBoxPort.getItems().add(i,portNames[i] );
         }
         ComboBoxPort.getSelectionModel().select(0);
