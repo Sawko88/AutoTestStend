@@ -45,7 +45,8 @@ public  class ControllerTest extends Application implements Initializable {
     public Button btnSettings;
     public ToggleButton tbSms;
     public ToggleButton tbGprs;
-    public Button btnConnect;
+    //public Button btnConnect;
+    public ToggleButton tbConnect;
 
     private Setting setting = new Setting();
 
@@ -87,7 +88,21 @@ public  class ControllerTest extends Application implements Initializable {
 
         SmsQuipLoad();
         MyTbSmsListener();
+        MyTbConnectListener();
 
+    }
+
+    private void MyTbConnectListener() {
+        tbConnect.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (tbConnect.isSelected()){
+                    smsController.ConnectSMS();
+                } else {
+                    smsController.DisconnectSMS();
+                }
+            }
+        });
     }
 
     private void MyTbSmsListener() {
@@ -127,6 +142,7 @@ public  class ControllerTest extends Application implements Initializable {
         });
         smsController = loader.getController();
         smsController.SetControllerTest(this);
+        smsController.SetSettigs(setting);
 
     }
 
@@ -456,7 +472,7 @@ public  class ControllerTest extends Application implements Initializable {
     }
 
 
-    public void BtnConnectAction(ActionEvent event) {
+    /*public void BtnConnectAction(ActionEvent event) {
         smsController.ConnectSMS();
-    }
+    }*/
 }

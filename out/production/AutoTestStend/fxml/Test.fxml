@@ -65,11 +65,11 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Button fx:id="btnConnect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnConnectAction" prefHeight="35.0" prefWidth="35.0">
+            <ToggleButton fx:id="tbConnect" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
                <graphic>
                   <FontIcon iconColor="#dd5dd5" iconLiteral="mdi-wheelchair-accessibility" iconSize="26" />
                </graphic>
-            </Button>
+            </ToggleButton>
             <Button fx:id="btnInfo" layoutX="127.0" layoutY="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnInfoAction" prefHeight="35.0" prefWidth="35.0">
                <graphic>
                   <FontIcon iconColor="#0f90d1" iconLiteral="fa-info-circle" iconSize="26" />

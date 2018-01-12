@@ -42,6 +42,10 @@ public class SmsController extends Application implements Initializable {
     private boolean connected;
     private volatile boolean isAutoConnected;
 
+    private String ip="";
+    private Integer port=2015;
+    private String password="" ;
+
 
 
 
@@ -63,6 +67,13 @@ public class SmsController extends Application implements Initializable {
 
 
     private FxSocketClient socket;
+
+
+    public void SetSettigs(Setting setting) {
+        ip = setting.smsIp;
+        port = Integer.valueOf(setting.smsPort);
+        password = setting.smsPas;
+    }
 
     public void SetControllerTest(ControllerTest controllerTest) {
         this.controllerTest = controllerTest;
@@ -192,8 +203,8 @@ public class SmsController extends Application implements Initializable {
                 while (isAutoConnected) {
                     if (!isConnected()) {
                         socket = new FxSocketClient(new FxSocketListener(),
-                                "localhost",
-                                2015,
+                                ip,
+                                port,
                                 Constants.instance().DEBUG_NONE);
                         socket.connect();
                     }
