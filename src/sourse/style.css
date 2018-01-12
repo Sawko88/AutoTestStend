@@ -1,0 +1,14 @@
+.red {
+    -fx-font-size: 12pt;
+    -fx-fill: #dd1b24;
+}
+
+.green {
+    -fx-font-size: 12pt;
+    -fx-fill: "green";
+}
+
+.blue {
+    -fx-font-size: 12pt;
+    -fx-fill: "blue";
+}

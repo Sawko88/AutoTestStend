@@ -1,20 +1,19 @@
 package sourse;
 
-import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.fxmisc.flowless.VirtualizedScrollPane;
+import org.fxmisc.richtext.InlineCssTextArea;
+import org.fxmisc.richtext.StyleClassedTextArea;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URL;
@@ -29,8 +28,12 @@ public class SmsController extends Application implements Initializable {
 
     public TextField tfSend;
     public Button btClear;
-    public TextFlow tfMess;
-    public TextArea taMess;
+
+
+
+    public InlineCssTextArea ictam;
+
+    public GridPane grPane;
 
     ControllerTest controllerTest;
 
@@ -39,13 +42,16 @@ public class SmsController extends Application implements Initializable {
     private boolean connected;
     private volatile boolean isAutoConnected;
 
-    private static final int DEFAULT_RETRY_INTERVAL = 2000; // in milliseconds
+
 
 
 
     public enum ConnectionDisplayState {
 
         DISCONNECTED, ATTEMPTING, CONNECTED, AUTOCONNECTED, AUTOATTEMPTING
+    }
+    private enum MessangeSourse{
+        INF0, FROMSMS, TOSMS
     }
 
     public void DisconnectSMS() {
@@ -65,43 +71,41 @@ public class SmsController extends Application implements Initializable {
     public void BtSendAction(ActionEvent event) {
         if (!tfSend.getText().equals("")) {
             socket.sendMessage(tfSend.getText());
-            PrintText(tfSend.getText(), Color.BLUE);
-            PrintTextArea(tfSend.getText(), "--->");
+            PrintText(tfSend.getText(), Color.BLUE, MessangeSourse.TOSMS);
+
         }
 
     }
 
-    private void PrintTextArea(String text, String sim) {
+
+
+    private void PrintText(String text, Color color, MessangeSourse inf0) {
         String s;
         Format format;
         Date date = new Date();
         format = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
         s = format.format(date);
-        taMess.appendText(s+sim+text);
-        taMess.appendText("\r\n");
-    }
+        String colorText = null;
+        switch (inf0){
+            case INF0: s+= "---"+text+"\r\n"; colorText="-fx-fill: #945b85;"; break;
+            case TOSMS: s+= "-->"+text+"\r\n"; colorText="-fx-fill: #3f4fc9;";break;
+            case FROMSMS: s+= "<--"+text+"\r\n"; colorText="-fx-fill: #dd1b24;";break;
+            default: break;
 
-    private void PrintText(String text, Color color) {
-        String s;
-        Format format;
-        Date date = new Date();
-        format = new SimpleDateFormat("dd/MM/yyyy_HH:mm:ss");
-        s = format.format(date);
-
-        Text t = new Text();
-        t.setText(s+"-"+text+"\r\n");
-        t.setFill(color);
-        t.setFocusTraversable(true);
-        tfMess.getChildren().add(t);
+        }
 
 
+        ictam.appendText(s);
+        ictam.setStyle(ictam.getLength()-s.length()+1, ictam.getLength(), colorText);
 
+        ictam.moveTo(ictam.getLength());
+        ictam.requestFollowCaret();
 
     }
 
     public void BtClearAction(ActionEvent event) {
         //tfMess.re
-        tfMess.getChildren().clear();
+        ictam.clear();
     }
 
     @Override
@@ -111,12 +115,24 @@ public class SmsController extends Application implements Initializable {
         isAutoConnected = false;
         displayState(ConnectionDisplayState.DISCONNECTED);
         Runtime.getRuntime().addShutdownHook(new ShutDownThread());
-
+        ictam.setWrapText(true);
+        ictam.setEditable(false);
+        ictam.setFocusTraversable(false);
+        ictam.showParagraphAtBottom(ictam.getParagraphs().size() - 1);
+        VirtualizedScrollPane<InlineCssTextArea> vsPane = new VirtualizedScrollPane<>(ictam);
+        vsPane.setMaxWidth(Double.MAX_VALUE);
+        vsPane.setMaxHeight(Double.MAX_VALUE);
+        grPane.setVgrow(vsPane, Priority.ALWAYS);
+        grPane.setHgrow(vsPane, Priority.ALWAYS);
+        grPane.setMaxWidth(Double.MAX_VALUE);
+        grPane.setMaxHeight(Double.MAX_VALUE);
+        grPane.add(vsPane, 0, 0);
 
         System.out.println("Sms - run");
         //taMess.appendText("Begin\r\n");
-        PrintText("Begin", Color.GREEN);
-        PrintTextArea("Begin", "----");
+        PrintText("Begin", Color.GREEN, MessangeSourse.INF0);
+
+
 
     }
 
@@ -230,8 +246,8 @@ public class SmsController extends Application implements Initializable {
         public void onMessage(String line) {
             if (line != null && !line.equals("")) {
                 //rcvdMsgsData.add(line);
-                PrintText(line, Color.RED);
-                PrintTextArea(line, "<---");
+                PrintText(line, Color.RED, MessangeSourse.FROMSMS);
+
 
             }
         }
