@@ -208,6 +208,7 @@ public abstract class GenericSocket implements SocketListener {
      */
     public void sendMessage(String msg) {
         try {
+
             output.write(msg, 0, msg.length());
             output.newLine();
             output.flush();

@@ -97,6 +97,7 @@ public  class ControllerTest extends Application implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (tbConnect.isSelected()){
+                    smsController.SetSettigs(setting);
                     smsController.ConnectSMS();
                 } else {
                     smsController.DisconnectSMS();
@@ -154,6 +155,7 @@ public  class ControllerTest extends Application implements Initializable {
         File fileSet = new File("settingsControl.ini");
         if(!fileSet.exists()) {
             fileSet.createNewFile();
+
         } else {
             FileReader fileReader = new FileReader(fileSet);
             BufferedReader bufferedReader = new BufferedReader(fileReader);

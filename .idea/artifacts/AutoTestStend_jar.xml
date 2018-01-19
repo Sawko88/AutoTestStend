@@ -3,8 +3,13 @@
     <output-path>$PROJECT_DIR$/out/artifacts/AutoTestStend_jar</output-path>
     <root id="archive" name="AutoTestStend.jar">
       <element id="module-output" name="AutoTestStend" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/scream3r/jssc/2.8.0/jssc-2.8.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/jfoenix/jfoenix/1.9.1/jfoenix-1.9.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="com.jfoenix:jfoenix:1.9.1" />
+      <element id="library" level="project" name="org.controlsfx:controlsfx-samples:8.40.14" />
+      <element id="library" level="project" name="org.fxmisc.richtext:richtextfx:1.0.0-SNAPSHOT" />
+      <element id="library" level="project" name="org.kordamp.ikonli:ikonli-fontawesome-pack:2.1.0" />
+      <element id="library" level="project" name="org.kordamp.ikonli:ikonli-javafx:2.0.0" />
+      <element id="library" level="project" name="org.kordamp.ikonli:ikonli-materialdesign-pack:2.0.0" />
+      <element id="library" level="project" name="org.scream3r:jssc:2.8.0" />
     </root>
   </artifact>
 </component>

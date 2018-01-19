@@ -1,6 +1,7 @@
 package sourse;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -40,7 +42,7 @@ public class SmsController extends Application implements Initializable {
     private final static Logger LOGGER =  Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     private boolean connected;
-    private volatile boolean isAutoConnected;
+    private volatile boolean isAutoConnected = false;
 
     private String ip="";
     private Integer port=2015;
@@ -81,8 +83,12 @@ public class SmsController extends Application implements Initializable {
 
     public void BtSendAction(ActionEvent event) {
         if (!tfSend.getText().equals("")) {
-            socket.sendMessage(tfSend.getText());
-            PrintText(tfSend.getText(), Color.BLUE, MessangeSourse.TOSMS);
+            ARKAN ark = new ARKAN();
+            ark.setData(tfSend.getText());
+            ark = ark.setARKAN(ARKAN.SEND_SMS);
+
+            messSendList.add(new ArkanList( ark, true, 3));
+            //PrintText(tfSend.getText(), Color.BLUE, MessangeSourse.TOSMS);
 
         }
 
@@ -269,13 +275,18 @@ public class SmsController extends Application implements Initializable {
                 notifyDisconnected();
                 if (isAutoConnected) {
                     displayState(ConnectionDisplayState.AUTOATTEMPTING);
+                    StopAplication();
                 } else {
+                    StopAplication();
                     displayState(ConnectionDisplayState.DISCONNECTED);
+
                 }
             } else {
                 setIsConnected(true);
                 if (isAutoConnected) {
                     displayState(ConnectionDisplayState.AUTOCONNECTED);
+                    StartApplication();
+
                 } else {
                     displayState(ConnectionDisplayState.CONNECTED);
                 }
@@ -283,16 +294,121 @@ public class SmsController extends Application implements Initializable {
         }
     }
 
+    private void StopAplication() {
+        sendMessTState = false;
+
+    }
+
+    private Thread SendMessT;
+    private boolean sendMessTState = false;
+    private LinkedList<ArkanList> messSendList = new LinkedList<ArkanList>();
+
+    private Thread ResvMessT;
+    private boolean resvMessTState = false;
+    private LinkedList<ArkanList> messResvList = new LinkedList<ArkanList>();
+
+    private void StartApplication() {
+        sendMessTState = true;
+        SendMessT = new Thread(new SendMessThread());
+        SendMessT.start();
+        //updateDataState = true;
+        RegistrashionArkan();
+    }
+
+    private class SendMessThread implements Runnable {
+
+        private int counterTimeout = 11;
+
+        @Override
+        public void run() {
+            System.out.println("SendMessSMS- start\r\n");
+            while (sendMessTState){
+                if (!messSendList.isEmpty()) {
+                    int find = findConfitm();
+                    if (find >= 0) {
+                        String arkanMessConf = messSendList.get(find).arkan.mess;
+                        socket.sendMessage(arkanMessConf);
+                        messSendList.remove(find);
+
+                    }
+                }
+                if (!messSendList.isEmpty()) {
+
+                    ArkanList arksend = messSendList.getFirst();
+                    if (counterTimeout>10) {
+                        counterTimeout = 0;
+                        socket.sendMessage(arksend.arkan.mess);
+                        arksend.counter--;
+                    }
+                    counterTimeout++;
+                    if (arksend.counter<1){
+                        Platform.runLater(() -> {
+                            PrintText("Error Send Mess "+arksend.arkan.mess, Color.GREEN, MessangeSourse.INF0);
+                        });
+                        messSendList.removeFirst();
+                        counterTimeout = 11;
+                    }
+                    if (arksend.confirm) {
+
+                        Platform.runLater(() -> {
+                            PrintText(arksend.arkan.mess, Color.BLUE, MessangeSourse.TOSMS);
+                        });
+                        messSendList.removeFirst();
+                        counterTimeout = 11;
+                    }
+                }
+
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("SendMessSMS- stop\r\n");
+
+        }
+
+
+
+
+
+    }
+    private int findConfitm() {
+        int find = -1;
+        if (!messSendList.isEmpty()){
+            //System.out.println("size SendList= "+messSendList.size()+"\r\n");
+            for (int i=0 ; i< messSendList.size();i++){
+                if (messSendList.get(i).arkan.code == ARKAN.STATUS){
+                    find = i;
+                    break;
+                }
+
+            }
+
+        }
+        return find;
+    }
+
     public void ConnectSMS() {
 
         isAutoConnected = true;
         if (isConnected()) {
-            displayState(ConnectionDisplayState.AUTOCONNECTED);
+            //displayState(ConnectionDisplayState.AUTOCONNECTED);
         } else {
-            displayState(ConnectionDisplayState.AUTOATTEMPTING);
+            //displayState(ConnectionDisplayState.AUTOATTEMPTING);
             autoConnect();
         }
 
+
+    }
+    public ARKAN arkan = new ARKAN();
+    private void RegistrashionArkan() {
+        arkan.setPassword(password);
+        arkan = arkan.setARKAN(ARKAN.INITIALIZATION);
+        if (isConnected()) {
+            messSendList.add(new ArkanList(arkan,false, 3));
+        }
     }
 
    /* @FXML
