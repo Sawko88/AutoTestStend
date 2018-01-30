@@ -263,7 +263,7 @@ public class SmsController extends Application implements Initializable {
         public void onMessage(String line) {
             if (line != null && !line.equals("")) {
                 //rcvdMsgsData.add(line);
-                PrintText(line, Color.RED, MessangeSourse.FROMSMS);
+                messResvList.add(line);
 
 
             }
@@ -296,6 +296,7 @@ public class SmsController extends Application implements Initializable {
 
     private void StopAplication() {
         sendMessTState = false;
+        resvMessTState = false;
 
     }
 
@@ -305,19 +306,46 @@ public class SmsController extends Application implements Initializable {
 
     private Thread ResvMessT;
     private boolean resvMessTState = false;
-    private LinkedList<ArkanList> messResvList = new LinkedList<ArkanList>();
+    public LinkedList<String> messResvList = new LinkedList<String>();
 
     private void StartApplication() {
         sendMessTState = true;
         SendMessT = new Thread(new SendMessThread());
         SendMessT.start();
+
+        resvMessTState = true;
+        ResvMessT = new Thread(new ResvMessthread());
+        ResvMessT.start();
         //updateDataState = true;
         RegistrashionArkan();
     }
 
+    private class ResvMessthread implements Runnable {
+
+        @Override
+        public void run() {
+            System.out.println("ResvMessSMS- start\r\n");
+            while (resvMessTState){
+                if (!messResvList.isEmpty()){
+                    String mess = messResvList.get(0);
+                    Platform.runLater(() -> {
+                        PrintText(mess, Color.RED, MessangeSourse.FROMSMS);
+                    });
+                    messResvList.remove(0);
+                }
+
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     private class SendMessThread implements Runnable {
 
-        private int counterTimeout = 11;
+        private int counterTimeout = 110;
 
         @Override
         public void run() {
@@ -335,7 +363,7 @@ public class SmsController extends Application implements Initializable {
                 if (!messSendList.isEmpty()) {
 
                     ArkanList arksend = messSendList.getFirst();
-                    if (counterTimeout>10) {
+                    if (counterTimeout>100) {
                         counterTimeout = 0;
                         socket.sendMessage(arksend.arkan.mess);
                         arksend.counter--;
@@ -346,7 +374,7 @@ public class SmsController extends Application implements Initializable {
                             PrintText("Error Send Mess "+arksend.arkan.mess, Color.GREEN, MessangeSourse.INF0);
                         });
                         messSendList.removeFirst();
-                        counterTimeout = 11;
+                        counterTimeout = 110;
                     }
                     if (arksend.confirm) {
 
@@ -410,6 +438,8 @@ public class SmsController extends Application implements Initializable {
             messSendList.add(new ArkanList(arkan,false, 3));
         }
     }
+
+
 
    /* @FXML
     private void handleSendMessageButton(ActionEvent event) {
