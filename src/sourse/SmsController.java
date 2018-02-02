@@ -85,9 +85,10 @@ public class SmsController extends Application implements Initializable {
         if (!tfSend.getText().equals("")) {
             ARKAN ark = new ARKAN();
             ark.setData(tfSend.getText());
+            ark.setLogNum(controllerTest.tfLogNum.getText());
             ark = ark.setARKAN(ARKAN.SEND_SMS);
 
-            messSendList.add(new ArkanList( ark, true, 3));
+            messSendList.add(new ArkanList( ark, false, 3));
             //PrintText(tfSend.getText(), Color.BLUE, MessangeSourse.TOSMS);
 
         }
@@ -96,7 +97,7 @@ public class SmsController extends Application implements Initializable {
 
 
 
-    private void PrintText(String text, Color color, MessangeSourse inf0) {
+    private void PrintText(String text,  MessangeSourse inf0) {
         String s;
         Format format;
         Date date = new Date();
@@ -147,7 +148,7 @@ public class SmsController extends Application implements Initializable {
 
         System.out.println("Sms - run");
         //taMess.appendText("Begin\r\n");
-        PrintText("Begin", Color.GREEN, MessangeSourse.INF0);
+        PrintText("Begin",  MessangeSourse.INF0);
 
 
 
@@ -211,12 +212,12 @@ public class SmsController extends Application implements Initializable {
                         socket = new FxSocketClient(new FxSocketListener(),
                                 ip,
                                 port,
-                                Constants.instance().DEBUG_NONE);
+                                Constants.instance().DEBUG_ALL);
                         socket.connect();
                     }
                     waitForDisconnect();
                     try {
-                        Thread.sleep(2 * 1000);//таймаут переподключения
+                        Thread.sleep(10 * 1000);//таймаут переподключения
                     } catch (InterruptedException ex) {
                     }
                 }
@@ -260,10 +261,17 @@ public class SmsController extends Application implements Initializable {
     class FxSocketListener implements SocketListener {
 
         @Override
-        public void onMessage(String line) {
-            if (line != null && !line.equals("")) {
+        public void onMessage(byte[] line, Integer size) {
+
                 //rcvdMsgsData.add(line);
-                messResvList.add(line);
+                StringBuilder sb = new StringBuilder();
+                for (int i=0; i< size; i++) {
+                    sb.append(String.format("%02X", line[i]));
+
+                }
+                String string = sb.toString();
+            if (string != null && !string.equals("")) {
+                messResvList.add(string);
 
 
             }
@@ -328,10 +336,50 @@ public class SmsController extends Application implements Initializable {
             while (resvMessTState){
                 if (!messResvList.isEmpty()){
                     String mess = messResvList.get(0);
-                    Platform.runLater(() -> {
+
+                    ARKAN arkanResv = ARKAN.parserArkan(mess);
+                    if (arkanResv.id == ARKAN.ID) {
+                        switch (arkanResv.code) {
+                            case ARKAN.STATUS:
+                                int seach = findMessToConfirm(arkanResv.statuscode, arkanResv.statuscounter);
+                                if (seach >= 0) {
+                                    if (arkanResv.statusmess == 0) {
+                                        messSendList.get(seach).confirm = true;
+                                        messResvList.remove(0);
+                                    } else {
+                                        messResvList.remove(0);
+                                        Platform.runLater(() -> {
+                                            PrintText("Сообщение не подтверждено",  MessangeSourse.INF0);
+                                        });
+
+                                    }
+                                } else {
+                                    messResvList.remove(0);
+                                    Platform.runLater(() -> {
+                                        PrintText("Не нашлось подтверждение",  MessangeSourse.INF0);
+                                    });
+                                }
+                                break;
+                            case ARKAN.RECEIVED_SMS:
+                                Platform.runLater(() -> {
+                                    PrintText(arkanResv.data,  MessangeSourse.FROMSMS);
+                                });
+                                messResvList.remove(0);
+                                break;
+                            default:
+                                Platform.runLater(() -> {
+                                    PrintText("Непонятное сообщение",  MessangeSourse.INF0);
+                                });
+                                messResvList.remove(0);
+                                break;
+
+                        }
+                    }
+
+                    /*Platform.runLater(() -> {
                         PrintText(mess, Color.RED, MessangeSourse.FROMSMS);
-                    });
-                    messResvList.remove(0);
+                    });*/
+                   //messResvList.remove(0);
                 }
 
 
@@ -343,9 +391,25 @@ public class SmsController extends Application implements Initializable {
             }
         }
     }
+
+    private int findMessToConfirm(Integer code, Integer counter) {
+        int seach = 0;
+
+        for (int i =0 ; i<messSendList.size();i++){
+            ArkanList arkanList = messSendList.get(i);
+            if (arkanList.arkan.counterCure == counter){
+                seach = i;
+                break;
+            }else {
+                seach= -1;
+            }
+        }
+        return seach;
+    }
+
     private class SendMessThread implements Runnable {
 
-        private int counterTimeout = 110;
+        private int counterTimeout = 50;
 
         @Override
         public void run() {
@@ -355,15 +419,19 @@ public class SmsController extends Application implements Initializable {
                     int find = findConfitm();
                     if (find >= 0) {
                         String arkanMessConf = messSendList.get(find).arkan.mess;
-                        socket.sendMessage(arkanMessConf);
+                        if(isConnected()) {
+                            socket.sendMessage(arkanMessConf);
+                        }
                         messSendList.remove(find);
 
                     }
                 }
                 if (!messSendList.isEmpty()) {
-
                     ArkanList arksend = messSendList.getFirst();
-                    if (counterTimeout>100) {
+                    //socket.sendMessage(arksend.arkan.mess);
+                    //messSendList.removeFirst();
+
+                    if (counterTimeout>=50) {
                         counterTimeout = 0;
                         socket.sendMessage(arksend.arkan.mess);
                         arksend.counter--;
@@ -371,18 +439,19 @@ public class SmsController extends Application implements Initializable {
                     counterTimeout++;
                     if (arksend.counter<1){
                         Platform.runLater(() -> {
-                            PrintText("Error Send Mess "+arksend.arkan.mess, Color.GREEN, MessangeSourse.INF0);
+                            PrintText("Error Send Mess "+arksend.arkan.mess,  MessangeSourse.INF0);
                         });
                         messSendList.removeFirst();
-                        counterTimeout = 110;
+                        counterTimeout = 50;
                     }
                     if (arksend.confirm) {
-
-                        Platform.runLater(() -> {
-                            PrintText(arksend.arkan.mess, Color.BLUE, MessangeSourse.TOSMS);
-                        });
+                        if (arksend.arkan.code == ARKAN.SEND_SMS ){
+                            Platform.runLater(() -> {
+                                PrintText(arksend.arkan.data, MessangeSourse.TOSMS);
+                            });
+                        }
                         messSendList.removeFirst();
-                        counterTimeout = 11;
+                        counterTimeout = 50;
                     }
                 }
 
@@ -430,13 +499,23 @@ public class SmsController extends Application implements Initializable {
 
 
     }
-    public ARKAN arkan = new ARKAN();
+    //public ARKAN arkan = new ARKAN();
     private void RegistrashionArkan() {
-        arkan.setPassword(password);
-        arkan = arkan.setARKAN(ARKAN.INITIALIZATION);
+        ARKAN arkanInit = new ARKAN();
+        arkanInit.setPassword(password);
+        arkanInit = arkanInit.setARKAN(ARKAN.INITIALIZATION);
         if (isConnected()) {
-            messSendList.add(new ArkanList(arkan,false, 3));
+            messSendList.add(new ArkanList(arkanInit,false, 3));
         }
+
+        ARKAN arkanPrior = new ARKAN();
+        arkanPrior = arkanPrior.setARKAN(ARKAN.PRIORITY);
+        messSendList.add(new ArkanList(arkanPrior, false,3));
+
+        ARKAN arkanDev = new ARKAN();
+        arkanDev.setLogNum(controllerTest.tfLogNum.getText());
+        arkanDev = arkanDev.setARKAN(ARKAN.TRANSFER_NUMDER_FONE);
+        messSendList.add(new ArkanList(arkanDev, false,3));
     }
 
 

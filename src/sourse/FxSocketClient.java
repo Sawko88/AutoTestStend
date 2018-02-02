@@ -50,11 +50,11 @@ public class FxSocketClient extends GenericSocket
      * @param line Line of text read from the socket.
      */
     @Override
-    public void onMessage(final String line) {
+    public void onMessage(final byte[] line, final Integer size) {
         javafx.application.Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                fxListener.onMessage(line);
+                fxListener.onMessage(line, size);
             }
         });
     }

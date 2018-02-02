@@ -31,6 +31,9 @@
 
 package sourse;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
+
+import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.lang.invoke.MethodHandles;
 import java.net.Socket;
@@ -208,10 +211,19 @@ public abstract class GenericSocket implements SocketListener {
      */
     public void sendMessage(String msg) {
         try {
+            if (socketConnection.isConnected()) {
+                socketConnection.getOutputStream().write(DatatypeConverter.parseHexBinary(msg));
+            }
+            //socketConnection.getOutputStream().
+            //socketConnection.getOutputStream().flush();
 
-            output.write(msg, 0, msg.length());
-            output.newLine();
-            output.flush();
+            //output.write(DatatypeConverter.parseHexBinary(msg));
+            //msg = convertHexToString(msg);
+            //output.write(msg, 0, msg.length());
+
+
+            //output.newLine();
+            //output.flush();
             if (debugFlagIsSet(Constants.instance().DEBUG_SEND)) {
                 String logMsg = "send> " + msg;
                 LOGGER.info(logMsg);
@@ -222,6 +234,8 @@ public abstract class GenericSocket implements SocketListener {
             }
         }
     }
+
+
 
     class SetupThread extends Thread {
 
@@ -277,21 +291,33 @@ public abstract class GenericSocket implements SocketListener {
              * Read from from input stream one line at a time
              */
             try {
-                if (input != null) {
-                    String line;
-                    while ((line = input.readLine()) != null) {
-                        if (debugFlagIsSet(Constants.instance().DEBUG_RECV)) {
-                            String logMsg = "recv> " + line;
+                while (true) {//(line = input.readLine()) != null
+                    //if (socketConnection.isConnected()) {
+                        byte buf[] = new byte[255];
+                        int r = socketConnection.getInputStream().read(buf);
+                        //System.out.println("out = "+ DatatypeConverter.printHexBinary(buf));
+
+                        //String line = new String(buf, 0, r);
+                    /*StringBuilder sb = new StringBuilder();
+                    for (int i=0; i< r; i++) {
+                        sb.append(String.format("%02X", buf[i]));
+
+                    }
+                    String line = sb.toString();*/
+                        //String line = new String(HexBin.encode(buf));
+                        /*if (debugFlagIsSet(Constants.instance().DEBUG_RECV)) {
+                            String logMsg = "recv> " + buf;
                             LOGGER.info(logMsg);
-                        }
+                        }*/
                         /*
                          * The onMessage() method has to be implemented by
                          * a sublclass.  If used in conjunction with JavaFX,
                          * use Platform.runLater() to force this method to run
                          * on the main thread.
                          */
-                        onMessage(line);
-                    }
+                        onMessage(buf, r);
+                    //}
+
                 }
             } catch (IOException e) {
                 if (debugFlagIsSet(Constants.instance().DEBUG_EXCEPTIONS)) {

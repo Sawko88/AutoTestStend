@@ -60,7 +60,7 @@
                   </Glyph>
                </graphic>
             </ToggleButton>
-            <TextField prefHeight="31.0" prefWidth="123.0">
+            <TextField fx:id="tfLogNum" prefHeight="31.0" prefWidth="123.0">
                <font>
                   <Font size="15.0" />
                </font>

@@ -32,6 +32,6 @@
 package sourse;
 
 public interface SocketListener {
-    public void onMessage(String line);
+    public void onMessage(byte[] line, Integer size);
     public void onClosedStatus(boolean isClosed);
 }

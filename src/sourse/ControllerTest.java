@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseDragEvent;
@@ -47,6 +48,7 @@ public  class ControllerTest extends Application implements Initializable {
     public ToggleButton tbGprs;
     //public Button btnConnect;
     public ToggleButton tbConnect;
+    public TextField tfLogNum;
 
     private Setting setting = new Setting();
 
