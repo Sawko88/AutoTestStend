@@ -39,37 +39,92 @@ public class SmsController extends Application implements Initializable {
 
     ControllerTest controllerTest;
 
-    private final static Logger LOGGER =  Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
-
-    private boolean connected;
-    private volatile boolean isAutoConnected = false;
 
     private String ip="";
     private Integer port=2015;
     private String password="" ;
 
-
-
-
-
-    public enum ConnectionDisplayState {
-
-        DISCONNECTED, ATTEMPTING, CONNECTED, AUTOCONNECTED, AUTOATTEMPTING
-    }
-    private enum MessangeSourse{
-        INF0, FROMSMS, TOSMS
-    }
-
-    public void DisconnectSMS() {
-        if(isConnected()) {
-            isAutoConnected = false;
-            socket.shutdown();
+    public void setDisconnect(boolean disconnect) {
+        this.disconectWasBe = disconnect;
+        if (this.disconectWasBe){
+            statusCon = statusConnect.INITPROG;
+            StopAplication();
         }
     }
 
 
-    private FxSocketClient socket;
+    public enum MessangeSourse{
+        INF0, FROMSMS, TOSMS
+    }
 
+    public MySocket mySocket = new MySocket();
+
+    private Thread autoConnectThread;
+
+    public void ConnectSMS() {
+        autoConnectThread = new AutoConnectThread();
+        autoConnectThread.start();
+
+        //mySocket.setAutoCon(true);
+        //mySocket.autoConnect();
+    }
+
+    public enum statusConnect {
+
+        SOCKETINIT, INITPROG, PRIORINIT, INITDEV
+    }
+
+    statusConnect statusCon = statusConnect.SOCKETINIT;
+    private boolean disconectWasBe = true;
+
+    private class AutoConnectThread extends Thread implements Runnable {
+        @Override
+        public void run() {
+            while (controllerTest.tbConnect.isSelected()){
+
+                switch (statusCon){
+                    case SOCKETINIT:
+
+                            mySocket.setParam(ip, port);
+                            mySocket.setAutoCon( true);
+                            mySocket.autoConnect();
+                            statusCon = statusConnect.INITPROG;
+
+                        break;
+                    case INITPROG:
+                        if (mySocket.isConnected()){
+                            if (disconectWasBe){
+
+                                System.out.println("disconectWasBe");
+                                disconectWasBe = false;
+                                StartApplication();
+                                ARKAN arkanInit = new ARKAN();
+                                arkanInit.setPassword(password);
+                                arkanInit = arkanInit.setARKAN(ARKAN.INITIALIZATION);
+                                //if (isConnected()) {
+                                messSendList.add(new ArkanList(arkanInit,false, 3));
+                                //statusCon=statusConnect.PRIORINIT;
+                            }
+                        }
+                        break;
+                    case PRIORINIT:
+                        break;
+                    case INITDEV:
+                        break;
+                    default: break;
+                }
+
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void DisconnectSMS() {
+    }
 
     public void SetSettigs(Setting setting) {
         ip = setting.smsIp;
@@ -97,7 +152,7 @@ public class SmsController extends Application implements Initializable {
 
 
 
-    private void PrintText(String text,  MessangeSourse inf0) {
+    public void PrintText(String text,  MessangeSourse inf0) {
         String s;
         Format format;
         Date date = new Date();
@@ -129,10 +184,10 @@ public class SmsController extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setIsConnected(false);
-        isAutoConnected = false;
-        displayState(ConnectionDisplayState.DISCONNECTED);
-        Runtime.getRuntime().addShutdownHook(new ShutDownThread());
+        //setIsConnected(false);
+        //isAutoConnected = false;
+       // displayState(ConnectionDisplayState.DISCONNECTED);
+
         ictam.setWrapText(true);
         ictam.setEditable(false);
         ictam.setFocusTraversable(false);
@@ -150,6 +205,8 @@ public class SmsController extends Application implements Initializable {
         //taMess.appendText("Begin\r\n");
         PrintText("Begin",  MessangeSourse.INF0);
 
+        mySocket.setParent(this);
+
 
 
     }
@@ -159,148 +216,7 @@ public class SmsController extends Application implements Initializable {
         //System.out.println("Sms - run");
     }
 
-    /*
-     * Synchronized method set up to wait until there is no socket connection.
-     * When notifyDisconnected() is called, waiting will cease.
-     */
-    private synchronized void waitForDisconnect() {
-        while (connected) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-            }
-        }
-    }
 
-    /*
-     * Synchronized method responsible for notifying waitForDisconnect()
-     * method that it's OK to stop waiting.
-     */
-    private synchronized void notifyDisconnected() {
-        connected = false;
-        notifyAll();
-    }
-
-    /*
-     * Synchronized method to set isConnected boolean
-     */
-    private synchronized void setIsConnected(boolean connected) {
-        this.connected = connected;
-    }
-
-    /*
-     * Synchronized method to check for value of connected boolean
-     */
-    private synchronized boolean isConnected() {
-        return (connected);
-    }
-
-    private void connect() {
-        socket = new FxSocketClient(new FxSocketListener(),
-                "localhost",
-                2015,
-                Constants.instance().DEBUG_NONE);
-        socket.connect();
-    }
-
-    private void autoConnect() {
-        new Thread() {
-            @Override
-            public void run() {
-                while (isAutoConnected) {
-                    if (!isConnected()) {
-                        socket = new FxSocketClient(new FxSocketListener(),
-                                ip,
-                                port,
-                                Constants.instance().DEBUG_ALL);
-                        socket.connect();
-                    }
-                    waitForDisconnect();
-                    try {
-                        Thread.sleep(10 * 1000);//таймаут переподключения
-                    } catch (InterruptedException ex) {
-                    }
-                }
-            }
-        }.start();
-    }
-
-    private void displayState(ConnectionDisplayState state) {
-        switch (state) {
-            case DISCONNECTED:
-                System.out.println("socket-DISCONNECTED");
-                break;
-            case ATTEMPTING:
-                System.out.println("socket-ATTEMPTING");
-            case AUTOATTEMPTING:
-                System.out.println("socket-AUTOATTEMPTING");
-                break;
-            case CONNECTED:
-                System.out.println("socket-CONNECTED");
-                break;
-            case AUTOCONNECTED:
-                System.out.println("socket-AUTOCONNECTED");
-                break;
-        }
-    }
-
-
-    class ShutDownThread extends Thread {
-
-        @Override
-        public void run() {
-            if (socket != null) {
-                if (socket.debugFlagIsSet(Constants.instance().DEBUG_STATUS)) {
-                    LOGGER.info("ShutdownHook: Shutting down Server Socket");
-                }
-                socket.shutdown();
-            }
-        }
-    }
-
-    class FxSocketListener implements SocketListener {
-
-        @Override
-        public void onMessage(byte[] line, Integer size) {
-
-                //rcvdMsgsData.add(line);
-                StringBuilder sb = new StringBuilder();
-                for (int i=0; i< size; i++) {
-                    sb.append(String.format("%02X", line[i]));
-
-                }
-                String string = sb.toString();
-            if (string != null && !string.equals("")) {
-                messResvList.add(string);
-
-
-            }
-        }
-
-        @Override
-        public void onClosedStatus(boolean isClosed) {
-            if (isClosed) {
-                notifyDisconnected();
-                if (isAutoConnected) {
-                    displayState(ConnectionDisplayState.AUTOATTEMPTING);
-                    StopAplication();
-                } else {
-                    StopAplication();
-                    displayState(ConnectionDisplayState.DISCONNECTED);
-
-                }
-            } else {
-                setIsConnected(true);
-                if (isAutoConnected) {
-                    displayState(ConnectionDisplayState.AUTOCONNECTED);
-                    StartApplication();
-
-                } else {
-                    displayState(ConnectionDisplayState.CONNECTED);
-                }
-            }
-        }
-    }
 
     private void StopAplication() {
         sendMessTState = false;
@@ -310,7 +226,7 @@ public class SmsController extends Application implements Initializable {
 
     private Thread SendMessT;
     private boolean sendMessTState = false;
-    private LinkedList<ArkanList> messSendList = new LinkedList<ArkanList>();
+    public LinkedList<ArkanList> messSendList = new LinkedList<ArkanList>();
 
     private Thread ResvMessT;
     private boolean resvMessTState = false;
@@ -325,7 +241,7 @@ public class SmsController extends Application implements Initializable {
         ResvMessT = new Thread(new ResvMessthread());
         ResvMessT.start();
         //updateDataState = true;
-        RegistrashionArkan();
+       // RegistrashionArkan();
     }
 
     private class ResvMessthread implements Runnable {
@@ -374,6 +290,11 @@ public class SmsController extends Application implements Initializable {
                                 break;
 
                         }
+                    } else {
+                        Platform.runLater(() -> {
+                            PrintText("Непонятное сообщение "+ arkanResv.data ,  MessangeSourse.INF0);
+                        });
+                        messResvList.remove(0);
                     }
 
                     /*Platform.runLater(() -> {
@@ -419,9 +340,9 @@ public class SmsController extends Application implements Initializable {
                     int find = findConfitm();
                     if (find >= 0) {
                         String arkanMessConf = messSendList.get(find).arkan.mess;
-                        if(isConnected()) {
-                            socket.sendMessage(arkanMessConf);
-                        }
+                       // if(isConnected()) {
+                            mySocket.SendMEss(arkanMessConf);
+                        //}
                         messSendList.remove(find);
 
                     }
@@ -433,7 +354,8 @@ public class SmsController extends Application implements Initializable {
 
                     if (counterTimeout>=50) {
                         counterTimeout = 0;
-                        socket.sendMessage(arksend.arkan.mess);
+                        //mySocket.socket.sendMessage(arksend.arkan.mess);
+                        mySocket.SendMEss(arksend.arkan.mess);
                         arksend.counter--;
                     }
                     counterTimeout++;
@@ -487,26 +409,14 @@ public class SmsController extends Application implements Initializable {
         return find;
     }
 
-    public void ConnectSMS() {
 
-        isAutoConnected = true;
-        if (isConnected()) {
-            //displayState(ConnectionDisplayState.AUTOCONNECTED);
-        } else {
-            //displayState(ConnectionDisplayState.AUTOATTEMPTING);
-            autoConnect();
-        }
-
-
-    }
-    //public ARKAN arkan = new ARKAN();
     private void RegistrashionArkan() {
         ARKAN arkanInit = new ARKAN();
         arkanInit.setPassword(password);
         arkanInit = arkanInit.setARKAN(ARKAN.INITIALIZATION);
-        if (isConnected()) {
+        //if (isConnected()) {
             messSendList.add(new ArkanList(arkanInit,false, 3));
-        }
+        //}
 
         ARKAN arkanPrior = new ARKAN();
         arkanPrior = arkanPrior.setARKAN(ARKAN.PRIORITY);
@@ -518,43 +428,6 @@ public class SmsController extends Application implements Initializable {
         messSendList.add(new ArkanList(arkanDev, false,3));
     }
 
-
-
-   /* @FXML
-    private void handleSendMessageButton(ActionEvent event) {
-        if (!sendTextField.getText().equals("")) {
-            socket.sendMessage(sendTextField.getText());
-            sentMsgsData.add(sendTextField.getText());
-        }
-    }*/
-
-    /*@FXML
-    private void handleConnectButton(ActionEvent event) {
-        displayState(ConnectionDisplayState.ATTEMPTING);
-        connect();
-    }*/
-
-
-
-    /*@FXML
-    private void handleAutoConnectCheckBox(ActionEvent event) {
-        if (autoConnectCheckBox.isSelected()) {
-            isAutoConnected = true;
-            if (isConnected()) {
-                displayState(ConnectionDisplayState.AUTOCONNECTED);
-            } else {
-                displayState(ConnectionDisplayState.AUTOATTEMPTING);
-                autoConnect();
-            }
-        } else {
-            isAutoConnected = false;
-            if (isConnected()) {
-                displayState(ConnectionDisplayState.CONNECTED);
-            } else {
-                displayState(ConnectionDisplayState.DISCONNECTED);
-            }
-        }
-    }*/
 
 
 }

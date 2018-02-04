@@ -50,11 +50,11 @@ public class FxSocketClient extends GenericSocket
      * @param line Line of text read from the socket.
      */
     @Override
-    public void onMessage(final byte[] line, final Integer size) {
+    public void onMessage(final String line) {
         javafx.application.Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                fxListener.onMessage(line, size);
+                fxListener.onMessage(line);
             }
         });
     }
@@ -71,6 +71,7 @@ public class FxSocketClient extends GenericSocket
         javafx.application.Platform.runLater(new Runnable() {
             @Override
             public void run() {
+
                 fxListener.onClosedStatus(isClosed);
             }
         });
@@ -85,6 +86,7 @@ public class FxSocketClient extends GenericSocket
     protected void initSocketConnection() throws SocketException {
         try {
             socketConnection = new Socket();
+
             /*
              * Allows the socket to be bound even though a previous
              * connection is in a timeout state.
@@ -98,6 +100,8 @@ public class FxSocketClient extends GenericSocket
                 System.out.println("Connected to " + host
                         + "at port " + port);
             }
+
+
         } catch (IOException e) {
             if (debugFlagIsSet(Constants.instance().DEBUG_EXCEPTIONS)) {
                 e.printStackTrace();

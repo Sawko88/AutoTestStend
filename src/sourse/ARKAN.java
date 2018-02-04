@@ -112,9 +112,9 @@ public class ARKAN {
         /*for (byte b : messB) {
             System.out.format("0x%x ", b);
         }*/
-        System.out.println("\n\r");
+        //System.out.println("\n\r");
         mess =  new String(HexBin.encode(messB));
-        System.out.println(mess);
+        //System.out.println(mess);
 
         return this;
     }
@@ -169,10 +169,10 @@ public class ARKAN {
             bytesbuf[i] = byteBB[(byteBB.length-1)-i];
         }
 
-        for (byte b : bytesbuf) {
+       /* for (byte b : bytesbuf) {
             System.out.format("0x%x ", b);
         }
-        System.out.println("\n\r");
+        System.out.println("\n\r");*/
 
         return bytesbuf;
     }
@@ -242,32 +242,37 @@ public class ARKAN {
         }
         System.out.println("\n\r");
         arkan.id = getIntegerFromByte(bytes, 2, 0);
-        arkan.idsize = getIntegerFromByte(bytes, 2 , 2);
-        arkan.dataSize = getIntegerFromByte(bytes,2,4);
-        arkan.code = getIntegerFromByte(bytes,2,0x0E);
-        arkan.dataMess = mess.substring(36, mess.length());
-        switch (arkan.code) {
-            case ARKAN.STATUS:
-                byte[] bytedata = hexStringToByteArray(arkan.dataMess);
-                arkan.statuscode = getIntegerFromByte(bytedata, 2, 2);
-                arkan.statuscounter = getIntegerFromByte(bytedata, 2, 0);
-                arkan.statusmess = getIntegerFromByte(bytedata, 1, 4);
-                break;
-            case ARKAN.RECEIVED_SMS:
-                String channelRes = arkan.dataMess.substring(0,2);
-                byte[] channelB = hexStringToByteArray(channelRes);
-                arkan.chennal = getIntegerFromByte(channelB,1,0);
-                String numberDevRes = arkan.dataMess.substring(18,20);
-                byte[] numberDevResB = hexStringToByteArray(numberDevRes);
-                Integer numberDevResInt = getIntegerFromByte(numberDevResB,1,0)*2;
-                String numberDataResS = arkan.dataMess.substring(20+numberDevResInt, 22+numberDevResInt);
-                byte[] numberDataResB = hexStringToByteArray(numberDataResS);
-                Integer numberDataResInt = getIntegerFromByte(numberDataResB,1,0)*2;
-                String DataResS = arkan.dataMess.substring(22+numberDevResInt,22+numberDevResInt+numberDataResInt );
-                arkan.data = getStringFromStringHex(DataResS);
-                break;
-            default: break;
+        if (arkan.id == ARKAN.ID) {
+            arkan.idsize = getIntegerFromByte(bytes, 2, 2);
+            arkan.dataSize = getIntegerFromByte(bytes, 2, 4);
+            arkan.code = getIntegerFromByte(bytes, 2, 0x0E);
+            arkan.dataMess = mess.substring(36, mess.length());
+            switch (arkan.code) {
+                case ARKAN.STATUS:
+                    byte[] bytedata = hexStringToByteArray(arkan.dataMess);
+                    arkan.statuscode = getIntegerFromByte(bytedata, 2, 2);
+                    arkan.statuscounter = getIntegerFromByte(bytedata, 2, 0);
+                    arkan.statusmess = getIntegerFromByte(bytedata, 1, 4);
+                    break;
+                case ARKAN.RECEIVED_SMS:
+                    String channelRes = arkan.dataMess.substring(0, 2);
+                    byte[] channelB = hexStringToByteArray(channelRes);
+                    arkan.chennal = getIntegerFromByte(channelB, 1, 0);
+                    String numberDevRes = arkan.dataMess.substring(18, 20);
+                    byte[] numberDevResB = hexStringToByteArray(numberDevRes);
+                    Integer numberDevResInt = getIntegerFromByte(numberDevResB, 1, 0) * 2;
+                    String numberDataResS = arkan.dataMess.substring(20 + numberDevResInt, 22 + numberDevResInt);
+                    byte[] numberDataResB = hexStringToByteArray(numberDataResS);
+                    Integer numberDataResInt = getIntegerFromByte(numberDataResB, 1, 0) * 2;
+                    String DataResS = arkan.dataMess.substring(22 + numberDevResInt, 22 + numberDevResInt + numberDataResInt);
+                    arkan.data = getStringFromStringHex(DataResS);
+                    break;
+                default:
+                    break;
 
+            }
+        } else {
+            arkan.data = mess;
         }
         return arkan;
     }

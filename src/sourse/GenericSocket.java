@@ -49,9 +49,12 @@ public abstract class GenericSocket implements SocketListener {
     protected Socket socketConnection = null;
     private BufferedWriter output = null;
     private BufferedReader input = null;
+    private DataOutputStream out = null;
+    private DataInputStream in = null;
     private boolean ready = false;
     private Thread socketReaderThread;
     private Thread setupThread;
+    private  Thread socketConnectThread;
     private int debugFlags;
     
     /**
@@ -106,6 +109,8 @@ public abstract class GenericSocket implements SocketListener {
              */
             socketReaderThread = new SocketReaderThread();
             socketReaderThread.start();
+
+
         } catch (Exception e) {
             if (debugFlagIsSet(Constants.instance().DEBUG_EXCEPTIONS)) {
                 LOGGER.info(e.getMessage());
@@ -212,7 +217,11 @@ public abstract class GenericSocket implements SocketListener {
     public void sendMessage(String msg) {
         try {
             if (socketConnection.isConnected()) {
-                socketConnection.getOutputStream().write(DatatypeConverter.parseHexBinary(msg));
+                //socketConnection.getOutputStream().write(DatatypeConverter.parseHexBinary(msg));
+                out.write(DatatypeConverter.parseHexBinary(msg));
+               // out.flush();
+                //output.write("+++\r\n");
+                System.out.println(msg);
             }
             //socketConnection.getOutputStream().
             //socketConnection.getOutputStream().flush();
@@ -247,10 +256,15 @@ public abstract class GenericSocket implements SocketListener {
                     /*
                      * Get input and output streams
                      */
-                    input = new BufferedReader(new InputStreamReader(
-                            socketConnection.getInputStream()));
-                    output = new BufferedWriter(new OutputStreamWriter(
-                            socketConnection.getOutputStream()));
+                    input = new BufferedReader(new InputStreamReader(socketConnection.getInputStream()));
+
+                    in = new DataInputStream(new BufferedInputStream(socketConnection.getInputStream()));
+
+                    output = new BufferedWriter(new OutputStreamWriter(socketConnection.getOutputStream()));
+
+                   out = new DataOutputStream(new BufferedOutputStream(socketConnection.getOutputStream()));
+                    out.flush();
+
                     output.flush();
                 }
                 /*
@@ -291,34 +305,42 @@ public abstract class GenericSocket implements SocketListener {
              * Read from from input stream one line at a time
              */
             try {
-                while (true) {//(line = input.readLine()) != null
-                    //if (socketConnection.isConnected()) {
-                        byte buf[] = new byte[255];
-                        int r = socketConnection.getInputStream().read(buf);
-                        //System.out.println("out = "+ DatatypeConverter.printHexBinary(buf));
+                if (in != null) {
+                    String line="";
+                    byte[] bytes = new byte[1024];
+                    int count;
+                    while ((count = in.read(bytes)) >0) {
+                        StringBuilder sb = new StringBuilder();
+                        for (int i=0; i< count; i++) {
+                            sb.append(String.format("%02X", bytes[i]));
 
-                        //String line = new String(buf, 0, r);
-                    /*StringBuilder sb = new StringBuilder();
-                    for (int i=0; i< r; i++) {
-                        sb.append(String.format("%02X", buf[i]));
-
-                    }
-                    String line = sb.toString();*/
-                        //String line = new String(HexBin.encode(buf));
-                        /*if (debugFlagIsSet(Constants.instance().DEBUG_RECV)) {
-                            String logMsg = "recv> " + buf;
+                        }
+                        line = sb.toString();
+                        onMessage(line);
+                        if (debugFlagIsSet(Constants.instance().DEBUG_RECV)) {
+                            String logMsg = "recv> " + line;
                             LOGGER.info(logMsg);
-                        }*/
+                        }
+                    }
+
                         /*
                          * The onMessage() method has to be implemented by
                          * a sublclass.  If used in conjunction with JavaFX,
                          * use Platform.runLater() to force this method to run
                          * on the main thread.
                          */
+                        //onMessage(line);
+
+                }
+               /*// while (true) {//(line = input.readLine()) != null
+                    //if (socketConnection.isConnected()) {
+                        byte buf[] = new byte[255];
+                        int r = socketConnection.getInputStream().read(buf);
+
                         onMessage(buf, r);
                     //}
 
-                }
+               // }*/
             } catch (IOException e) {
                 if (debugFlagIsSet(Constants.instance().DEBUG_EXCEPTIONS)) {
                     LOGGER.info(e.getMessage());
@@ -328,6 +350,8 @@ public abstract class GenericSocket implements SocketListener {
             }
         }
     }
+
+
     
     public GenericSocket() {
         this(Constants.instance().DEFAULT_PORT,
@@ -342,4 +366,6 @@ public abstract class GenericSocket implements SocketListener {
         this.port = port;
         this.debugFlags = debugFlags;
     }
+
+
 }
