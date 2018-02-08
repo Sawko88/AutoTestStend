@@ -219,9 +219,9 @@ public abstract class GenericSocket implements SocketListener {
             if (socketConnection.isConnected()) {
                 //socketConnection.getOutputStream().write(DatatypeConverter.parseHexBinary(msg));
                 out.write(DatatypeConverter.parseHexBinary(msg));
-               // out.flush();
+                out.flush();
                 //output.write("+++\r\n");
-                System.out.println(msg);
+                System.out.println(socketConnection.getInetAddress() +"-->"+ msg);
             }
             //socketConnection.getOutputStream().
             //socketConnection.getOutputStream().flush();
@@ -262,7 +262,7 @@ public abstract class GenericSocket implements SocketListener {
 
                     output = new BufferedWriter(new OutputStreamWriter(socketConnection.getOutputStream()));
 
-                   out = new DataOutputStream(new BufferedOutputStream(socketConnection.getOutputStream()));
+                    out = new DataOutputStream(new BufferedOutputStream(socketConnection.getOutputStream()));
                     out.flush();
 
                     output.flush();

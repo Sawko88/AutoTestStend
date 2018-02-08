@@ -31,6 +31,11 @@ public class MySocket implements Initializable {
     private volatile boolean isAutoConnected;
 
     private static final int DEFAULT_RETRY_INTERVAL = 2000; // in milliseconds
+    private String nameSocket = "";
+
+    public MySocket(String nameModul) {
+        this.nameSocket = nameModul;
+    }
 
     public void setParam(String ip, Integer port) {
         this.ip = ip;
@@ -52,10 +57,21 @@ public class MySocket implements Initializable {
         socket.sendMessage(mess);
     }
 
+    public void CloseSocket() {
+        isAutoConnected = false;
+        if (isConnected()) {
+            socket.shutdown();
+        }
+    }
+
+    public void SetNameSocket(String nameModul) {
+        nameSocket = nameModul;
+    }
+
 
     public enum ConnectionDisplayState {
 
-        DISCONNECTED, ATTEMPTING, CONNECTED, AUTOCONNECTED, AUTOATTEMPTING
+        DISCONNECTED, ATTEMPTING, CONNECTED, AUTOCONNECTED, AUTOATTEMPTING, NONE
     }
 
     public FxSocketClient socket;
@@ -126,28 +142,31 @@ public class MySocket implements Initializable {
         }.start();
     }
 
-    public ConnectionDisplayState oldState = ConnectionDisplayState.DISCONNECTED;
+    public ConnectionDisplayState oldState = ConnectionDisplayState.NONE;
 
     private void displayState(ConnectionDisplayState state) {
+            if (oldState!= state) {
+                oldState = state;
+                switch (state) {
+                    case DISCONNECTED:
+                        System.out.println(nameSocket+": "+"socket - DISCONNECTED");
+                        smsController.setDisconnect(true);
+                        //smsController.statusCon = SmsController.statusConnect.SOCKETINIT;
+                        break;
+                    case ATTEMPTING:
+                        System.out.println(nameSocket+": "+"socket - ATTEMPTING");
+                        break;
+                    case AUTOATTEMPTING:
+                        System.out.println(nameSocket+": "+"socket - AUTOATTEMPTING");
+                        break;
+                    case CONNECTED:
+                        System.out.println(nameSocket+": "+"socket - CONNECTED");
+                        break;
+                    case AUTOCONNECTED:
+                        System.out.println(nameSocket+": "+"socket - AUTOCONNECTED");
 
-            switch (state) {
-                case DISCONNECTED:
-                    System.out.println("socket - DISCONNECTED");
-                    smsController.setDisconnect(true);
-                    //smsController.statusCon = SmsController.statusConnect.SOCKETINIT;
-                    break;
-                case ATTEMPTING:
-                    System.out.println("socket - ATTEMPTING");
-                    break;
-                case AUTOATTEMPTING:
-                    System.out.println("socket - AUTOATTEMPTING");
-                    break;
-                case CONNECTED:
-                    System.out.println("socket - CONNECTED");
-                    break;
-                case AUTOCONNECTED:
-                    System.out.println("socket - AUTOCONNECTED");
-                    break;
+                        break;
+                }
             }
 
     }
@@ -197,6 +216,7 @@ public class MySocket implements Initializable {
 
             if (line != null && !line.equals("")) {
                 smsController.messResvList.add(line);
+                System.out.println(ip+"<---"+line);
                 //smsController.PrintText(line, SmsController.MessangeSourse.FROMSMS);
             }
         }

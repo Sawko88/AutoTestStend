@@ -92,4 +92,19 @@ public class SettingsController implements Initializable{
             }
         }
     }
+
+    public Setting GetSettings() {
+        setting.comPort = (String) cboxCom.getSelectionModel().getSelectedItem();
+        setting.smsIp = tfSmsIp.getText();
+        setting.smsPort = tfSmsPort.getText();
+        setting.smsPas = tfSmsPas.getText();
+        setting.gprsIp = tfGprsIp.getText();
+        setting.gprsPort = tfGprsPort.getText();
+        setting.gprsPas = tfGprsPas.getText();
+        setting.bdIp = tfBdIp.getText();
+        setting.bdName = tfBdName.getText();
+        setting.bdUser = tfBdUser.getText();
+        setting.bdPas = tfBdPas.getText();
+        return setting;
+    }
 }

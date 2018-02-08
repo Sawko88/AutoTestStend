@@ -37,19 +37,34 @@ public class SmsController extends Application implements Initializable {
 
     public GridPane grPane;
 
-    ControllerTest controllerTest;
+    private ControllerTest controllerTest;
 
 
     private String ip="";
     private Integer port=2015;
     private String password="" ;
 
+    private String nameModul="";
+
     public void setDisconnect(boolean disconnect) {
         this.disconectWasBe = disconnect;
         if (this.disconectWasBe){
-            statusCon = statusConnect.INITPROG;
-            StopAplication();
+            messSendList.clear();
+
+            messResvList.clear();
+            statusCon = statusConnect.SOCKETINIT;
+
         }
+    }
+
+    public void SetSettigs(String Ip, String Port, String Pas) {
+        ip = Ip;
+        port = Integer.valueOf(Port);
+        password = Pas;
+    }
+
+    public void SetNameModul(String nameModul) {
+        this.nameModul = nameModul;
     }
 
 
@@ -57,11 +72,12 @@ public class SmsController extends Application implements Initializable {
         INF0, FROMSMS, TOSMS
     }
 
-    public MySocket mySocket = new MySocket();
+    public MySocket mySocket = new MySocket(nameModul);
 
     private Thread autoConnectThread;
 
     public void ConnectSMS() {
+        statusCon = statusConnect.SOCKETINIT;
         autoConnectThread = new AutoConnectThread();
         autoConnectThread.start();
 
@@ -71,11 +87,12 @@ public class SmsController extends Application implements Initializable {
 
     public enum statusConnect {
 
-        SOCKETINIT, INITPROG, PRIORINIT, INITDEV
+        SOCKETINIT, INITPROG, PRIORINIT, INITDEV, WAITPROG, WAITPRIOR, WAITDEV, WAITCONNECT, CONNECT, NONE
     }
 
-    statusConnect statusCon = statusConnect.SOCKETINIT;
+    statusConnect statusCon = statusConnect.NONE;
     private boolean disconectWasBe = true;
+    private int counterInit =0;
 
     private class AutoConnectThread extends Thread implements Runnable {
         @Override
@@ -84,46 +101,127 @@ public class SmsController extends Application implements Initializable {
 
                 switch (statusCon){
                     case SOCKETINIT:
-
+                            /*if (nameModul == "GPRS"){
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }*/
+                        Platform.runLater(() -> {
+                            PrintText(nameModul+": Модуль не подключен",  MessangeSourse.INF0);
+                        });
+                            System.out.println(nameModul+": "+"state - SOCKETINIT");
+                            mySocket.SetNameSocket(nameModul);
                             mySocket.setParam(ip, port);
-                            mySocket.setAutoCon( true);
-                            mySocket.autoConnect();
+                            //mySocket.setAutoCon( true);
+                            //mySocket.autoConnect();
+                            mySocket.connect();
+                            statusCon = statusConnect.WAITCONNECT;
+                            //statusCon = statusConnect.INITPROG;
+                            counterInit = 0;
+                        break;
+                    case WAITCONNECT:
+                        if (mySocket.isConnected()){
                             statusCon = statusConnect.INITPROG;
-
+                        }
+                        counterInit++;
+                        if (counterInit>10){
+                            statusCon = statusConnect.SOCKETINIT;
+                            DisconnectSMS();
+                        }
+                        System.out.println(nameModul+": "+"state - WAITCONNECT");
                         break;
                     case INITPROG:
-                        if (mySocket.isConnected()){
-                            if (disconectWasBe){
+                        //if (mySocket.isConnected()){
+                            //if (disconectWasBe){
 
-                                System.out.println("disconectWasBe");
-                                disconectWasBe = false;
+                                System.out.println(nameModul+": "+"state - INITPROG");
+                                //disconectWasBe = false;
                                 StartApplication();
                                 ARKAN arkanInit = new ARKAN();
                                 arkanInit.setPassword(password);
                                 arkanInit = arkanInit.setARKAN(ARKAN.INITIALIZATION);
                                 //if (isConnected()) {
                                 messSendList.add(new ArkanList(arkanInit,false, 3));
-                                //statusCon=statusConnect.PRIORINIT;
-                            }
+                                statusCon=statusConnect.WAITPROG;
+                                counterInit = 0;
+                            //}
+                        //}
+                        break;
+                    case WAITPROG:
+                        System.out.println(nameModul+": "+"state - WAITPROG");
+                        counterInit++;
+                        if (counterInit>10){
+                            statusCon = statusConnect.SOCKETINIT;
+                            DisconnectSMS();
                         }
                         break;
                     case PRIORINIT:
+                        System.out.println(nameModul+": "+"state - PRIORINIT");
+                        ARKAN arkanPrior = new ARKAN();
+                        arkanPrior = arkanPrior.setARKAN(ARKAN.PRIORITY);
+                        messSendList.add(new ArkanList(arkanPrior, false,3));
+                        statusCon = statusConnect.WAITPRIOR;
+                        counterInit = 0;
+                        break;
+                    case WAITPRIOR:
+                        System.out.println(nameModul+": "+"state - WAITPRIOR");
+                        counterInit++;
+                        if (counterInit>10){
+                            statusCon = statusConnect.SOCKETINIT;
+                            DisconnectSMS();
+                        }
                         break;
                     case INITDEV:
+                        System.out.println(nameModul+": "+"state - INITDEV");
+                        ARKAN arkanDev = new ARKAN();
+                        arkanDev.setLogNum(controllerTest.GetObgectPhone());
+                        arkanDev = arkanDev.setARKAN(ARKAN.TRANSFER_NUMDER_FONE);
+                        messSendList.add(new ArkanList(arkanDev, false,3));
+                        statusCon = statusConnect.WAITDEV;
+                        counterInit = 0;
+                        break;
+                    case WAITDEV:
+                        System.out.println(nameModul+": "+"state - WAITDEV");
+                        counterInit++;
+                        if (counterInit>10){
+                            statusCon = statusConnect.SOCKETINIT;
+                            DisconnectSMS();
+                        }
+                        break;
+                    case CONNECT:
+                        Platform.runLater(() -> {
+                            PrintText(nameModul+": Модуль успешно подключился",  MessangeSourse.INF0);
+                        });
+                        statusCon = statusConnect.NONE;
+                        if (nameModul == "SMS"){
+                            controllerTest.setConnectState(ControllerTest.ConnectionState.CONNECTGPRS);
+                        }
+                        if (nameModul == "GPRS"){
+                            controllerTest.setConnectState(ControllerTest.ConnectionState.OKCONNECT);
+                        }
+                        break;
+                    case NONE:
                         break;
                     default: break;
                 }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     public void DisconnectSMS() {
+        Platform.runLater(() -> {
+            PrintText(nameModul+": Модуль отключен",  MessangeSourse.INF0);
+        });
+        StopAplication();
+        mySocket.CloseSocket();
     }
 
     public void SetSettigs(Setting setting) {
@@ -140,7 +238,7 @@ public class SmsController extends Application implements Initializable {
         if (!tfSend.getText().equals("")) {
             ARKAN ark = new ARKAN();
             ark.setData(tfSend.getText());
-            ark.setLogNum(controllerTest.tfLogNum.getText());
+            ark.setLogNum(controllerTest.GetObgectPhone());
             ark = ark.setARKAN(ARKAN.SEND_SMS);
 
             messSendList.add(new ArkanList( ark, false, 3));
@@ -201,9 +299,9 @@ public class SmsController extends Application implements Initializable {
         grPane.setMaxHeight(Double.MAX_VALUE);
         grPane.add(vsPane, 0, 0);
 
-        System.out.println("Sms - run");
+        System.out.println(nameModul+": "+" run");
         //taMess.appendText("Begin\r\n");
-        PrintText("Begin",  MessangeSourse.INF0);
+        PrintText(nameModul+": "+"Begin",  MessangeSourse.INF0);
 
         mySocket.setParent(this);
 
@@ -219,8 +317,11 @@ public class SmsController extends Application implements Initializable {
 
 
     private void StopAplication() {
+
         sendMessTState = false;
+        messSendList.clear();
         resvMessTState = false;
+        messResvList.clear();
 
     }
 
@@ -248,7 +349,7 @@ public class SmsController extends Application implements Initializable {
 
         @Override
         public void run() {
-            System.out.println("ResvMessSMS- start\r\n");
+            System.out.println(nameModul+": "+"ResvMessSMS- start");
             while (resvMessTState){
                 if (!messResvList.isEmpty()){
                     String mess = messResvList.get(0);
@@ -259,15 +360,26 @@ public class SmsController extends Application implements Initializable {
                             case ARKAN.STATUS:
                                 int seach = findMessToConfirm(arkanResv.statuscode, arkanResv.statuscounter);
                                 if (seach >= 0) {
-                                    if (arkanResv.statusmess == 0) {
-                                        messSendList.get(seach).confirm = true;
-                                        messResvList.remove(0);
-                                    } else {
-                                        messResvList.remove(0);
-                                        Platform.runLater(() -> {
-                                            PrintText("Сообщение не подтверждено",  MessangeSourse.INF0);
-                                        });
+                                    if (!messSendList.isEmpty()) {
+                                        if (arkanResv.statusmess == 0) {
+                                            messSendList.get(seach).confirm = true;
+                                            if (arkanResv.statuscode == ARKAN.INITIALIZATION) {
+                                                statusCon = statusConnect.PRIORINIT;
+                                            }
+                                            if (arkanResv.statuscode == ARKAN.PRIORITY) {
+                                                statusCon = statusConnect.INITDEV;
+                                            }
+                                            if (arkanResv.statuscode == ARKAN.TRANSFER_NUMDER_FONE) {
+                                                statusCon = statusConnect.CONNECT;
+                                            }
+                                            messResvList.remove(0);
+                                        } else {
+                                            messResvList.remove(0);
+                                            Platform.runLater(() -> {
+                                                PrintText("Сообщение не подтверждено", MessangeSourse.INF0);
+                                            });
 
+                                        }
                                     }
                                 } else {
                                     messResvList.remove(0);
@@ -280,6 +392,15 @@ public class SmsController extends Application implements Initializable {
                                 Platform.runLater(() -> {
                                     PrintText(arkanResv.data,  MessangeSourse.FROMSMS);
                                 });
+                                ARKAN arkanConfirm = new ARKAN();
+                                arkanConfirm.setConfirmParam(arkanResv.counterCure, arkanResv.code);
+                                arkanConfirm.setARKAN(ARKAN.STATUS);
+                                messSendList.add(new ArkanList(arkanConfirm,true, 1));
+                                /*ARKAN arkanInit = new ARKAN();
+                                arkanInit.setPassword(password);
+                                arkanInit = arkanInit.setARKAN(ARKAN.INITIALIZATION);
+                                //if (isConnected()) {
+                                messSendList.add(new ArkanList(arkanInit,false, 3));*/
                                 messResvList.remove(0);
                                 break;
                             default:
@@ -292,7 +413,7 @@ public class SmsController extends Application implements Initializable {
                         }
                     } else {
                         Platform.runLater(() -> {
-                            PrintText("Непонятное сообщение "+ arkanResv.data ,  MessangeSourse.INF0);
+                            PrintText("Непонятное сообщение <"+ arkanResv.data+">" ,  MessangeSourse.INF0);
                         });
                         messResvList.remove(0);
                     }
@@ -313,7 +434,7 @@ public class SmsController extends Application implements Initializable {
         }
     }
 
-    private int findMessToConfirm(Integer code, Integer counter) {
+    private int findMessToConfirm(Integer code, int counter) {
         int seach = 0;
 
         for (int i =0 ; i<messSendList.size();i++){
@@ -334,7 +455,7 @@ public class SmsController extends Application implements Initializable {
 
         @Override
         public void run() {
-            System.out.println("SendMessSMS- start\r\n");
+            System.out.println(nameModul+": "+"SendMessSMS- start");
             while (sendMessTState){
                 if (!messSendList.isEmpty()) {
                     int find = findConfitm();
@@ -384,7 +505,7 @@ public class SmsController extends Application implements Initializable {
                     e.printStackTrace();
                 }
             }
-            System.out.println("SendMessSMS- stop\r\n");
+            System.out.println(nameModul+": "+"SendMessSMS- stop");
 
         }
 
@@ -410,23 +531,7 @@ public class SmsController extends Application implements Initializable {
     }
 
 
-    private void RegistrashionArkan() {
-        ARKAN arkanInit = new ARKAN();
-        arkanInit.setPassword(password);
-        arkanInit = arkanInit.setARKAN(ARKAN.INITIALIZATION);
-        //if (isConnected()) {
-            messSendList.add(new ArkanList(arkanInit,false, 3));
-        //}
 
-        ARKAN arkanPrior = new ARKAN();
-        arkanPrior = arkanPrior.setARKAN(ARKAN.PRIORITY);
-        messSendList.add(new ArkanList(arkanPrior, false,3));
-
-        ARKAN arkanDev = new ARKAN();
-        arkanDev.setLogNum(controllerTest.tfLogNum.getText());
-        arkanDev = arkanDev.setARKAN(ARKAN.TRANSFER_NUMDER_FONE);
-        messSendList.add(new ArkanList(arkanDev, false,3));
-    }
 
 
 

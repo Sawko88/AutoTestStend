@@ -14,5 +14,7 @@
     <orderEntry type="library" name="org.kordamp.ikonli:ikonli-fontawesome-pack:2.1.0" level="project" />
     <orderEntry type="library" name="org.controlsfx:controlsfx-samples:8.40.14" level="project" />
     <orderEntry type="library" name="org.fxmisc.richtext:richtextfx:1.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:6.0.6" level="project" />
+    <orderEntry type="library" name="com.microsoft.sqlserver:mssql-jdbc:6.3.6.jre8-preview" level="project" />
   </component>
 </module>

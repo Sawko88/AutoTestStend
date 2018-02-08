@@ -8,6 +8,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -44,6 +45,7 @@ public class ARKAN {
     public Integer counterCure;
     public String logNum="";
     public Integer chennal;
+    public Integer countConfirm;
 
     public ARKAN() {
 
@@ -77,6 +79,9 @@ public class ARKAN {
                 String dataPrior = getFromInteger(priore,1);
                 dataMess = dataPrior;
                 break;
+            case STATUS:
+                dataMess = new String(hexStringToByteArray(data));
+                break;
             default:break;
         }
 
@@ -84,18 +89,19 @@ public class ARKAN {
         byte[] idsizeB = getByteFromInteger(idsize, 2);
         byte[] timeB = getTimeByte();
         byte[] codeB = getByteFromInteger(code, 2);
+
         counterCure = counter;
+
         byte[] countresB = getByteFromInteger(counterCure, 2);
         counter++;
+        if (counter>10000){
+            counter =0;
+        }
         dataSize = dataMess.length();
         byte[] dataSizeB = getByteFromInteger(dataSize, 2);
 
-        byte[] dataB = new byte[0];
-        try {
-            dataB = dataMess.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        //byte[] dataB = new byte[dataMess.length()];
+        byte[] dataB = dataMess.getBytes(StandardCharsets.US_ASCII);
 
 
         ByteBuffer bb = ByteBuffer.allocate(idB.length + idsizeB.length + timeB.length + dataSizeB.length + codeB.length + countresB.length + dataB.length );
@@ -114,6 +120,10 @@ public class ARKAN {
         }*/
         //System.out.println("\n\r");
         mess =  new String(HexBin.encode(messB));
+        if (code == ARKAN.STATUS && mess.length()>46)
+        {
+            System.out.println("Error mess status");
+        }
         //System.out.println(mess);
 
         return this;
@@ -179,6 +189,7 @@ public class ARKAN {
 
     private String getFromInteger(Integer integer, int size) {
         //byte[] bytes = ByteBuffer.allocate(4).putInt(integer).array();
+
         String xz = Integer.toHexString(integer);
         String result = null;
         result = getFromString(xz, size);
@@ -190,7 +201,9 @@ public class ARKAN {
         while (xz.length()<size*2){
             xz = "0"+xz;
         }
-
+        while (xz.length()>size*2){
+            xz = xz.substring(1, xz.length());
+        }
         byte[] bytes = DatatypeConverter.parseHexBinary(xz);
 
         byte[] bytesbuf = new byte[bytes.length];
@@ -235,18 +248,19 @@ public class ARKAN {
 
     public static ARKAN parserArkan(String mess) {
         ARKAN arkan = new ARKAN();
-        System.out.println(mess);
+        //System.out.println(mess);
         byte[] bytes = hexStringToByteArray(mess);
-        for (byte b : bytes) {
+        /*for (byte b : bytes) {
             System.out.format("0x%x ", b);
         }
-        System.out.println("\n\r");
+        System.out.println("\n\r");*/
         arkan.id = getIntegerFromByte(bytes, 2, 0);
         if (arkan.id == ARKAN.ID) {
             arkan.idsize = getIntegerFromByte(bytes, 2, 2);
             arkan.dataSize = getIntegerFromByte(bytes, 2, 4);
             arkan.code = getIntegerFromByte(bytes, 2, 0x0E);
             arkan.dataMess = mess.substring(36, mess.length());
+            arkan.counterCure = getIntegerFromByte(bytes, 2, 0x10);
             switch (arkan.code) {
                 case ARKAN.STATUS:
                     byte[] bytedata = hexStringToByteArray(arkan.dataMess);
@@ -272,7 +286,7 @@ public class ARKAN {
 
             }
         } else {
-            arkan.data = mess;
+            arkan.data = getStringFromStringHex(mess);
         }
         return arkan;
     }
@@ -280,11 +294,7 @@ public class ARKAN {
     private static String getStringFromStringHex(String dataResS) {
         byte[] bytes = hexStringToByteArray(dataResS);
         String string = null;
-        try {
-            string = new String(bytes, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        string = new String(bytes, StandardCharsets.US_ASCII);
         return string;
     }
 
@@ -311,5 +321,26 @@ public class ARKAN {
 
     public void setLogNum(String logNum) {
         this.logNum = logNum;
+    }
+
+    public void setConfirmParam(int counterCure, Integer code) {
+        String countConf;
+        byte[] countConfB = getByteFromInteger(counterCure, 2);
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i< 2; i++) {
+            sb.append(String.format("%02X", countConfB[i]));
+
+        }
+        countConf = sb.toString();
+        String codeConfirm ;
+        byte[] codeConfirmB = getByteFromInteger(code, 2);
+        StringBuilder sb1 = new StringBuilder();
+        for (int i=0; i< 2; i++) {
+            sb1.append(String.format("%02X", codeConfirmB[i]));
+
+        }
+        codeConfirm = sb1.toString();
+        data = countConf+codeConfirm+"00";// всегда говорим что верная команда
+
     }
 }

@@ -1,5 +1,6 @@
 package sourse;
 
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -13,10 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToolBar;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +24,7 @@ import javafx.stage.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.CharBuffer;
+import java.sql.*;
 import java.util.*;
 
 public  class ControllerTest extends Application implements Initializable {
@@ -33,6 +32,7 @@ public  class ControllerTest extends Application implements Initializable {
     public Stage stagePult;
     public ControllerPultMX controllerPultMX;
     public Stage stageSms = new Stage();
+    public Stage stageGPRS = new Stage();
 
     public Button btnAdd;
     public VBox vbAdd;
@@ -49,8 +49,16 @@ public  class ControllerTest extends Application implements Initializable {
     //public Button btnConnect;
     public ToggleButton tbConnect;
     public TextField tfLogNum;
+    public JFXSpinner spConnect;
 
     private Setting setting = new Setting();
+
+    private ObgectTest obgectTest = new ObgectTest();
+
+    private SmsController smsController;
+    private SmsController gprsController;
+
+    private Thread ConnectTread;
 
     public void PultAction(ActionEvent actionEvent) throws IOException {
         if (Pult.isSelected()){
@@ -88,10 +96,68 @@ public  class ControllerTest extends Application implements Initializable {
 
         }
 
+        OpenFormSettings();
+
         SmsQuipLoad();
         MyTbSmsListener();
+
+        GprsQuipLoad();
+        MyTbGprsListener();
+
         MyTbConnectListener();
 
+        SetDisable(true);
+
+    }
+
+    private void SetDisable(boolean b) {
+        btnAdd.setDisable(b);
+        vbAdd.setDisable(b);
+
+    }
+
+    private void MyTbGprsListener() {
+        tbGprs.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (tbGprs.isSelected()){
+                    stageGPRS.show();
+                } else {
+                    stageGPRS.hide();
+                }
+            }
+        });
+    }
+
+    private void GprsQuipLoad() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ControllerTest.class.getResource("/fxml/SMS.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        stageGPRS.setTitle("GPRS-диспетчер");
+        stageGPRS.setScene(new Scene(root));
+        stageGPRS.initModality(Modality.WINDOW_MODAL);
+        stageGPRS.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                tbGprs.setSelected(false);
+            }
+        });
+        gprsController = loader.getController();
+        gprsController.SetControllerTest(this);
+        gprsController.SetNameModul("GPRS");
+        //GetSettigs();
+        //gprsController.SetSettigs(setting.gprsIp, setting.gprsPort, setting.gprsPas);
+    }
+
+    private void GetSettigs() {
+        this.setting = settingsController.GetSettings();
     }
 
     private void MyTbConnectListener() {
@@ -99,13 +165,86 @@ public  class ControllerTest extends Application implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (tbConnect.isSelected()){
-                    smsController.SetSettigs(setting);
-                    smsController.ConnectSMS();
+                    connectThread= true;
+                    ConnectTread = new Thread(new ConnectionStateTread());
+                    ConnectTread.start();
+                    connectionState = ConnectionState.START;
+
+
+
                 } else {
+                    connectionState = ConnectionState.STOP;
+                    StopSpinner();
                     smsController.DisconnectSMS();
+                    gprsController.DisconnectSMS();
+                    SetDisable(true);
                 }
             }
         });
+    }
+
+    private void StopSpinner() {
+        spConnect.setVisible(false);
+    }
+
+    private void StartSpinner() {
+        spConnect.setVisible(true);
+    }
+
+    private void ConnectToBD(String bdIp, String bdName, String bdUser, String bdPas) {
+        System.out.println("-------- MySQL JDBC Connection Testing ------------");
+
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is your MySQL JDBC Driver?");
+            e.printStackTrace();
+            connectionState = ConnectionState.ERRORCONNECT;
+            return;
+        }
+
+        System.out.println("MySQL JDBC Driver Registered!");
+        Connection connection = null;
+        if (obgectTest.logNum == ""){
+            connectionState = ConnectionState.ERRORCONNECT;
+        }
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlserver://"+bdIp+":1433;" + "databaseName="+bdName+";user="+bdUser+";password="+bdPas);
+            Statement statement = connection.createStatement();
+
+           // PreparedStatement preparedStatement = connection.prepareStatement("[autotest].[spu_GetDeviceInfo] @nDeviceID_ = 4783571");
+            ResultSet rs = statement.executeQuery("[autotest].[spu_GetDeviceInfo] @nDeviceID_ = "+tfLogNum.getText());
+            while (rs.next()) {
+                obgectTest.logNum = tfLogNum.getText();
+                obgectTest.telefon = rs.getString("phone");
+                System.out.println(obgectTest.telefon);
+                obgectTest.code = rs.getString("password");
+                System.out.println(obgectTest.code);
+                obgectTest.typeDev = rs.getString("device_type");
+                System.out.println(obgectTest.typeDev);
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            e.printStackTrace();
+            connectionState = ConnectionState.ERRORCONNECT;
+            return;
+        }
+
+        if (obgectTest.telefon !=""){
+            connectionState = ConnectionState.CONNECTSMS;
+        }
+
+        if (connection != null) {
+            System.out.println("You made it, take control your database now!");
+
+        } else {
+            System.out.println("Failed to make connection!");
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void MyTbSmsListener() {
@@ -121,7 +260,7 @@ public  class ControllerTest extends Application implements Initializable {
         });
     }
 
-    private SmsController smsController;
+
 
     private void SmsQuipLoad() {
         FXMLLoader loader = new FXMLLoader();
@@ -145,7 +284,9 @@ public  class ControllerTest extends Application implements Initializable {
         });
         smsController = loader.getController();
         smsController.SetControllerTest(this);
-        smsController.SetSettigs(setting);
+        smsController.SetNameModul("SMS");
+       // GetSettigs();
+       // smsController.SetSettigs(setting.smsIp, setting.smsPort, setting.smsPas);
 
     }
 
@@ -194,6 +335,8 @@ public  class ControllerTest extends Application implements Initializable {
         //System.out.println("Stop");
         SaveFileSettings();
         smsController.DisconnectSMS();
+        gprsController.DisconnectSMS();
+        tbConnect.setSelected(false);
         Platform.exit();
     }
 
@@ -452,29 +595,138 @@ public  class ControllerTest extends Application implements Initializable {
         vbAdd.getChildren().clear();
         tableTb.clear();
     }
-
+    SettingsController settingsController;
+    Stage stageSettigs = new Stage();
     public void BtnSettingsAction(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ControllerTest.class.getResource("/fxml/Settings.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        // stage.setResizable(false);
-        stage.setScene(new Scene(root));
-        stage.initModality(Modality.APPLICATION_MODAL);
 
-        SettingsController settingsController = loader.getController();
-        settingsController.SetTest(this);
-
+        //OpenFormSettings();
         settingsController.SetSettings(setting);
-
-        stage.showAndWait();
+        stageSettigs.showAndWait();
     }
 
     public void SetSettigs(Setting setting) {
         this.setting = setting;
     }
 
+
+    public void OpenFormSettings(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ControllerTest.class.getResource("/fxml/Settings.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Stage stage = new Stage();
+        // stage.setResizable(false);
+        stageSettigs.setScene(new Scene(root));
+        stageSettigs.initModality(Modality.WINDOW_MODAL);
+
+        settingsController = loader.getController();
+        settingsController.SetTest(this);
+
+        settingsController.SetSettings(setting);
+    }
+
+    public String GetObgectPhone() {
+        String phone = obgectTest.telefon.substring(1,12);//отсикаем + у номера телефона
+        return phone;
+    }
+
+    public void setConnectState(ConnectionState stateCon) {
+        connectionState = stateCon;
+    }
+
+    public enum ConnectionState {
+
+        START, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS, OKCONNECT, NONE, ERRORCONNECT, STOP
+    }
+    private ConnectionState connectionState = ConnectionState.NONE;
+    private boolean connectThread = false;
+    private int countConnection = 0;
+
+    private class ConnectionStateTread implements Runnable {
+        @Override
+        public void run() {
+            while (connectThread){
+                switch (connectionState){
+                    case START:
+                        System.out.println("ConnectionStateTread - START");
+                        countConnection = 0;
+                        StartSpinner();
+                        GetSettigs();
+                        connectionState = ConnectionState.BDCONNECT;
+
+                        break;
+                    case BDCONNECT:
+                        System.out.println("ConnectionStateTread - BDCONNECT");
+                        connectionState = ConnectionState.WAITBD;
+                        ConnectToBD(setting.bdIp, setting.bdName, setting.bdUser, setting.bdPas);
+
+                        break;
+                    case WAITBD:
+                        System.out.println("ConnectionStateTread - WAITBD");
+                        break;
+                    case CONNECTSMS:
+                        System.out.println("ConnectionStateTread - CONNECTSMS");
+                        smsController.SetSettigs(setting.smsIp, setting.smsPort, setting.smsPas);
+                        smsController.ConnectSMS();
+                        connectionState = ConnectionState.WAITSMS;
+                        break;
+                    case WAITSMS:
+                        System.out.println("ConnectionStateTread - WAITSMS");
+                        break;
+                    case CONNECTGPRS:
+                        System.out.println("ConnectionStateTread - CONNECTGPRS");
+                        gprsController.SetSettigs(setting.gprsIp, setting.gprsPort, setting.gprsPas);
+                        gprsController.ConnectSMS();
+                        connectionState = ConnectionState.WAITGPRS;
+                        break;
+                    case WAITGPRS:
+                        System.out.println("ConnectionStateTread - WAITGPRS");
+                        break;
+                    case OKCONNECT:
+                        System.out.println("ConnectionStateTread - OKCONNECT");
+                        StopSpinner();
+                        SetDisable(false);
+                        connectionState = ConnectionState.STOP;
+                        break;
+                    case NONE:
+                        System.out.println("ConnectionStateTread - NONE");
+                        break;
+                    case ERRORCONNECT:
+                        System.out.println("ConnectionStateTread - ERRORCONNECT");
+                        tbConnect.setSelected(false);
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setHeaderText("Connection");
+                            alert.setContentText("Не получилось подключиться");
+                            alert.showAndWait();
+                        });
+                        //connectionState = ConnectionState.STOP;
+                        break;
+                    case STOP:
+                        System.out.println("ConnectionStateTread - STOP");
+                        connectThread = false;
+                        break;
+                    default:break;
+                }
+                countConnection++;
+                if (countConnection>180){
+                    connectionState = ConnectionState.ERRORCONNECT;
+                    countConnection = 0;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
 
     /*public void BtnConnectAction(ActionEvent event) {
         smsController.ConnectSMS();
