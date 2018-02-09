@@ -37,10 +37,7 @@ public class ComPort {
             return true;
         } catch (SerialPortException e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText(String.valueOf(e.getPortName())+" : "+ String.valueOf(e.getExceptionType()));
-            alert.show();
+
             return false;
         }
     }
@@ -84,7 +81,7 @@ public class ComPort {
                     e.printStackTrace();
                 }
             }
-
+            System.out.println("ComPortMessPArserRun- stop");
         }
     }
 

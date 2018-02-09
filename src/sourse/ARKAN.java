@@ -278,7 +278,7 @@ public class ARKAN {
                     String numberDataResS = arkan.dataMess.substring(20 + numberDevResInt, 22 + numberDevResInt);
                     byte[] numberDataResB = hexStringToByteArray(numberDataResS);
                     Integer numberDataResInt = getIntegerFromByte(numberDataResB, 1, 0) * 2;
-                    String DataResS = arkan.dataMess.substring(22 + numberDevResInt, 22 + numberDevResInt + numberDataResInt);
+                    String DataResS = arkan.dataMess.substring(22 + numberDevResInt, arkan.dataMess.length());
                     arkan.data = getStringFromStringHex(DataResS);
                     break;
                 default:

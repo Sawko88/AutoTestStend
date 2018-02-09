@@ -50,6 +50,7 @@ public  class ControllerTest extends Application implements Initializable {
     public ToggleButton tbConnect;
     public TextField tfLogNum;
     public JFXSpinner spConnect;
+    public ToggleButton tbComPort;
 
     private Setting setting = new Setting();
 
@@ -104,15 +105,61 @@ public  class ControllerTest extends Application implements Initializable {
         GprsQuipLoad();
         MyTbGprsListener();
 
+        ComPortLoad();
+        MyTbComListener();
+
         MyTbConnectListener();
 
         SetDisable(true);
 
     }
 
+    private void MyTbComListener() {
+        tbComPort.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (tbComPort.isSelected()){
+                    comPortStage.show();
+                } else {
+                    comPortStage.hide();
+                }
+            }
+        });
+    }
+
+
+    private Stage comPortStage = new Stage();
+    private ComPortController comPortController;
+
+    private void ComPortLoad() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ControllerTest.class.getResource("/fxml/ComPort.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        comPortStage.setTitle("ComPort-диспетчер");
+        comPortStage.setScene(new Scene(root));
+        comPortStage.initModality(Modality.WINDOW_MODAL);
+        comPortStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                tbComPort.setSelected(false);
+            }
+        });
+        comPortController = loader.getController();
+        comPortController.SetControllerTest(this);
+        comPortController.SetNameModul("Com");
+    }
+
     private void SetDisable(boolean b) {
         btnAdd.setDisable(b);
         vbAdd.setDisable(b);
+        tfLogNum.setDisable(!b);
 
     }
 
@@ -177,6 +224,7 @@ public  class ControllerTest extends Application implements Initializable {
                     StopSpinner();
                     smsController.DisconnectSMS();
                     gprsController.DisconnectSMS();
+                    comPortController.DisconnectCOM();
                     SetDisable(true);
                 }
             }
@@ -641,7 +689,7 @@ public  class ControllerTest extends Application implements Initializable {
 
     public enum ConnectionState {
 
-        START, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS, OKCONNECT, NONE, ERRORCONNECT, STOP
+        START, CONNECTCOM, WAITCOM, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS, OKCONNECT, NONE, ERRORCONNECT, STOP
     }
     private ConnectionState connectionState = ConnectionState.NONE;
     private boolean connectThread = false;
@@ -657,8 +705,19 @@ public  class ControllerTest extends Application implements Initializable {
                         countConnection = 0;
                         StartSpinner();
                         GetSettigs();
-                        connectionState = ConnectionState.BDCONNECT;
+                        connectionState = ConnectionState.CONNECTCOM;
 
+                        break;
+                    case CONNECTCOM:
+                        System.out.println("ConnectionStateTread - CONNECTCOM");
+                        connectionState = ConnectionState.WAITCOM;
+                        comPortController.SetSettings(setting.comPort);
+                        comPortController.ConnectCom();
+
+                        break;
+                    case WAITCOM:
+                        System.out.println("ConnectionStateTread - WAITCOM");
+                        //connectionState = ConnectionState.BDCONNECT;
                         break;
                     case BDCONNECT:
                         System.out.println("ConnectionStateTread - BDCONNECT");
