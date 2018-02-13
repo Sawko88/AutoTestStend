@@ -33,6 +33,8 @@ public class ComPortController extends Application implements Initializable {
     }
 
     public void BtSendAction(ActionEvent actionEvent) {
+        toStend.add(tfSend.getText());
+
     }
     private ControllerTest controllerTest;
     public void SetControllerTest(ControllerTest controllerTest) {
@@ -70,16 +72,23 @@ public class ComPortController extends Application implements Initializable {
 
     public void ConnectCom() {
         if (comPort1.Open(nameComPort)) {
-            PrintText(nameComPort+": "+"ComPort открыт",  MessangeSourse.INF0);
+            Platform.runLater(() -> {
+                PrintText(nameComPort+": "+"ComPort открыт",  MessangeSourse.INF0);
+            });
             controllerTest.setConnectState(ControllerTest.ConnectionState.BDCONNECT);
             UpdateDataTread();
         } else {
-            PrintText(nameComPort+": "+"ComPort не удалось открыть",  MessangeSourse.INF0);
+            Platform.runLater(() -> {
+                PrintText(nameComPort+": "+"ComPort не удалось открыть",  MessangeSourse.INF0);
+            });
         }
     }
 
     public void DisconnectCOM() {
         updateDataState = false;
+        Platform.runLater(() -> {
+            PrintText(nameComPort+": "+"Закрыт",  MessangeSourse.INF0);
+        });
         comPort1.Close();
     }
 
@@ -146,7 +155,7 @@ public class ComPortController extends Application implements Initializable {
                     String txMess = toStend.poll();
                     comPort1.Send(txMess);
                     Platform.runLater(() -> {
-                        PrintText(txMess,  MessangeSourse.FROMSMS);
+                        PrintText(txMess,  MessangeSourse.TOSMS);
                     });
                 }
 

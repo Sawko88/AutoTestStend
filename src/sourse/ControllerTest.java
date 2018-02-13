@@ -110,7 +110,7 @@ public  class ControllerTest extends Application implements Initializable {
 
         MyTbConnectListener();
 
-        SetDisable(true);
+        //SetDisable(true);
 
     }
 
@@ -384,6 +384,7 @@ public  class ControllerTest extends Application implements Initializable {
         SaveFileSettings();
         smsController.DisconnectSMS();
         gprsController.DisconnectSMS();
+        comPortController.DisconnectCOM();
         tbConnect.setSelected(false);
         Platform.exit();
     }

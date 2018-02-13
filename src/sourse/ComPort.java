@@ -113,7 +113,9 @@ public class ComPort {
     void Close(){
         comPortThread = false;
         try {
-            serialPort.closePort();
+            if (serialPort.isOpened()) {
+                serialPort.closePort();
+            }
         } catch (SerialPortException e) {
             e.printStackTrace();
         }
