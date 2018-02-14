@@ -22,7 +22,8 @@ public class PersonOneActionController implements Initializable {
     public AnchorPane anPersonOne;
     public Button btnCancelPersonOne;
     public Button btnOkPersonOne;
-    private Nastroika nastroika1 = new Nastroika(0);
+    //private Nastroika nastroika1 = new Nastroika(0);
+    private ActionTest actionTest = new ActionTest(0, ActionTest.TypeAction.NONE, "-", " ", "1", "0");
 
 
     public  static List<String> spisokCb = Arrays.asList(
@@ -74,7 +75,7 @@ public class PersonOneActionController implements Initializable {
         KomandaFormaController komandaFormaController  = loader.getController();
         object = loader.getController();
         komandaFormaController.SetMainApp(this);
-        komandaFormaController.SetParam(nastroika1);
+        komandaFormaController.SetParam(actionTest);
 
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
@@ -89,7 +90,7 @@ public class PersonOneActionController implements Initializable {
         CanFormaController canFormaController  = loader.getController();
         object = loader.getController();
         canFormaController.SetMainApp(this);
-        canFormaController.SetParam(nastroika1);
+        //canFormaController.SetParam(nastroika1);
 
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
@@ -103,7 +104,7 @@ public class PersonOneActionController implements Initializable {
         PausaController pausaController  = loader.getController();
         object = loader.getController();
         pausaController.SetMainApp(this);
-        pausaController.SetParam(nastroika1);
+        pausaController.SetParam(actionTest);
 
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
@@ -117,7 +118,7 @@ public class PersonOneActionController implements Initializable {
         Oborotu10000 oborotu10000  = loader.getController();
         object = loader.getController();
         oborotu10000.SetMainApp(this);
-        oborotu10000.SetParam(nastroika1);
+        //oborotu10000.SetParam(nastroika1);
 
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
@@ -131,7 +132,7 @@ public class PersonOneActionController implements Initializable {
         Pitanie9_15Controller pitanie9_15Controller = loader.getController();
         object = loader.getController();
         pitanie9_15Controller.SetMainApp(this);
-        pitanie9_15Controller.SetParam(nastroika1);
+        pitanie9_15Controller.SetParam(actionTest);
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
     }
@@ -144,7 +145,7 @@ public class PersonOneActionController implements Initializable {
         Metka33OneController metka33OneController = loader.getController();
         object = loader.getController();
         metka33OneController.SetMainApp(this);
-        metka33OneController.SetParam(nastroika1);
+        //metka33OneController.SetParam(nastroika1);
 
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
@@ -167,8 +168,8 @@ public class PersonOneActionController implements Initializable {
         OnOffOneController onOffOneController = loader.getController();
         object = loader.getController();
         onOffOneController.SetMainApp(this);
-        if (nastroika1.index == cbPersonOne.getSelectionModel().getSelectedIndex()) {
-            onOffOneController.SetParam(nastroika1);
+        if (actionTest.number == cbPersonOne.getSelectionModel().getSelectedIndex()) {
+            onOffOneController.SetParam(actionTest);
         }
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
@@ -182,17 +183,17 @@ public class PersonOneActionController implements Initializable {
 
     public void ActBtnOkPersonOne(ActionEvent actionEvent) {
         UpdateNastroika();
-        oneActionController.SetNastroika(nastroika1);
+        oneActionController.SetNastroika(actionTest);
         Stage stage = (Stage) btnCancelPersonOne.getScene().getWindow();
         stage.close();
     }
 
     public void UpdateNastroika() {
 
-        Nastroika nastroikaBuf = new Nastroika(0);
+        ActionTest actionTestbuf = new ActionTest(0);
 
-        nastroikaBuf.index = cbPersonOne.getSelectionModel().getSelectedIndex();
-        nastroikaBuf.name = (String) cbPersonOne.getValue();
+        actionTestbuf.number = cbPersonOne.getSelectionModel().getSelectedIndex();
+        actionTestbuf.name = (String) cbPersonOne.getValue();
 
         //System.out.println(object.getClass());
 
@@ -209,54 +210,58 @@ public class PersonOneActionController implements Initializable {
         if (object.getClass() == onOffOneController.getClass()) {
            // System.out.println(object.getClass());
             onOffOneController = (OnOffOneController) object;
-            nastroikaBuf = onOffOneController.GetNastroika(nastroikaBuf);
+            actionTestbuf = onOffOneController.GetNastroika(actionTestbuf);
             //oneActionController.SetNastroika(nastroika);
         }
         if (object.getClass() == metka33OneController.getClass()) {
            // System.out.println(object.getClass());
             metka33OneController = (Metka33OneController) object;
-            nastroikaBuf= metka33OneController.GetNastroika(nastroikaBuf);
+            //nastroikaBuf= metka33OneController.GetNastroika(nastroikaBuf);
         }
         if (object.getClass() == pitanie9_15Controller.getClass()) {
             //System.out.println(object.getClass());
             pitanie9_15Controller = (Pitanie9_15Controller) object;
-            nastroikaBuf = pitanie9_15Controller.GetNastroika(nastroikaBuf);
+            actionTestbuf = pitanie9_15Controller.GetNastroika(actionTestbuf);
         }
         if (object.getClass() == oborotu10000.getClass()) {
             //System.out.println(object.getClass());
             oborotu10000 = (Oborotu10000) object;
-            nastroikaBuf = oborotu10000.GetNastoika(nastroikaBuf);
+            //nastroikaBuf = oborotu10000.GetNastoika(nastroikaBuf);
         }
         if (object.getClass() == pausaController.getClass()) {
            // System.out.println(object.getClass());
             pausaController= (PausaController) object;
-            nastroikaBuf = pausaController.GetNastroika(nastroikaBuf);
+            actionTestbuf = pausaController.GetNastroika(actionTestbuf);
         }
         if (object.getClass() == canFormaController.getClass()) {
             //System.out.println(object.getClass());
             canFormaController = (CanFormaController) object;
-            nastroikaBuf = canFormaController.GetNastroika(nastroikaBuf);
+            //nastroikaBuf = canFormaController.GetNastroika(nastroikaBuf);
         }
         if (object.getClass() == komandaFormaController.getClass()) {
            // System.out.println(object.getClass());
             komandaFormaController = (KomandaFormaController) object;
-            nastroikaBuf = komandaFormaController.GetNastroika(nastroikaBuf);
+            actionTestbuf = komandaFormaController.GetNastroika(actionTestbuf);
         }
         if (object.getClass() == nullNastroika.getClass()) {
            // System.out.println(object.getClass());
             nullNastroika = (NullNastroika) object;
-            nastroikaBuf = nullNastroika.GetNastroika(nastroikaBuf);
+            //nastroikaBuf = nullNastroika.GetNastroika(nastroikaBuf);
         }
-        oneActionController.ShowNastroika(nastroikaBuf);
-        nastroika1 = nastroikaBuf;
+        oneActionController.ShowNastroika(actionTestbuf);
+        actionTest = actionTestbuf;
         //return nastroikaBuf;
     }
-
+    private ActionTestCollection actionTestCollection = new ActionTestCollection();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Iterator<String> iterator = spisokCb.iterator();
+        /*Iterator<String> iterator = spisokCb.iterator();
         while (iterator.hasNext()){
             cbPersonOne.getItems().add(iterator.next());
+        }*/
+        for (int i =0; i<actionTestCollection.ActionSpisok.size(); i++)
+        {
+            cbPersonOne.getItems().add(actionTestCollection.ActionSpisok.get(i).name);
         }
         cbPersonOne.valueProperty().addListener(new ChangeListener() {
             @Override
@@ -272,7 +277,42 @@ public class PersonOneActionController implements Initializable {
     }
 
     private void ShowParametr() throws IOException {
-        switch (cbPersonOne.getSelectionModel().getSelectedIndex()){
+        int pos = cbPersonOne.getSelectionModel().getSelectedIndex();
+        ActionTest.TypeAction typeAction = actionTestCollection.ActionSpisok.get(pos).type;
+        switch (typeAction){
+
+            case ONOFF:
+                LoadResursOn();
+                break;
+            case PWRONOFF:
+                LoadResursOn();
+                break;
+            case PWRNAP:
+                LoadREsursNap();
+                break;
+            case CAN:
+                break;
+            case MOTOR:
+                LoadResursOn();
+                break;
+            case RARELE:
+                LoadResursOn();
+                break;
+            case METKAONOFF:
+                LoadResursOn();
+                break;
+            case NONE:
+                LoadResurs();
+                break;
+            case GSMCOM:
+                LoadResursKomand();
+                break;
+            case PAUTHA:
+                LoadResursPausa();
+                break;
+            default:break;
+        }
+        /*switch (cbPersonOne.getSelectionModel().getSelectedIndex()){
             case 0: LoadResurs();break;
             case 1: LoadResursOn();break;
             case 2: LoadResursOn();break;
@@ -303,21 +343,21 @@ public class PersonOneActionController implements Initializable {
             case 27: LoadResursCan(); break;
             case 28: LoadResursPausa();break;
             default: break;
-        }
+        }*/
         //nastroika.index = cbPersonOne.getSelectionModel().getSelectedIndex();
     }
 
-    public void ShowNastroika(Nastroika nastroika) {
-        this.nastroika1 = nastroika;
-        cbPersonOne.getSelectionModel().select(nastroika1.index);
+    public void ShowNastroika(ActionTest nastroika) {
+        this.actionTest = nastroika;
+        cbPersonOne.getSelectionModel().select(actionTest.number);
 
     }
 
-    public Nastroika GetNastroika() {
-        return  nastroika1;
+    public ActionTest GetNastroika() {
+        return  actionTest;
     }
 
-    public void SetNastroika(Nastroika nastroika) {
-        this.nastroika1 = nastroika;
+    public void SetNastroika(ActionTest nastroika) {
+        this.actionTest = nastroika;
     }
 }

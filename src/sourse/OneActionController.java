@@ -23,7 +23,7 @@ public class OneActionController implements Initializable {
     public Button btnDelOne;
     public Button btnOneSet;
     public Label lbPos;
-    private Nastroika nastroika = new Nastroika(0);
+    private ActionTest nastroika = new ActionTest(0);
     public TextField tfName;
     public TextField tfNameParam;
 
@@ -77,27 +77,27 @@ public class OneActionController implements Initializable {
         lbPos.setText(String.valueOf(i));
     }
 
-    public void SetNastroika(Nastroika nastroika) {
+    public void SetNastroika(ActionTest nastroika) {
         this.nastroika = nastroika;
         //personOneActionController.SetNastroika(nastroika);
         tfName.setText(nastroika.name);
-        tfNameParam.setText(nastroika.nameParam);
+        tfNameParam.setText(nastroika.namePosition);
         
     }
 
 
-    public Nastroika GetNastroika() {
+    public ActionTest GetNastroika() {
 
         //this.nastroika = ;
         //tfName.setText(this.nastroika.name);
         //tfNameParam.setText(this.nastroika.nameParam);
-        return nastroika;
+        return this.nastroika;
     }
 
-    public void ShowNastroika(Nastroika nastroika) {
+    public void ShowNastroika(ActionTest nastroika) {
         //this.nastroika = nastroika;
         tfName.setText(nastroika.name);
-        tfNameParam.setText(nastroika.nameParam);
+        tfNameParam.setText(nastroika.namePosition);
     }
 
 

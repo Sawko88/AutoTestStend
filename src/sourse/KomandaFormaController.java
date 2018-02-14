@@ -42,7 +42,7 @@ public class KomandaFormaController implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (cbKomand.getSelectionModel().getSelectedIndex()==0) {
                     komandaCollection.SetKomand(tfKomanda.getText());
-                    //System.out.println(tfKomanda.getText());
+
                 }
                 //Updatenastroika();
             }
@@ -64,11 +64,11 @@ public class KomandaFormaController implements Initializable {
         this.personOneActionController = personOneActionController;
     }
 
-    public void SetParam(Nastroika nastroika) {
-        int index = nastroika.komanda.index;
+    public void SetParam(ActionTest nastroika) {
+        int index = nastroika.kOmanda.index;
         cbKomand.getSelectionModel().select(index);
         if (index == 0){
-            tfKomanda.setText(nastroika.komanda.komanda);
+            tfKomanda.setText(nastroika.kOmanda.komanda);
         }
         //Updatenastroika();
 
@@ -82,13 +82,17 @@ public class KomandaFormaController implements Initializable {
             //personOneActionController.nastroika1.nameParam += " "+komandaCollection.GetKonamda(index);
         }//
     }
+    private ActionTestCollection actionTestCollection = new ActionTestCollection();
 
-    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+    public ActionTest GetNastroika(ActionTest nastroikaBuf) {
+        nastroikaBuf = actionTestCollection.ActionSpisok.get(nastroikaBuf.number);
         if (personOneActionController!=null) {
             int index = cbKomand.getSelectionModel().getSelectedIndex();
-            nastroikaBuf.komanda = komandaCollection.Get(index);
-            nastroikaBuf.nameParam = komandaCollection.GetName(index);
-            nastroikaBuf.nameParam += " "+komandaCollection.GetKonamda(index);
+            nastroikaBuf.kOmanda = komandaCollection.komndaSpisok.get(index);
+            nastroikaBuf.namePosition = komandaCollection.komndaSpisok.get(index).name;
+            if (nastroikaBuf.kOmanda.index == 0) {
+                nastroikaBuf.namePosition += " " + komandaCollection.komndaSpisok.get(index).komanda;
+            }
         }//
         return nastroikaBuf;
     }

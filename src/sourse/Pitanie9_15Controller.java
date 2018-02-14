@@ -9,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
@@ -25,7 +26,9 @@ public class Pitanie9_15Controller implements Initializable {
                 //System.out.println(value);
                 value = value/2;
                 slNap.setValue(value);
-                NumberFormat formater = new DecimalFormat("#0.0");
+                DecimalFormatSymbols decimalSymbols = DecimalFormatSymbols.getInstance();
+                decimalSymbols.setDecimalSeparator('.');
+                NumberFormat formater = new DecimalFormat("0.0",decimalSymbols);
                 lbPos.setText(formater.format(slNap.getValue()));
                 //UpdateNastroika();
             }
@@ -50,13 +53,15 @@ public class Pitanie9_15Controller implements Initializable {
         //slNap.setValue(value);
     }
 
-    public void SetParam(Nastroika nastroika) {
-        slNap.setValue(nastroika.pitanie);
+    public void SetParam(ActionTest nastroika) {
+        double d = Double.parseDouble(nastroika.currentstait);
+        slNap.setValue(d);
     }
-
-    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
-        nastroikaBuf.pitanie = slNap.getValue();
-        nastroikaBuf.nameParam = lbPos.getText();
+    private ActionTestCollection actionTestCollection = new ActionTestCollection();
+    public ActionTest GetNastroika(ActionTest nastroikaBuf) {
+        nastroikaBuf = actionTestCollection.ActionSpisok.get(nastroikaBuf.number);
+        nastroikaBuf.currentstait = lbPos.getText();
+        nastroikaBuf.namePosition = lbPos.getText();
         return nastroikaBuf;
     }
 }

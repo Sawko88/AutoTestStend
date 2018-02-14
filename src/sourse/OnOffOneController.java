@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 public class OnOffOneController implements Initializable{
     public PersonOneActionController personOneActionController;
     public JFXToggleButton tbOn;
+    private ActionTestCollection actionTestCollection = new ActionTestCollection();
     //public Nastroika nastroika;
 
     public void SetMainApp(PersonOneActionController personOneActionController) {
@@ -17,9 +18,9 @@ public class OnOffOneController implements Initializable{
 
     }
 
-    public void SetParam(Nastroika nastroika) {
+    public void SetParam(ActionTest nastroika) {
         //this.nastroika = nastroika;
-        if (nastroika.onOff == 1){
+        if (nastroika.currentstait == nastroika.onstait){
             tbOn.setSelected(true);
         } else {
             tbOn.setSelected(false);
@@ -41,14 +42,15 @@ public class OnOffOneController implements Initializable{
     }
 
 
-    public Nastroika GetNastroika(Nastroika nastroika) {
+    public ActionTest GetNastroika(ActionTest nastroika) {
+        nastroika = actionTestCollection.ActionSpisok.get(nastroika.number);
         if (tbOn.isSelected()){
-            nastroika.onOff = 1;
-            nastroika.nameParam = "вкл";
+            nastroika.currentstait = nastroika.onstait;
+            nastroika.namePosition = "вкл";
 
         } else {
-            nastroika.onOff = 0;
-            nastroika.nameParam = "выкл";
+            nastroika.currentstait = nastroika.offstait;
+            nastroika.namePosition = "выкл";
         }
 
         return nastroika;

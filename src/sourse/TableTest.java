@@ -19,10 +19,13 @@ public class TableTest implements Serializable{
     public TableTest(int i, OneActionController oneActionController) {
 
     }*/
-    Nastroika nnn = new Nastroika(0);
+    //Nastroika nnn = new Nastroika(0);
+    public ActionTest actionTest = new ActionTest(0);
     //Resultat res = new Resultat();
 
-    public TableTest(Nastroika nasBuf) {
-        this.nnn = nasBuf;
+
+
+    public TableTest(ActionTest actBuf) {
+        this.actionTest = actBuf;
     }
 }

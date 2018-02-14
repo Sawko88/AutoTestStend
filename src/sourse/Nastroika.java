@@ -14,6 +14,7 @@ public class Nastroika implements Serializable{
     public double pause = 1;
     public Can can = new Can(0, 0);
     public KOmanda komanda = new KOmanda(0,"");
+    public ActionTest actionTest = new ActionTest(0, ActionTest.TypeAction.NONE, "-", " ", "1", "0");
 
     public Nastroika(int index) {
         //this.pause = 1;

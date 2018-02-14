@@ -275,10 +275,10 @@ public class PersonTestController implements Initializable{
         if (vbSpisokTest.getChildren().size()>0) {
             for (int i = 0; i < (vbSpisokTest.getChildren().size()); i++) {
                 OneActionController one = controllerList.get(vbSpisokTest.getChildren().get(i));
-                Nastroika nasBuf ;
-                nasBuf = one.GetNastroika();
+                ActionTest actBuf ;
+                actBuf = one.GetNastroika();
 
-                element.actionList.put(i, new TableTest(nasBuf));//
+                element.actionList.put(i, new TableTest(actBuf));//
             }
         }
         Resultat resultat = getResultat();
@@ -305,11 +305,11 @@ public class PersonTestController implements Initializable{
         tfName.setText(element.getName());
         tfPos.setText(element.getPos());
         for (int i = 0; i<element.actionList.size() ; i++) {
-            LoadTests((element.actionList.get(i)).nnn);//element.actionList.get(i).oneActionController, element.actionList.get(i).toolBar
+            LoadTests((element.actionList.get(i)).actionTest);//element.actionList.get(i).oneActionController, element.actionList.get(i).toolBar
         }
     }
 
-    private void LoadTests(Nastroika nastroika) throws IOException {//OneActionController oneActionController, ToolBar toolBar
+    private void LoadTests(ActionTest nastroika) throws IOException {//OneActionController oneActionController, ToolBar toolBar
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(PersonTestController.class.getResource("/fxml/OneAction.fxml"));
         ToolBar toolBar = loader.load();

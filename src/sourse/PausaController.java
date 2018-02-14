@@ -9,6 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 public class PausaController implements Initializable{
@@ -58,30 +61,38 @@ public class PausaController implements Initializable{
         //UpdateNastroika();
     }
 
-    public void SetParam(Nastroika nastroika) {
+    public void SetParam(ActionTest nastroika) {
         //nastroika.pause = slTime.getValue();
-
-        slTime.setValue(nastroika.pause);
+        double d = Double.parseDouble(nastroika.currentstait);
+        slTime.setValue(d);
         cbTime.getSelectionModel().select(0);
-        if (nastroika.pause >= 60){
+        if (d >= 60){
             cbTime.getSelectionModel().select(1);
-            slTime.setValue(nastroika.pause/60);
+            slTime.setValue(d/60);
         }
-        if (nastroika.pause>=3600){
+        if (d>=3600){
             cbTime.getSelectionModel().select(2);
-            slTime.setValue(nastroika.pause/3600);
+            slTime.setValue(d/3600);
         }
         //UpdateNastroika();
     }
-
-    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+    private ActionTestCollection actionTestCollection = new ActionTestCollection();
+    public ActionTest GetNastroika(ActionTest nastroikaBuf) {
+        nastroikaBuf = actionTestCollection.ActionSpisok.get(nastroikaBuf.number);
+        DecimalFormatSymbols decimalSymbols = DecimalFormatSymbols.getInstance();
+        decimalSymbols.setDecimalSeparator('.');
+        NumberFormat formater = new DecimalFormat("0.0",decimalSymbols);
         switch (cbTime.getSelectionModel().getSelectedIndex()){
-         case 0: nastroikaBuf.pause = slTime.getValue()*1; break;
-         case 1: nastroikaBuf.pause = slTime.getValue()*60; break;
-         case 2: nastroikaBuf.pause = slTime.getValue()*3600; break;
-         default: nastroikaBuf.pause = slTime.getValue()*1; break;
+         case 0:
+
+             nastroikaBuf.currentstait = formater.format(slTime.getValue()*1);
+             break;
+
+         case 1: nastroikaBuf.currentstait = formater.format(slTime.getValue()*60); break;
+         case 2: nastroikaBuf.currentstait = formater.format(slTime.getValue()*3600); break;
+         default: nastroikaBuf.currentstait = formater.format(slTime.getValue()*1); break;
         }
-        nastroikaBuf.nameParam = lbTime.getText();
+        nastroikaBuf.namePosition = lbTime.getText();
         return nastroikaBuf;
     }
 }
