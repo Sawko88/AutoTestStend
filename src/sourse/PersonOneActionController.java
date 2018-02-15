@@ -26,37 +26,7 @@ public class PersonOneActionController implements Initializable {
     private ActionTest actionTest = new ActionTest(0, ActionTest.TypeAction.NONE, "-", " ", "1", "0");
 
 
-    public  static List<String> spisokCb = Arrays.asList(
-            "-",
-            "Замок зажигания",
-            "Дверь",
-            "Капот",
-            "Багажник",
-            "Метка1, вкл/выкл",
-            "Метка1, 0-3.3В",
-            "Метка2, вкл/выкл",
-            "Метка2, 0-3.3В",
-            "Метка3, вкл/выкл",
-            "Метка4, вкл/выкл",
-            "Метка5, вкл/выкл",
-            "КТС",
-            "Датчик удара",
-            "Датчик перемещения",
-            "Датчик объема",
-            "Тормоз ручной",
-            "Тормоз ножной",
-            "Основное питание, вкл/выкл",
-            "Основное питание, 9-15В",
-            "Резервное питание, вкл/выкл",
-            "Резервное питание, 9-15В",
-            "Обороты двигателя, 0-10000",
-            "Питание реле1",
-            "Питание реле2",
-            "Питание реле3",
-            "Послать команду",
-            "Команда CAN",
-            "Пауза"
-            );
+
 
     public void SetOneAction(OneActionController oneActionController) {
         this.oneActionController = oneActionController;
@@ -90,7 +60,7 @@ public class PersonOneActionController implements Initializable {
         CanFormaController canFormaController  = loader.getController();
         object = loader.getController();
         canFormaController.SetMainApp(this);
-        //canFormaController.SetParam(nastroika1);
+        canFormaController.SetParam(actionTest);
 
         anPersonOne.getChildren().clear();
         anPersonOne.getChildren().add(anchorPane);
@@ -236,7 +206,7 @@ public class PersonOneActionController implements Initializable {
         if (object.getClass() == canFormaController.getClass()) {
             //System.out.println(object.getClass());
             canFormaController = (CanFormaController) object;
-            //nastroikaBuf = canFormaController.GetNastroika(nastroikaBuf);
+            actionTestbuf = canFormaController.GetNastroika(actionTestbuf);
         }
         if (object.getClass() == komandaFormaController.getClass()) {
            // System.out.println(object.getClass());
@@ -246,7 +216,7 @@ public class PersonOneActionController implements Initializable {
         if (object.getClass() == nullNastroika.getClass()) {
            // System.out.println(object.getClass());
             nullNastroika = (NullNastroika) object;
-            //nastroikaBuf = nullNastroika.GetNastroika(nastroikaBuf);
+            actionTestbuf = nullNastroika.GetNastroika(actionTestbuf);
         }
         oneActionController.ShowNastroika(actionTestbuf);
         actionTest = actionTestbuf;
@@ -291,6 +261,7 @@ public class PersonOneActionController implements Initializable {
                 LoadREsursNap();
                 break;
             case CAN:
+                LoadResursCan();
                 break;
             case MOTOR:
                 LoadResursOn();

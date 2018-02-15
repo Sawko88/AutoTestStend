@@ -51,6 +51,8 @@ public  class ControllerTest extends Application implements Initializable {
     public TextField tfLogNum;
     public JFXSpinner spConnect;
     public ToggleButton tbComPort;
+    public Button btStartTest;
+    public Button btStopTest;
 
     private Setting setting = new Setting();
 
@@ -60,6 +62,7 @@ public  class ControllerTest extends Application implements Initializable {
     private SmsController gprsController;
 
     private Thread ConnectTread;
+    private LogickTest logickTest = new LogickTest();
 
     public void PultAction(ActionEvent actionEvent) throws IOException {
         if (Pult.isSelected()){
@@ -112,7 +115,11 @@ public  class ControllerTest extends Application implements Initializable {
 
         //SetDisable(true);
 
+
+
     }
+
+
 
     private void MyTbComListener() {
         tbComPort.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -160,6 +167,8 @@ public  class ControllerTest extends Application implements Initializable {
         btnAdd.setDisable(b);
         vbAdd.setDisable(b);
         tfLogNum.setDisable(!b);
+        btStartTest.setDisable(b);
+        btStopTest.setDisable(b);
 
     }
 
@@ -688,6 +697,48 @@ public  class ControllerTest extends Application implements Initializable {
         connectionState = stateCon;
     }
 
+    public void ActionBtStartTest(ActionEvent actionEvent) {
+        LinkedList<SaveParam> listLogickTest = new LinkedList<SaveParam>();
+        if (vbAdd.getChildren().size()<= 0){
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Тестирование");
+                alert.setContentText("Список тестов пустой");
+                alert.showAndWait();
+            });
+        } else {
+            InitLogickTest();//потом убрать
+            for (int i =0 ; i < vbAdd.getChildren().size(); i++){
+                ToolBar myTT = (ToolBar) vbAdd.getChildren().get(i);
+                SaveParam mySaveParam = new SaveParam();
+
+
+                mySaveParam.name = tableTb.get(myTT).element.labName.getText();
+                mySaveParam.pos = Integer.parseInt(tableTb.get(myTT).element.labPos.getText());
+                mySaveParam.personlist = tableTb.get(myTT).element.actionList;
+                mySaveParam.res = tableTb.get(myTT).element.GetResultat();
+
+                listLogickTest.add(mySaveParam);
+                //oos.writeObject();
+
+            }
+            logickTest.StartLogickTest(listLogickTest);
+
+        }
+
+    }
+
+    public void ControlButtonTest(boolean b){
+        vbAdd.setDisable(b);
+        btStopTest.setDisable(!b);
+        btStartTest.setDisable(b);
+    }
+
+    public void ActionbtStopTest(ActionEvent actionEvent) {
+        logickTest.StopLogickTest();
+
+    }
+
     public enum ConnectionState {
 
         START, CONNECTCOM, WAITCOM, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS, OKCONNECT, NONE, ERRORCONNECT, STOP
@@ -751,6 +802,7 @@ public  class ControllerTest extends Application implements Initializable {
                         System.out.println("ConnectionStateTread - OKCONNECT");
                         StopSpinner();
                         SetDisable(false);
+                        InitLogickTest();
                         connectionState = ConnectionState.STOP;
                         break;
                     case NONE:
@@ -786,6 +838,13 @@ public  class ControllerTest extends Application implements Initializable {
             }
 
         }
+    }
+
+    private void InitLogickTest() {
+        logickTest.SetTest(this);
+        logickTest.SetChannals(smsController, gprsController,comPortController);
+        logickTest.SetObject(obgectTest);
+        btStopTest.setDisable(true);
     }
 
     /*public void BtnConnectAction(ActionEvent event) {

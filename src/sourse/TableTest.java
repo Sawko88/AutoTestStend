@@ -28,4 +28,8 @@ public class TableTest implements Serializable{
     public TableTest(ActionTest actBuf) {
         this.actionTest = actBuf;
     }
+
+    public TableTest() {
+
+    }
 }

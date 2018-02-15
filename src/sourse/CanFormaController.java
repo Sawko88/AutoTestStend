@@ -14,7 +14,7 @@ public class CanFormaController implements Initializable {
     public CanCollection canCollection = new CanCollection();
     public ComboBox cbCan;
     public JFXToggleButton tbCAn;
-
+    public ActionTestCollection actionTestCollection = new ActionTestCollection();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Iterator<Can> iterator = canCollection.canSpisok.iterator();
@@ -44,10 +44,10 @@ public class CanFormaController implements Initializable {
         //UpdateNastroika();
     }
 
-    public void SetParam(Nastroika nastroika) {
+    public void SetParam(ActionTest nastroika) {
         int index = nastroika.can.index;
         cbCan.getSelectionModel().select(index);
-        if (nastroika.can.state == 1){
+        if (nastroika.can.curstait == nastroika.can.onstait){
             tbCAn.setSelected(true);
         } else {
             tbCAn.setSelected(false);
@@ -61,10 +61,18 @@ public class CanFormaController implements Initializable {
         //personOneActionController.nastroika1.nameParam += (tbCAn.isSelected())? " вкл" : " выкл";
     }
 
-    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+    public ActionTest GetNastroika(ActionTest nastroikaBuf) {
+        nastroikaBuf = actionTestCollection.ActionSpisok.get(nastroikaBuf.number);
         nastroikaBuf.can = canCollection.GetCan(cbCan.getSelectionModel().getSelectedIndex());
-        nastroikaBuf.nameParam = canCollection.GetName(cbCan.getSelectionModel().getSelectedIndex());
-        nastroikaBuf.nameParam += (tbCAn.isSelected())? " вкл" : " выкл";
+        nastroikaBuf.namePosition = canCollection.GetName(cbCan.getSelectionModel().getSelectedIndex());
+        if (tbCAn.isSelected()){
+            nastroikaBuf.namePosition+=" вкл";
+            nastroikaBuf.can.curstait = nastroikaBuf.can.onstait;
+        }else {
+            nastroikaBuf.namePosition+=" выкл";
+            nastroikaBuf.can.curstait = nastroikaBuf.can.offstait;
+        }
+
         return nastroikaBuf;
     }
 }

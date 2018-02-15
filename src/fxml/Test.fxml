@@ -84,5 +84,7 @@
         </items>
       </ToolBar>
       <JFXSpinner fx:id="spConnect" layoutX="38.0" layoutY="208.0" prefHeight="130.0" prefWidth="123.0" visible="false" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="180.0" />
+      <Button fx:id="btStartTest" layoutX="11.0" layoutY="86.0" mnemonicParsing="false" onAction="#ActionBtStartTest" prefHeight="25.0" prefWidth="77.0" text="Start" />
+      <Button fx:id="btStopTest" layoutX="11.0" layoutY="123.0" mnemonicParsing="false" onAction="#ActionbtStopTest" prefHeight="25.0" prefWidth="77.0" text="Stop" />
    </children>
 </AnchorPane>

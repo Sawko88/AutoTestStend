@@ -5,10 +5,11 @@ import java.util.List;
 
 public class CanCollection {
     public  static List<Can> canSpisok = Arrays.asList(
-        new Can("Дверь", 0,0),
-        new Can("Замок зажигания", 1,0),
-        new Can("Капот", 2,0),
-        new Can("Тормоз", 3,0)
+        new Can(0,"Дверь", "01","00", 2, 2),
+        new Can(1,"Замок зажигания", "01","00", 4, 6),
+        new Can(2,"Капот", "01","00", 3, 4),
+        new Can(3,"Тормоз", "01","00", 3, 6),
+        new Can(4,"Багажник", "01","00", 3, 2)
 
     );
 
@@ -17,7 +18,7 @@ public class CanCollection {
     }
 
     public boolean getState(int selectedIndex) {
-        if ( (canSpisok.get(selectedIndex)).state == 1)
+        if ( canSpisok.get(selectedIndex).curstait == canSpisok.get(selectedIndex).onstait)
         {
             return true;
         } else {

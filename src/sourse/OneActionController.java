@@ -23,7 +23,7 @@ public class OneActionController implements Initializable {
     public Button btnDelOne;
     public Button btnOneSet;
     public Label lbPos;
-    private ActionTest nastroika = new ActionTest(0);
+    private ActionTest nastroika = new ActionTest(0, ActionTest.TypeAction.NONE, "-", " ", "1", "0");
     public TextField tfName;
     public TextField tfNameParam;
 

@@ -1,19 +1,20 @@
 package sourse;
 
 public class NullNastroika {
-    Nastroika nastroika = new Nastroika(0);
+    ActionTest nastroika = new ActionTest(0);
 
     public NullNastroika(String s) {
-        nastroika.nameParam = s;
+        nastroika.namePosition = s;
     }
 
     public NullNastroika() {
 
     }
-
-    public Nastroika GetNastroika(Nastroika nastroikaBuf) {
+    private ActionTestCollection actionTestCollection = new ActionTestCollection();
+    public ActionTest GetNastroika(ActionTest nastroikaBuf) {
+        nastroikaBuf = actionTestCollection.ActionSpisok.get(nastroikaBuf.number);
         nastroikaBuf.name = "-";
-        nastroikaBuf.nameParam = "";
+        nastroikaBuf.namePosition = "-";
         return  nastroikaBuf;
     }
 }
