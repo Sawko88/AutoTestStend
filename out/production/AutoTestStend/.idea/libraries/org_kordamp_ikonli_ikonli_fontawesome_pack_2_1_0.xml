@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="org.kordamp.ikonli:ikonli-fontawesome-pack:2.1.0" type="repository">
+    <properties maven-id="org.kordamp.ikonli:ikonli-fontawesome-pack:2.1.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/kordamp/ikonli/ikonli-fontawesome-pack/2.1.0/ikonli-fontawesome-pack-2.1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/kordamp/ikonli/ikonli-core/2.1.0/ikonli-core-2.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

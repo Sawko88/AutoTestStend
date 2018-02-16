@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
+
+<AnchorPane prefHeight="500.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.PersonTestController">
+   <children>
+      <AnchorPane layoutX="25.0" layoutY="63.0" prefHeight="308.0" prefWidth="635.0" style="-fx-border-color: #DC143C; -fx-border-width: 2;" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0">
+         <children>
+            <VBox layoutX="7.0" layoutY="9.0" prefHeight="399.0" prefWidth="656.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+               <children>
+                  <ToolBar prefHeight="38.0" prefWidth="810.0">
+                     <items>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="161.0" text="Начальное состояние">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="28.0" prefWidth="8.0" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="328.0" text="Тест">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="25.0" prefWidth="5.0" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="278.0" text="Результат">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </items>
+                  </ToolBar>
+                  <HBox prefHeight="325.0" prefWidth="654.0">
+                     <children>
+                        <ScrollPane prefHeight="319.0" prefWidth="174.0">
+                           <content>
+                              <VBox prefHeight="316.0" prefWidth="172.0">
+                                 <children>
+                                    <ToolBar prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <ComboBox prefHeight="25.0" prefWidth="159.0" />
+                                       </items>
+                                    </ToolBar>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane prefHeight="319.0" prefWidth="343.0">
+                           <content>
+                              <VBox fx:id="vbSpisokTest" prefHeight="317.0" prefWidth="341.0" />
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane prefHeight="409.0" prefWidth="298.0">
+                           <content>
+                              <VBox prefHeight="350.0" prefWidth="281.0">
+                                 <children>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="263.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbSignal" checkedColor="#eb335b" onAction="#CbSignalAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Сигналы:" />
+                                          <CheckComboBox fx:id="ccbSignal" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbIndikacia" checkedColor="#eb335b" onAction="#CbIndikaciaAction" text=" " />
+                                          <Label prefWidth="110.0" text="Индикация:" />
+                                          <ComboBox fx:id="cboxIndikacia" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbReleProv" checkedColor="#eb335b" onAction="#CbReleProvAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Реле проводное:" />
+                                          <ComboBox fx:id="cboxReleProv" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbReleBezprov" checkedColor="#eb335b" onAction="#CbReleBezprovAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Реле безпроводое:" />
+                                          <ComboBox fx:id="cboxReleBezprov" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbSirena" checkedColor="#eb335b" onAction="#CbSirenaAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Сирена:" />
+                                          <ComboBox fx:id="cboxSirena" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbBagagnik" checkedColor="#eb335b" onAction="#CbBagagnikAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Отп. багажника:" />
+                                          <ComboBox fx:id="cboxBagagnik" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbWebasto" checkedColor="#eb335b" onAction="#CbWebastoAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Вебасто:" />
+                                          <ComboBox fx:id="cboxWebasto" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbAutozap" checkedColor="#eb335b" onAction="#CbAutozapAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Автозапуск:" />
+                                          <ComboBox fx:id="cboxAutozap" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbZumerSnatie" checkedColor="#eb335b" onAction="#CbZumerSnatieAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер пост/снятие:" />
+                                          <ComboBox fx:id="cboxZumerSnatie" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbZumerMetki" checkedColor="#eb335b" onAction="#CbZumerMetkiAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер метки:" />
+                                          <ComboBox fx:id="cboxZumerMetki" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbPovorot" checkedColor="#eb335b" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Поворотники:" />
+                                          <ComboBox fx:id="cboxPovorot" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                 </children></VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="176.0" text="  " />
+                        <Button fx:id="btnAddTest" mnemonicParsing="false" onAction="#BtnAddTestAct" prefHeight="25.0" prefWidth="328.0" text="Добавить действие">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Label prefHeight="17.0" prefWidth="213.0" text="  " />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnOk" layoutX="517.0" layoutY="386.0" mnemonicParsing="false" onAction="#BtnOkAct" prefHeight="25.0" prefWidth="60.0" text="ОК" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="90.0" />
+      <Button fx:id="btnCancel" layoutX="608.0" layoutY="386.0" mnemonicParsing="false" onAction="#BtnCancelAct" prefHeight="25.0" prefWidth="60.0" text="Отмена" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <TextField fx:id="tfName" layoutX="181.0" layoutY="24.0" AnchorPane.topAnchor="10.0" />
+      <Label layoutX="22.0" layoutY="14.0" text="№" AnchorPane.leftAnchor="10.0" />
+      <TextField fx:id="tfPos" alignment="CENTER" layoutX="31.0" layoutY="10.0" prefHeight="25.0" prefWidth="38.0" AnchorPane.topAnchor="10.0" />
+      <Label layoutX="94.0" layoutY="14.0" prefHeight="17.0" prefWidth="87.0" text="Название теста" />
+   </children>
+</AnchorPane>

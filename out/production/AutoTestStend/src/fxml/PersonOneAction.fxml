@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="240.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.PersonOneActionController">
+   <children>
+      <ComboBox fx:id="cbPersonOne" layoutX="14.0" layoutY="14.0" onAction="#ActCbPersonOne" prefHeight="25.0" prefWidth="220.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <AnchorPane fx:id="anPersonOne" layoutX="12.0" layoutY="55.0" prefHeight="127.0" prefWidth="263.0" style="-fx-border-color: #9932CC; -fx-border-width: 2;" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
+      <Button fx:id="btnCancelPersonOne" layoutX="217.0" layoutY="184.0" mnemonicParsing="false" onAction="#ActBtnCancelPersonOne" prefWidth="60.0" text="Отмена" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button fx:id="btnOkPersonOne" layoutX="142.0" layoutY="188.0" mnemonicParsing="false" onAction="#ActBtnOkPersonOne" prefWidth="60.0" text="ОК" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
+   </children>
+</AnchorPane>
