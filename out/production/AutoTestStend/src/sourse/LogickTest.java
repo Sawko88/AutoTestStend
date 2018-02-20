@@ -12,6 +12,8 @@ public class LogickTest {
     private SmsController smsController;
     private SmsController gprsController;
     private ComPortController comPortController;
+    private ParserGsmSend parserGsmSend = new ParserGsmSend();
+    private ParserCanSend parserCanSend = new ParserCanSend();
 
     public void SetChannals(SmsController smsController, SmsController gprsController, ComPortController comPortController) {
         this.comPortController = comPortController;
@@ -63,6 +65,7 @@ public class LogickTest {
 
                     case START:
                         System.out.println("LogickTestStateThread - START");
+                        parserGsmSend.InitObgect(obgectTest);
                         logickTestState = LogickTestState.BEGINTEST;
                         break;
                     case BEGINTEST:
@@ -140,10 +143,15 @@ public class LogickTest {
                     SendToPult(messPWRONOFF);
                     break;
                 case PWRNAP:
-                    String messPWRNAP = tableTest.actionTest.code+tableTest.actionTest.currentstait;
+                    String par;
+                    par = String.valueOf((int)(70 - (Double.parseDouble(tableTest.actionTest.currentstait)-9)*5));
+                    String messPWRNAP = tableTest.actionTest.code+par;
                     SendToPult(messPWRNAP);
                     break;
                 case CAN:
+                    String messCAN = parserCanSend.GetMess(tableTest.actionTest.can);
+                    messCAN = tableTest.actionTest.code+messCAN;
+                    SendToPult(messCAN);
                     break;
                 case MOTOR:
                     String messMOTOR = tableTest.actionTest.code+tableTest.actionTest.currentstait;
@@ -160,6 +168,8 @@ public class LogickTest {
                 case NONE:
                     break;
                 case GSMCOM:
+                    String messGSMCOM = parserGsmSend.GetMess(tableTest.actionTest.kOmanda);
+                    SendToGSM(messGSMCOM);
                     break;
                 case PAUTHA:
                     StartTimer(tableTest.actionTest.currentstait);
@@ -172,6 +182,11 @@ public class LogickTest {
         }
 
     }
+
+    private void SendToGSM(String messGSMCOM) {
+        smsController.SendMess(messGSMCOM);
+    }
+
     Timeline timeline;
     private void StartTimer(String currentstait) {
         double time = Double.parseDouble(currentstait);

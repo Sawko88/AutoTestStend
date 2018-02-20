@@ -67,6 +67,19 @@ public class SmsController extends Application implements Initializable {
         this.nameModul = nameModul;
     }
 
+    public void SendMess(String messGSMCOM) {
+        if (!messGSMCOM.equals("")) {
+            ARKAN ark = new ARKAN();
+            ark.setData(messGSMCOM);
+            ark.setLogNum(controllerTest.GetObgectPhone());
+            ark = ark.setARKAN(ARKAN.SEND_SMS);
+
+            messSendList.add(new ArkanList( ark, false, 3));
+            //PrintText(tfSend.getText(), Color.BLUE, MessangeSourse.TOSMS);
+
+        }
+    }
+
 
     public enum MessangeSourse{
         INF0, FROMSMS, TOSMS

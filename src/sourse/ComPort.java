@@ -7,6 +7,8 @@ import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.function.Consumer;
@@ -126,7 +128,12 @@ public class ComPort {
 
     void Send(String string){
         try {
-            serialPort.writeString( string+"\r\n");//TextFieldTerminal.getText()
+            //serialPort.writeString( string+"\r\n");//TextFieldTerminal.getText()
+            try {
+                serialPort.writeString(string+"\r\n", String.valueOf(StandardCharsets.ISO_8859_1));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         } catch (SerialPortException e) {
             e.printStackTrace();
         }

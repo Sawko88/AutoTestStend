@@ -23,7 +23,7 @@ public class ActionTestCollection {
             new ActionTest(15, ActionTest.TypeAction.RARELE, "РР, вкл/выкл", "rar1:", "1", "0"),
             new ActionTest(16, ActionTest.TypeAction.PAUTHA, "Пауза", "", "1", "0"),
             new ActionTest(17, ActionTest.TypeAction.GSMCOM, "Послать команду", new KOmanda(0, "","")),
-            new ActionTest(18, ActionTest.TypeAction.CAN, "Команда CAN", new Can(0, "",0))
+            new ActionTest(18, ActionTest.TypeAction.CAN, "Команда CAN", "can1>", new Can(0, "",0))
     );
 
 }

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CanCollection {
-    public  static List<Can> canSpisok = Arrays.asList(
+    public   List<Can> canSpisok = Arrays.asList(
         new Can(0,"Дверь", "01","00", 2, 2),
         new Can(1,"Замок зажигания", "01","00", 4, 6),
         new Can(2,"Капот", "01","00", 3, 4),

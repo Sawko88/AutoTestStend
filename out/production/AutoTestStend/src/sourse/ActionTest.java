@@ -25,11 +25,12 @@ public class ActionTest implements Serializable {
         this.kOmanda = kOmanda;
     }
 
-    public ActionTest(int number, TypeAction type, String name, Can can) {
+    public ActionTest(int number, TypeAction type, String name,String code, Can can) {
         this.number = number;
         this.type = type;
         this.name = name;
         this.can = can;
+        this.code = code;
     }
 
     public  enum TypeAction{

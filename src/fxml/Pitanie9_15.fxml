@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="130.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.Pitanie9_15Controller">
    <children>
-      <Slider fx:id="slNap" blockIncrement="0.5" layoutX="14.0" layoutY="49.0" majorTickUnit="1.0" max="15.0" min="9.0" minorTickCount="1" onMouseReleased="#MouseReleasedSlNap" prefHeight="67.0" prefWidth="192.0" showTickLabels="true" showTickMarks="true" value="12.0" />
+      <Slider fx:id="slNap" blockIncrement="0.5" layoutX="14.0" layoutY="49.0" majorTickUnit="1.0" max="14.0" min="9.0" minorTickCount="1" onMouseReleased="#MouseReleasedSlNap" prefHeight="67.0" prefWidth="192.0" showTickLabels="true" showTickMarks="true" value="12.0" />
       <Label fx:id="lbPos" graphicTextGap="5.0" layoutX="90.0" layoutY="14.0" text="12.0">
          <font>
             <Font name="System Bold" size="20.0" />
