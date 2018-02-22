@@ -113,7 +113,7 @@ public  class ControllerTest  implements Initializable {
 
         MyTbConnectListener();
 
-        SetDisable(true);
+        //SetDisable(true);
 
 
 

@@ -79,6 +79,10 @@ public class SmsController extends Application implements Initializable {
 
         }
     }
+    private boolean testing = false;
+    public void SetTesting(boolean b) {
+        this.testing = b;
+    }
 
 
     public enum MessangeSourse{
@@ -346,6 +350,8 @@ public class SmsController extends Application implements Initializable {
     private boolean resvMessTState = false;
     public LinkedList<String> messResvList = new LinkedList<String>();
 
+    public LinkedList<String> messResvTestList = new LinkedList<String>();
+
     private void StartApplication() {
         sendMessTState = true;
         SendMessT = new Thread(new SendMessThread());
@@ -402,6 +408,11 @@ public class SmsController extends Application implements Initializable {
                                 }
                                 break;
                             case ARKAN.RECEIVED_SMS:
+
+                                if (testing){
+                                    messResvTestList.add(arkanResv.data);
+                                }
+
                                 Platform.runLater(() -> {
                                     PrintText(arkanResv.data,  MessangeSourse.FROMSMS);
                                 });

@@ -14,11 +14,13 @@ public class LogickTest {
     private ComPortController comPortController;
     private ParserGsmSend parserGsmSend = new ParserGsmSend();
     private ParserCanSend parserCanSend = new ParserCanSend();
+    private ParserResult parserResult = new ParserResult();
 
     public void SetChannals(SmsController smsController, SmsController gprsController, ComPortController comPortController) {
         this.comPortController = comPortController;
         this.smsController = smsController;
         this.gprsController = gprsController;
+        parserResult.SetChannels(comPortController,smsController,gprsController);
     }
 
     private ObgectTest obgectTest;
@@ -40,7 +42,7 @@ public class LogickTest {
     }
 
     public enum LogickTestState {
-        START,BEGINTEST, TEST,FINISHTEST, NONE, STOP, PAUSASTART, PAUSASTOP, PAUSAWAIT
+        START,BEGINTEST, TEST, WAITRESULT, FINISHTEST, NONE, STOP, PAUSASTART, PAUSASTOP, PAUSAWAIT
     }
     private LogickTestState logickTestState = LogickTestState.NONE;
     private Thread LogickTestThread;
@@ -71,6 +73,8 @@ public class LogickTest {
                     case BEGINTEST:
                         System.out.println("LogickTestStateThread - BEGINTEST");
                         currentTest = listLogickTest.getFirst();
+                        parserResult.SetResult(currentTest.res);
+
                         System.out.println(currentTest.name+" - begin");
                         logickTestState = LogickTestState.TEST;
                         break;
@@ -79,9 +83,39 @@ public class LogickTest {
                         ParsingTest(currentTest.personlist);
 
                         break;
+                    case WAITRESULT:
+                        //System.out.println("LogickTestStateThread - WAITRESULT");
+                        switch (parserResult.GetResultStatus()){
+
+                            case NONE:
+                                System.out.println("LogickTestStateThread - ResultTest - NONE");
+                                logickTestState = LogickTestState.FINISHTEST;
+                                break;
+                            case WAIT:
+                                //System.out.println("LogickTestStateThread - ResultTest - WAIT");
+                                break;
+                            case OK:
+                                System.out.println("LogickTestStateThread - ResultTest - OK");
+                                logickTestState = LogickTestState.FINISHTEST;
+                                break;
+                            case ERROR:
+                                System.out.println("LogickTestStateThread - ResultTest - ERROR");
+                                logickTestState = LogickTestState.FINISHTEST;
+                                break;
+                            case NULL:
+                                System.out.println("LogickTestStateThread - ResultTest - NULL");
+                                logickTestState = LogickTestState.FINISHTEST;
+                                break;
+                            default: break;
+                        }
+
+                        break;
                     case FINISHTEST:
                         System.out.println("LogickTestStateThread - FINISHTEST");
                         System.out.println(currentTest.name+" - finish");
+
+                        parserResult.StopResult();
+
                         listLogickTest.removeFirst();
                         if (listLogickTest.isEmpty()){
                             logickTestState = LogickTestState.STOP;
@@ -125,7 +159,7 @@ public class LogickTest {
         TableTest tableTest = new TableTest();
         if (personlist.isEmpty()){
             countPersonList = 0;
-            logickTestState = LogickTestState.FINISHTEST;
+            logickTestState = LogickTestState.WAITRESULT;
         } else
         {
             tableTest =  personlist.get(countPersonList);

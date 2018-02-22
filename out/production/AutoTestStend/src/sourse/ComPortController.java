@@ -95,6 +95,10 @@ public class ComPortController extends Application implements Initializable {
     public void SendMess(String mess) {
         toStend.add(mess);
     }
+    private boolean testing = false;
+    public void SetTesting(boolean b) {
+        this.testing = b;
+    }
 
     public enum MessangeSourse{
         INF0, FROMSMS, TOSMS
@@ -138,7 +142,8 @@ public class ComPortController extends Application implements Initializable {
 
     private ComPort comPort1= new ComPort();
     private String nameComPort = "";
-    public static LinkedList<String> toStend = new LinkedList<String>();
+    public  LinkedList<String> toStend = new LinkedList<String>();
+    public  LinkedList<String> messResvTestList = new LinkedList<String>();
 
     private class UpdateDataRun extends Thread implements Runnable {
         @Override
@@ -148,7 +153,9 @@ public class ComPortController extends Application implements Initializable {
                 if (comPort1.messList.size() > 0)
                 {
                     String mess = comPort1.messList.poll();
-
+                    if (testing) {
+                        messResvTestList.add(mess);
+                    }
                     Platform.runLater(() -> {
                         PrintText(mess,  MessangeSourse.FROMSMS);
                     });

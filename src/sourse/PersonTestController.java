@@ -437,7 +437,7 @@ public class PersonTestController implements Initializable{
         if (cbSignal.isSelected()){
             for (int i = 0; i < ccbSignal.getItems().size(); i ++){
                 if (ccbSignal.getCheckModel().isChecked(i)){
-                    resbuf.signalSResultat.add(SignalCollection.signalSpisok.get(i));
+                    resbuf.signalSResultat.add(signalCollection.signalSpisok.get(i));
                 }
             }
         }else {
