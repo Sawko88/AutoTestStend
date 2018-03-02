@@ -155,9 +155,9 @@ public class GPS {
                            <String fx:value="115200" />
                            <String fx:value="128000" />*/
         String bound;
-        bound = "gps:"+selectedIndex;
+        bound = "gps1:"+selectedIndex;
         //System.out.println(bound);
-        ControllerPultMX.toStend.add(bound);
+        //ControllerPultMX.toStend.add(bound);
     }
 
     public void SetInterval(int selectedIndex) {

@@ -16,6 +16,8 @@ public class SignalCollection {
             new Signal(8, Signal.SignalType.CONTROL, "25","Тест"),
             new Signal(9, Signal.SignalType.NONE, "TEST 000000000","Тестирование пройдено успешно"),
             new Signal(10, Signal.SignalType.CONTROL, "5E","Зажигание включено"),
-            new Signal(11, Signal.SignalType.CONTROL, "5F","Зажигание выключено")
+            new Signal(11, Signal.SignalType.CONTROL, "5F","Зажигание выключено"),
+            new Signal(12, Signal.SignalType.CONTROL, "34","Двигатель разблокирован")
+
     );
 }

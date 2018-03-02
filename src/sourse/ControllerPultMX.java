@@ -24,10 +24,8 @@ import java.awt.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static java.awt.Color.white;
@@ -41,9 +39,9 @@ public class ControllerPultMX implements Initializable {
     public ComboBox ComboBoxPort;
 
     public TextField TextFieldTerminal;
-    public Button ButtoncomPortSend;
+
     public AnchorPane PaneComPort;
-    public TextArea TextAriaTerminal;
+    //public TextArea TextAriaTerminal;
     public JFXToggleButton out1;
     public JFXToggleButton adc1on;
     //public TextField textAdc1;
@@ -52,29 +50,9 @@ public class ControllerPultMX implements Initializable {
     public JFXToggleButton out4;
     public JFXToggleButton out5;
     public JFXToggleButton out6;
-    public JFXToggleButton out7;
-    public JFXToggleButton out8;
-    public JFXToggleButton out9;
-    public JFXToggleButton out10;
-    public JFXToggleButton out11;
-    public Button Inp1;
-    public Button Inp2;
-    public Button Inp3;
-    public Button Inp4;
-    public Button Inp5;
-    public Button Inp6;
-    public Button Inp7;
-    public Button Inp8;
-    public Button Inp9;
-    public Button Inp10;
-    public Button Inp11;
-    public Button Inp12;
-    public Button Inp13;
-    public Button Inp14;
-    public Button Inp15;
-    public Button Inp16;
-    public Button Inp17;
-    public Button Inp18;
+
+
+
     public TextField ADC1text;
     public JFXToggleButton adc2on;
     public TextField ADC2text;
@@ -113,13 +91,35 @@ public class ControllerPultMX implements Initializable {
     public TextArea textGpsLog;
 
 
-    public static LinkedList<String> toStend = new LinkedList<String>();
+    //public static LinkedList<String> toStend = new LinkedList<String>();
     public JFXToggleButton pwrOn;
     public JFXSlider pwrSlider;
     public Button pwrChange;
+    public JFXToggleButton pwrOnRes;
+    public JFXSlider pwrSliderRes;
+    public Button pwrChangeRes;
+    public Button inp1;
+    public Button inp2;
+    public Button inp3;
+    public Button inp4;
+    public Button inp5;
+    public Button inp6;
+    public Button inp7;
+    public Button inp8;
+    public Button inp9;
+    public Button inp10;
+    public Button inp11;
+    public JFXToggleButton met1;
+    public JFXToggleButton met2;
+    public JFXToggleButton rar1;
+    public JFXToggleButton rar2;
+    public JFXToggleButton mot1;
+    public JFXToggleButton mot2;
+    public JFXToggleButton pwr1;
+    public JFXToggleButton pwr2;
     //SerialPort serialPort;
     boolean ComPortTread = false;
-    ComPort comPort1= new ComPort();
+    //ComPort comPort1= new ComPort();
     GPS gps = new GPS();
 
 
@@ -127,12 +127,8 @@ public class ControllerPultMX implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Start2");
-        String[] portNames = SerialPortList.getPortNames();
-        for(int i = 0; i < portNames.length; i++) {
-            //System.out.println(portNames[i]);
-            ComboBoxPort.getItems().add(i,portNames[i] );
-        }
-        ComboBoxPort.getSelectionModel().select(0);
+
+
         comboxGPSSpeed.getSelectionModel().select(1);
         comboboxGPSTimeout.getSelectionModel().select(0);
         PaneComPort.setDisable(true);
@@ -218,57 +214,17 @@ public class ControllerPultMX implements Initializable {
     public void CloseWin(){
         System.out.println("Stopeee");
         updateDataState = false;
-        if (comPort1.serialPort.isOpened()){
-            comPort1.Close();
-        }
+
         gps.StopGps();
     }
 
     //@Override
-    public void ConnectComPort(ActionEvent actionEvent) throws SerialPortException {
-        if (ToogleButComPort.isSelected()){
-            if (comPort1.Open((String) ComboBoxPort.getSelectionModel().getSelectedItem())) {
-                System.out.println("ConnextComPort");
-                ToogleButComPort.setText("Закрыть");
-                PaneComPort.setDisable(false);
-                UpdateDataTread();
-                Stage stage = (Stage) ToogleButComPort.getScene().getWindow();
-                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent event) {
-                        CloseWin();
-                    }
-                });
 
-            } else {
-
-
-                ToogleButComPort.setText("Ошибка");
-                comPort1.Close();
-
-                gps.StopGps();
-                PaneComPort.setDisable(true);
-            }
-
-
-        } else {
-            System.out.println("DisconectPort");
-            ToogleButComPort.setText("Открыть");
-            PaneComPort.setDisable(true);
-            updateDataState = false;
-            ComPortTread = false;
-            comPort1.Close();
-            TextAriaTerminal.clear();
-            toogleGpsOn.setSelected(false);
-            gps.StopGps();
-
-        }
-    }
 
     public boolean updateDataState = false;
 
     private void UpdateDataTread() {
-        Thread UpdateDataT = new Thread(new ControllerPultMX.UpdateDataRun());
+        Thread UpdateDataT = new Thread(new UpdateDataRun());
         UpdateDataT.start();
         updateDataState = true;
     }
@@ -277,192 +233,142 @@ public class ControllerPultMX implements Initializable {
 
     public void Out1Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "out1=";
         if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+
+            mess = mess+"1";
         } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            mess = mess+"0";
         }
+        SendCom(mess);
+    }
+
+    private void SendCom(String mess) {
+        controllerTest.comPortController.SendMess(mess);
     }
 
     public void Adc1onAction(ActionEvent actionEvent) {
-
+        String mess = "adc1:";
         if(adc1on.isSelected()){
-            toStend.add("adc1:1");
+            mess = mess+"1";
             ADC1text.setDisable(false);
         }else {
-            toStend.add("adc1:0");
+            mess = mess+"0";
             ADC1text.setDisable(true);
             ADC1text.clear();
         }
+        SendCom(mess);
     }
 
     public void Out2Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "out2=";
         if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+
+            mess = mess+"0";
         } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            mess = mess+"1";
         }
+        SendCom(mess);
     }
 
     public void Out3Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "out3=";
         if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+
+            mess = mess+"0";
         } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            mess = mess+"1";
         }
+        SendCom(mess);
     }
 
     public void Out4Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "out4=";
         if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-           //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+
+            mess = mess+"1";
         } else {
-            toStend.add(xz.getId()+":0");
-           // TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            mess = mess+"0";
         }
+        SendCom(mess);
 
 
     }
 
     public void Out5Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "out5=";
         if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+
+            mess = mess+"1";
         } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            mess = mess+"0";
         }
+        SendCom(mess);
     }
 
     public void Out6Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "out6=";
         if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
+
+            mess = mess+"0";
         } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
+            mess = mess+"1";
         }
+        SendCom(mess);
     }
 
-    public void Out7Action(ActionEvent actionEvent) {
-        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
-        if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
-        } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
-        }
-    }
 
-    public void Out8Action(ActionEvent actionEvent) {
-        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
-        if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
-        } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
-        }
-    }
-
-    public void Out9Action(ActionEvent actionEvent) {
-        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
-        if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
-        } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
-        }
-    }
-
-    public void Out10Action(ActionEvent actionEvent) {
-        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
-        if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
-        } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
-        }
-    }
-
-    public void Out11Action(ActionEvent actionEvent) {
-        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
-        if (xz.isSelected()){
-            toStend.add(xz.getId()+":1");
-            //TextAriaTerminal.appendText(xz.getId()+":1\r\n");
-        } else {
-            toStend.add(xz.getId()+":0");
-            //TextAriaTerminal.appendText(xz.getId()+":0\r\n");
-        }
-    }
 
     public void Adc2onAction(ActionEvent actionEvent) {
+        String mess = "adc2:";
         if(adc2on.isSelected()){
-            toStend.add("adc2:1");
+            mess = mess+"1";
             ADC2text.setDisable(false);
         }else {
-            toStend.add("adc2:0");
+            mess = mess+"0";
             ADC2text.setDisable(true);
             ADC2text.clear();
         }
+        SendCom(mess);
     }
 
     public void Adc3onAction(ActionEvent actionEvent) {
+        String mess = "adc3:";
         if(adc3on.isSelected()){
-            toStend.add("adc3:1");
+            mess = mess+"1";
             ADC3text.setDisable(false);
         }else {
-            toStend.add("adc3:0");
+            mess = mess+"0";
             ADC3text.setDisable(true);
             ADC3text.clear();
         }
+        SendCom(mess);
     }
 
     public void Adc4onAction(ActionEvent actionEvent) {
+        String mess = "adc4:";
         if(adc4on.isSelected()){
-            toStend.add("adc4:1");
+            mess = mess+"1";
             ADC4text.setDisable(false);
         }else {
-            toStend.add("adc4:0");
+            mess = mess+"0";
             ADC4text.setDisable(true);
             ADC4text.clear();
         }
+        SendCom(mess);
     }
 
     public void Adc5onAction(ActionEvent actionEvent) {
-        if(adc5on.isSelected()){
-            toStend.add("adc5:1");
-            ADC5text.setDisable(false);
-        }else {
-            toStend.add("adc5:0");
-            ADC5text.setDisable(true);
-            ADC5text.clear();
-        }
+
     }
 
     public void Adc6onAction(ActionEvent actionEvent) {
-        if(adc6on.isSelected()){
-            toStend.add("adc6:1");
-            ADC6text.setDisable(false);
-        }else {
-            toStend.add("adc6:0");
-            ADC6text.setDisable(true);
-            ADC6text.clear();
-        }
+
     }
 
     public void ActionGpscoordN(ActionEvent actionEvent) {
@@ -518,95 +424,445 @@ public class ControllerPultMX implements Initializable {
     }
 
     public void pwrOnAction(ActionEvent actionEvent) {
-        if(pwrOn.isSelected()){
-            toStend.add("pwr1:0");
-        } else {
-            toStend.add("pwr1:1");
+
+        String mess = "pwr1:";
+        if(pwr1.isSelected()){
+            mess = mess+"1";
+
+        }else {
+            mess = mess+"0";
+
         }
+        SendCom(mess);
     }
 
     public void pwrChangeAction(ActionEvent actionEvent) {
         int pos = (int) pwrSlider.getValue();
-        toStend.add("pwr1="+pos);
+        SendCom("pwr1="+pos);
     }
 
-    public void init(ControllerTest controllerTest) {
+
+    private ControllerTest controllerTest;
+    public void SetControllerTest(ControllerTest controllerTest) {
+        this.controllerTest = controllerTest;
+
     }
 
+    public void SetDisable(boolean b) {
+        PaneComPort.setDisable(b);
+    }
+
+    public void DisconnectPult() {
+        SetDisable(true);
+        CloseWin();
+    }
+
+    public void ConnectionPult() {
+        SetDisable(false);
+        UpdateDataTread();
+    }
+
+    public void pwrOnActionRes(ActionEvent actionEvent) {
+        String mess = "pwr2:";
+        if(pwr2.isSelected()){
+            mess = mess+"1";
+
+        }else {
+            mess = mess+"0";
+
+        }
+        SendCom(mess);
+    }
+
+    public void pwrChangeActionRes(ActionEvent actionEvent) {
+        int pos = (int) pwrSliderRes.getValue();
+        SendCom("pwr2="+pos);
+    }
+
+    private int countInit = 0;
+    private int numberInitMess = 0;
+    public List<String> arrayInit = Arrays.asList("out1=?","out2=?","out3=?","out4=?","out5=?","out6=?",
+            "inp1=?","inp2=?","inp3=?","inp4=?","inp5=?","inp6=?","inp7=?","inp8=?","inp9=?","inp10=?","inp11=?",
+            "adc1=?","adc2=?","adc3=?","adc4=?",
+            "met1:?", "met2:?",
+            "rar1:?", "rar2:?",
+            "mot1:?", "mot2:?",
+            "pwr1:?", "pwr2:?"
+    );
+
+
+    public  LinkedList<String> pultList = new LinkedList<String>();
+
+    public void Met1Action(ActionEvent actionEvent) {
+        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "met1:";
+        if (xz.isSelected()){
+
+            mess = mess+"1";
+        } else {
+            mess = mess+"0";
+        }
+        SendCom(mess);
+    }
+
+    public void Met2Action(ActionEvent actionEvent) {
+        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "met2:";
+        if (xz.isSelected()){
+
+            mess = mess+"1";
+        } else {
+            mess = mess+"0";
+        }
+        SendCom(mess);
+    }
+
+    public void Rar1Action(ActionEvent actionEvent) {
+        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "rar1:";
+        if (xz.isSelected()){
+
+            mess = mess+"1";
+        } else {
+            mess = mess+"0";
+        }
+        SendCom(mess);
+    }
+
+    public void Rar2Action(ActionEvent actionEvent) {
+        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "rar2:";
+        if (xz.isSelected()){
+
+            mess = mess+"1";
+        } else {
+            mess = mess+"0";
+        }
+        SendCom(mess);
+    }
+
+    public void Mot1Action(ActionEvent actionEvent) {
+        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "mot1:";
+        if (xz.isSelected()){
+
+            mess = mess+"1";
+        } else {
+            mess = mess+"0";
+        }
+        SendCom(mess);
+    }
+
+    public void Mot2Action(ActionEvent actionEvent) {
+        JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
+        String mess = "mot2:";
+        if (xz.isSelected()){
+
+            mess = mess+"1";
+        } else {
+            mess = mess+"0";
+        }
+        SendCom(mess);
+    }
 
     private class UpdateDataRun implements Runnable {
         @Override
         public void run() {
+            System.out.println("UpdateDataRunPult - begin");
             while (updateDataState) {
 
-                    if (comPort1.messList.size() > 0)
+                    if (!pultList.isEmpty())
                     {
-                        String mess = comPort1.messList.poll();
-                        if (mess.contains("ADC")) {
-                            int i = mess.indexOf("=");
-                            if (i>0){
-                                String adcName = mess.substring(0, i);
+                        String mess = pultList.poll();
+                        if (mess !="" && mess != null) {
 
-                                if (PaneComPort.lookup("#"+adcName+"text")!=null){
-                                    TextField adcText = (TextField) PaneComPort.lookup("#"+adcName+"text");
-                                    int enfFloat = mess.indexOf("\r");
-                                    float adcNum = Float.parseFloat(mess.substring(i+1,enfFloat))/1000;
-                                    String adcMess = Float.toString(adcNum);
+                            if(mess.contains("pwr")){
+                                int numbt = mess.indexOf(":");
+                                if (numbt > 0) {
+                                    String nameBt;
+                                    nameBt = mess.substring(0, numbt);
+                                    String pwrState;
+                                    pwrState = mess.substring(numbt + 1, numbt + 2);
+                                    if (!mess.contains("?")) {
+                                        int iii = Integer.parseInt(pwrState);
+                                        if (PaneComPort.lookup("#" + nameBt) != null) {
+                                            JFXToggleButton pwrBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
 
-                                    Platform.runLater(() -> {
-                                        adcText.setText(adcMess+"V");
-                                    });
+                                            switch (iii) {
+                                                case 1:
 
-                                }
-                            }
-                            //ADC1text.setText(mess.substring(i + 1) + "V");
-                        }
-                        if (mess.contains("Inp")){
+                                                    Platform.runLater(() -> {
+                                                        pwrBut.setSelected(true);
+                                                    });
 
-                            int numbt = mess.indexOf("=");
-                            if (numbt>0) {
-                                String nameBt;
-                                nameBt = mess.substring(0, numbt);
-                                String inpState;
-                                inpState = mess.substring(numbt+1, numbt+2);
-                                int iii =  Integer.parseInt(inpState)  ;
-                                if (PaneComPort.lookup("#" + nameBt) != null) {
-                                    Button inpbut = (Button) PaneComPort.lookup("#" + nameBt);
-                                    switch (iii){
-                                        case 1:
-                                            Platform.runLater(() -> {
-                                                inpbut.setStyle("-fx-background-color:green;");
-                                                inpbut.setText("1");
-                                            });
-                                            break;
-                                        case 0:
-                                            Platform.runLater(() -> {
-                                                inpbut.setStyle("-fx-background-color:red;");
-                                                inpbut.setText("0");
-                                            });
-                                            break;
-                                        default:
-                                            Platform.runLater(() -> {
-                                                inpbut.setStyle("-fx-background-color:grey;");
-                                                inpbut.setText("-");
-                                            });
-                                            break;
+                                                    break;
+                                                case 0:
+                                                    Platform.runLater(() -> {
+                                                        pwrBut.setSelected(false);
+                                                    });
+                                                    break;
+                                                default:
+                                                    Platform.runLater(() -> {
+
+                                                    });
+                                                    break;
+                                            }
+
+                                        }
                                     }
-
                                 }
                             }
-                        }
-                        Platform.runLater(() -> {
-                            //System.out.println(comPort1.messList.element());
 
-                            TextAriaTerminal.appendText(mess);
-                        });
+                            if(mess.contains("met")){
+                                int numbt = mess.indexOf(":");
+                                if (numbt > 0) {
+                                    String nameBt;
+                                    nameBt = mess.substring(0, numbt);
+                                    String metState;
+                                    metState = mess.substring(numbt + 1, numbt + 2);
+                                    if (!mess.contains("?")) {
+                                        int iii = Integer.parseInt(metState);
+                                        if (PaneComPort.lookup("#" + nameBt) != null) {
+                                            JFXToggleButton metBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                            switch (iii) {
+                                                case 1:
+
+                                                    Platform.runLater(() -> {
+                                                        metBut.setSelected(true);
+                                                    });
+
+                                                    break;
+                                                case 0:
+                                                    Platform.runLater(() -> {
+                                                        metBut.setSelected(false);
+                                                    });
+                                                    break;
+                                                default:
+                                                    Platform.runLater(() -> {
+
+                                                    });
+                                                    break;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(mess.contains("rar")){
+                                int numbt = mess.indexOf(":");
+                                if (numbt > 0) {
+                                    String nameBt;
+                                    nameBt = mess.substring(0, numbt);
+                                    String rarState;
+                                    rarState = mess.substring(numbt + 1, numbt + 2);
+                                    if (!mess.contains("?")) {
+                                        int iii = Integer.parseInt(rarState);
+                                        if (PaneComPort.lookup("#" + nameBt) != null) {
+                                            JFXToggleButton rarBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                            switch (iii) {
+                                                case 1:
+
+                                                    Platform.runLater(() -> {
+                                                        rarBut.setSelected(true);
+                                                    });
+
+                                                    break;
+                                                case 0:
+                                                    Platform.runLater(() -> {
+                                                        rarBut.setSelected(false);
+                                                    });
+                                                    break;
+                                                default:
+                                                    Platform.runLater(() -> {
+
+                                                    });
+                                                    break;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (mess.contains("mot")){
+                                int numbt = mess.indexOf(":");
+                                if (numbt > 0) {
+                                    String nameBt;
+                                    nameBt = mess.substring(0, numbt);
+                                    String motState;
+                                    motState = mess.substring(numbt + 1, numbt + 2);
+                                    if (!mess.contains("?")) {
+                                        int iii = Integer.parseInt(motState);
+                                        if (PaneComPort.lookup("#" + nameBt) != null) {
+                                            JFXToggleButton motBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                            switch (iii) {
+                                                case 1:
+
+                                                    Platform.runLater(() -> {
+                                                        motBut.setSelected(true);
+                                                    });
+
+                                                    break;
+                                                case 0:
+                                                    Platform.runLater(() -> {
+                                                        motBut.setSelected(false);
+                                                    });
+                                                    break;
+                                                default:
+                                                    Platform.runLater(() -> {
+
+                                                    });
+                                                    break;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (mess.contains("ADC")) {
+                                int i = mess.indexOf("=");
+                                if (i > 0) {
+                                    String adcName = mess.substring(0, i);
+
+                                    if (PaneComPort.lookup("#" + adcName + "text") != null) {
+                                        TextField adcText = (TextField) PaneComPort.lookup("#" + adcName + "text");
+                                        float adcNum = (float) 0;
+                                        if (mess.contains(",")) {
+                                            int enfFloat = mess.indexOf(",");
+                                            adcNum = Float.parseFloat(mess.substring(i + 1, enfFloat)) / 1000;
+                                        } else {
+                                            int enfFloat = mess.indexOf("\r");
+                                            adcNum = Float.parseFloat(mess.substring(i + 1, enfFloat)) / 1000;
+                                        }
+                                        String adcMess = Float.toString(adcNum);
+
+                                        Platform.runLater(() -> {
+                                            adcText.setText(adcMess);
+                                        });
+
+                                    }
+                                }
+                                //ADC1text.setText(mess.substring(i + 1) + "V");
+                            }
+                            if (mess.contains("inp")) {
+
+                                int numbt = mess.indexOf("=");
+                                if (numbt > 0) {
+                                    String nameBt;
+                                    nameBt = mess.substring(0, numbt);
+                                    String inpState;
+                                    inpState = mess.substring(numbt + 1, numbt + 2);
+                                    int iii = Integer.parseInt(inpState);
+                                    if (PaneComPort.lookup("#" + nameBt) != null) {
+                                        Button inpbut = (Button) PaneComPort.lookup("#" + nameBt);
+                                        if (inpbut == inp1 || inpbut == inp2 || inpbut == inp3 || inpbut == inp4 || inpbut == inp5 || inpbut == inp6 || inpbut == inp7 || inpbut == inp8) {
+                                            switch (iii) {
+                                                case 1:
+                                                    Platform.runLater(() -> {
+                                                        inpbut.setStyle("-fx-background-color:red;");
+                                                        //inpbut.setText("0");
+                                                    });
+                                                    break;
+                                                case 0:
+                                                    Platform.runLater(() -> {
+                                                        inpbut.setStyle("-fx-background-color:green;");
+                                                        //inpbut.setText("1");
+
+                                                    });
+                                                    break;
+                                                default:
+                                                    Platform.runLater(() -> {
+                                                        inpbut.setStyle("-fx-background-color:grey;");
+                                                       // inpbut.setText("-");
+                                                    });
+                                                    break;
+                                            }
+                                        } else {
+                                            switch (iii) {
+                                                case 1:
+                                                    Platform.runLater(() -> {
+                                                        inpbut.setStyle("-fx-background-color:green;");
+                                                        //inpbut.setText("1");
+                                                    });
+                                                    break;
+                                                case 0:
+                                                    Platform.runLater(() -> {
+                                                        inpbut.setStyle("-fx-background-color:red;");
+                                                       // inpbut.setText("0");
+                                                    });
+                                                    break;
+                                                default:
+                                                    Platform.runLater(() -> {
+                                                        inpbut.setStyle("-fx-background-color:grey;");
+                                                       // inpbut.setText("-");
+                                                    });
+                                                    break;
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                            if (mess.contains("out")) {
+                                int numbt = mess.indexOf(":");
+                                if (numbt > 0) {
+                                    String nameBt;
+                                    nameBt = mess.substring(0, numbt);
+                                    String outState;
+                                    outState = mess.substring(numbt + 1, numbt + 2);
+                                    int iii = Integer.parseInt(outState);
+                                    if (PaneComPort.lookup("#" + nameBt) != null) {
+                                        JFXToggleButton outBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                        switch (iii) {
+                                            case 1:
+                                                if (outBut == out2 || outBut == out3 || outBut == out6) {
+                                                    Platform.runLater(() -> {
+                                                        outBut.setSelected(false);
+                                                    });
+                                                } else {
+                                                    Platform.runLater(() -> {
+                                                        outBut.setSelected(true);
+                                                    });
+                                                }
+                                                break;
+                                            case 0:
+                                                if (outBut == out2 || outBut == out3 || outBut == out6) {
+                                                    Platform.runLater(() -> {
+                                                        outBut.setSelected(true);
+                                                    });
+                                                } else {
+                                                    Platform.runLater(() -> {
+                                                        outBut.setSelected(false);
+                                                    });
+                                                }
+                                                break;
+                                            default:
+                                                Platform.runLater(() -> {
+
+                                                });
+                                                break;
+                                        }
+
+                                    }
+                                }
+                            }
+                        } else {
+                            System.out.println("Error Pult: пустое сообщение");
+                            pultList.clear();
+                        }
+
                     }
 
                     while (!gps.messGPS.isEmpty())
                     {
                         String gpsMess = gps.messGPS.poll();
-                        comPort1.Send("gps="+gpsMess);
+                        SendCom("gps1>"+gpsMess);
                         Platform.runLater(() -> {
 
                             textGpsLog.appendText(gpsMess+"\r\n");
@@ -615,12 +871,18 @@ public class ControllerPultMX implements Initializable {
 
 
                     }
-                    while (!toStend.isEmpty()){
-                        String txMess = toStend.poll();
-                        comPort1.Send(txMess);
-                        TextAriaTerminal.appendText(txMess+"\r\n");
+
+                    countInit++;
+                    if (countInit>10){
+                        countInit=0;
+                        if (numberInitMess<arrayInit.size()){
+                            SendCom(arrayInit.get(numberInitMess));
+                            numberInitMess++;
+                        }
+
                     }
-                
+
+
 
                 try {
                     Thread.sleep(20);
@@ -628,13 +890,12 @@ public class ControllerPultMX implements Initializable {
                     e.printStackTrace();
                 }
             }
+            System.out.println("UpdateDataRun - Pult - finish");
         }
     }
 
 
-    public void ActionComSend(ActionEvent actionEvent) throws SerialPortException {
-        comPort1.Send(TextFieldTerminal.getText());
-    }
+
 
 
 

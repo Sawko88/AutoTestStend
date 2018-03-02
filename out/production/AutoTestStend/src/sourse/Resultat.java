@@ -8,9 +8,11 @@ import java.util.List;
 public class Resultat implements Serializable{
     public boolean stateSignal = false;
     public   List<Signal> signalSResultat = new ArrayList<Signal>();
+    public boolean signalFinish = false;
 
     public boolean stateIndikacia = false;
     public Indikacia indikaciaResultat = new Indikacia();
+    public boolean indikaciaFinish = false;
 
     public boolean stateReleProv = false;
     public ReleProv releProvResultat = new ReleProv();
@@ -38,4 +40,7 @@ public class Resultat implements Serializable{
 
     public boolean statePovorot = false;
     public Povorot povorotResultat = new Povorot();
+    public String secTime = "00";
+    public String minTime = "05";
+    public String hourTine= "00";
 }

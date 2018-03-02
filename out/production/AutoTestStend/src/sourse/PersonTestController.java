@@ -59,6 +59,9 @@ public class PersonTestController implements Initializable{
     public ComboBox cboxZumerMetki;
     public JFXCheckBox cbPovorot;
     public ComboBox cboxPovorot;
+    public TextField tfHourTime;
+    public TextField tfMinTime;
+    public TextField tfSecTime;
     private SignalCollection signalCollection = new SignalCollection();
     private IndikaciaCollection indikaciaCollection = new IndikaciaCollection();
     private ReleProvcollection releProvcollection = new ReleProvcollection();
@@ -474,6 +477,10 @@ public class PersonTestController implements Initializable{
         resbuf.statePovorot = cbPovorot.isSelected();
         resbuf.povorotResultat = povorotCollection.povorots.get(cboxPovorot.getSelectionModel().getSelectedIndex());
 
+        resbuf.secTime = tfSecTime.getText();
+        resbuf.minTime = tfMinTime.getText();
+        resbuf.hourTine = tfHourTime.getText();
+
         return resbuf;
     }
 
@@ -514,6 +521,11 @@ public class PersonTestController implements Initializable{
 
         cbPovorot.setSelected(resElement.statePovorot);
         cboxPovorot.getSelectionModel().select(resElement.povorotResultat.index);
+
+        tfHourTime.setText(resElement.hourTine);
+        tfMinTime.setText(resElement.minTime);
+        tfSecTime.setText(resElement.secTime);
+
     }
 
     public void CbIndikaciaAction(ActionEvent actionEvent) {

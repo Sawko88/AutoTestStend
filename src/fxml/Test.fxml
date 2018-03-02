@@ -15,7 +15,7 @@
 
 <AnchorPane fx:id="anMain" focusTraversable="true" prefHeight="500.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerTest">
    <children>
-      <JFXToggleButton fx:id="Pult" layoutX="632.0" layoutY="14.0" onAction="#PultAction" prefHeight="48.0" prefWidth="97.0" size="8.0" text="Пульт " AnchorPane.topAnchor="50.0" />
+      <JFXToggleButton fx:id="Pult" layoutX="2.0" layoutY="387.0" onAction="#PultAction" prefHeight="61.0" prefWidth="96.0" size="8.0" text="Пульт " AnchorPane.topAnchor="387.0" />
       <ScrollPane layoutX="105.0" layoutY="32.0" prefHeight="398.0" prefWidth="518.0" AnchorPane.topAnchor="50.0">
          <content>
             <VBox fx:id="vbAdd" prefHeight="396.0" prefWidth="510.0" />

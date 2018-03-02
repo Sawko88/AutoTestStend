@@ -73,6 +73,7 @@ public class LogickTest {
                     case BEGINTEST:
                         System.out.println("LogickTestStateThread - BEGINTEST");
                         currentTest = listLogickTest.getFirst();
+
                         parserResult.SetResult(currentTest.res);
 
                         System.out.println(currentTest.name+" - begin");
@@ -85,6 +86,7 @@ public class LogickTest {
                         break;
                     case WAITRESULT:
                         //System.out.println("LogickTestStateThread - WAITRESULT");
+                        parserResult.SetWaitResult(true);
                         switch (parserResult.GetResultStatus()){
 
                             case NONE:
@@ -100,6 +102,10 @@ public class LogickTest {
                                 break;
                             case ERROR:
                                 System.out.println("LogickTestStateThread - ResultTest - ERROR");
+                                for (int err = 0 ; err< parserResult.errorLsst.size(); err++){
+                                    System.out.println(parserResult.errorLsst.get(err));
+                                }
+                                parserResult.errorLsst.clear();
                                 logickTestState = LogickTestState.FINISHTEST;
                                 break;
                             case NULL:
@@ -128,6 +134,7 @@ public class LogickTest {
                     case STOP:
                         System.out.println("LogickTestStateThread - STOP");
                         controllerTest.btStopTest.setDisable(true);
+                        parserResult.StopResult();
                         logickTestThreadConfirm = false;
                         break;
                     case PAUSASTART:

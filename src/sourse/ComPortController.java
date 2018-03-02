@@ -19,6 +19,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 public class ComPortController extends Application implements Initializable {
@@ -69,6 +70,7 @@ public class ComPortController extends Application implements Initializable {
     public void SetSettings(String comPort) {
         this.nameComPort = comPort;
     }
+    private ParserResIndikacia parserResIndikacia = new ParserResIndikacia();
 
     public void ConnectCom() {
         if (comPort1.Open(nameComPort)) {
@@ -77,6 +79,9 @@ public class ComPortController extends Application implements Initializable {
             });
             controllerTest.setConnectState(ControllerTest.ConnectionState.BDCONNECT);
             UpdateDataTread();
+            parserResIndikacia.SetTablePlase(1);
+            parserResIndikacia.StartParsing();
+            SendMess("inp1=?");
         } else {
             Platform.runLater(() -> {
                 PrintText(nameComPort+": "+"ComPort не удалось открыть",  MessangeSourse.INF0);
@@ -86,6 +91,7 @@ public class ComPortController extends Application implements Initializable {
 
     public void DisconnectCOM() {
         updateDataState = false;
+        parserResIndikacia.StopParsing();
         Platform.runLater(() -> {
             PrintText(nameComPort+": "+"Закрыт",  MessangeSourse.INF0);
         });
@@ -100,10 +106,14 @@ public class ComPortController extends Application implements Initializable {
         this.testing = b;
     }
 
+    public Indikacia GetCurrentInd() {
+        return parserResIndikacia.currIndikacia;
+    }
+
     public enum MessangeSourse{
         INF0, FROMSMS, TOSMS
     }
-
+    private int counterText = 0;
     private void PrintText(String text, MessangeSourse inf0) {
         String s;
         Format format;
@@ -114,10 +124,11 @@ public class ComPortController extends Application implements Initializable {
         switch (inf0){
             case INF0: s+= "---"+text+"\r\n"; colorText="-fx-fill: #945b85;"; break;
             case TOSMS: s+= "-->"+text+"\r\n"; colorText="-fx-fill: #3f4fc9;";break;
-            case FROMSMS: s+= "<--"+text+"\r\n"; colorText="-fx-fill: #dd1b24;";break;
+            case FROMSMS: s+= "<--"+text; colorText="-fx-fill: #dd1b24;";break;
             default: break;
 
         }
+
 
 
         ictam.appendText(s);
@@ -125,6 +136,12 @@ public class ComPortController extends Application implements Initializable {
 
         ictam.moveTo(ictam.getLength());
         ictam.requestFollowCaret();
+
+        counterText++;
+        if (counterText>1000){
+            counterText = 0;
+            ictam.clear();
+        }
     }
 
     private String nameModul="";
@@ -150,15 +167,30 @@ public class ComPortController extends Application implements Initializable {
         public void run() {
             while (updateDataState) {
 
-                if (comPort1.messList.size() > 0)
-                {
-                    String mess = comPort1.messList.poll();
-                    if (testing) {
-                        messResvTestList.add(mess);
+                if (!comPort1.messList.isEmpty())
+                {   try {
+                        String mess = comPort1.messList.getFirst();
+
+                        if (mess.equals("") || mess == null) {
+
+                        } else {
+                            controllerTest.controllerPultMX.pultList.add(mess);
+                            if(mess.contains(Indikacia.code)){
+                                parserResIndikacia.messInd.add(mess);
+                            }
+
+                            Platform.runLater(() -> {
+                                PrintText(mess, MessangeSourse.FROMSMS);
+                            });
+                        }
+                        comPort1.messList.removeFirst();
+                    } catch (NoSuchElementException x){
+                        System.out.println("Error COM- port:"+x);
+                        Platform.runLater(() -> {
+                            PrintText("Error COM- port:"+x, MessangeSourse.INF0);
+                        });
+                        comPort1.messList.clear();
                     }
-                    Platform.runLater(() -> {
-                        PrintText(mess,  MessangeSourse.FROMSMS);
-                    });
                 }
 
 
@@ -172,7 +204,7 @@ public class ComPortController extends Application implements Initializable {
 
 
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

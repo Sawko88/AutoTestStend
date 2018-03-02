@@ -50,7 +50,7 @@ public class ComPort {
         ComPortMessParser.start();
     }
 
-    public Queue<String> messList = new LinkedList<>();
+    public LinkedList<String> messList = new LinkedList<>();
 
     //String string = "";
     private class ComPortMessPArserRun extends Thread {
@@ -58,7 +58,7 @@ public class ComPort {
         public void run() {
             while (comPortThread){
 
-                    if (comPortString!="") {
+                    if (!comPortString.equals("")) {
                         int i = comPortString.indexOf("\n");
                         if (i>0){
                             while (i>0) {
@@ -70,7 +70,7 @@ public class ComPort {
 
                             }
                         }else {
-                            comPortString="";
+                            comPortString+="";
                         }
                         //string =  comPort1.comPortString.substring(comPort1.comPortString.indexOf("/n"));
 
@@ -78,7 +78,7 @@ public class ComPort {
                     }
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

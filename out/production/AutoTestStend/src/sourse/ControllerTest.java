@@ -30,7 +30,7 @@ import java.util.*;
 public  class ControllerTest  implements Initializable {
     public JFXToggleButton Pult;
     public Stage stagePult;
-    public ControllerPultMX controllerPultMX;
+    //public ControllerPultMX controllerPultMX;
     public Stage stageSms = new Stage();
     public Stage stageGPRS = new Stage();
 
@@ -65,34 +65,14 @@ public  class ControllerTest  implements Initializable {
     private LogickTest logickTest = new LogickTest();
 
     public void PultAction(ActionEvent actionEvent) throws IOException {
-        if (Pult.isSelected()){
-            stagePult.show();
-        } else {
-            //controllerPultMX.CloseWin();
-            stagePult.hide();
-        }
+
 
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("initialize");
-        stagePult = new Stage();
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/PultMX.fxml"));
-            stagePult.setScene(new Scene(root));
-            stagePult.initModality(Modality.WINDOW_MODAL);
 
-            //stagePult.show();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //controllerPultMX.init(this);
-
-        Pult.setSelected(false);
 
         try {
             LoadfileSettings();
@@ -111,14 +91,57 @@ public  class ControllerTest  implements Initializable {
         ComPortLoad();
         MyTbComListener();
 
+        PultLoad();
+        MyTbPultListener();
+
         MyTbConnectListener();
 
-        //SetDisable(true);
+        SetDisable(true);
 
 
 
     }
 
+    private void MyTbPultListener() {
+        Pult.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (Pult.isSelected()){
+                    pultSrage.show();
+                } else {
+                    pultSrage.hide();
+                }
+            }
+        });
+    }
+
+
+    private Stage pultSrage = new Stage();
+    public ControllerPultMX controllerPultMX;
+    private void PultLoad() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ControllerTest.class.getResource("/fxml/PultMX.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pultSrage.setTitle("Пульт");
+        pultSrage.setScene(new Scene(root));
+        pultSrage.initModality(Modality.WINDOW_MODAL);
+        pultSrage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Pult.setSelected(false);
+            }
+        });
+        controllerPultMX = loader.getController();
+        controllerPultMX.SetControllerTest(this);
+        //comPortController.SetNameModul("Com");
+    }
 
 
     private void MyTbComListener() {
@@ -136,7 +159,7 @@ public  class ControllerTest  implements Initializable {
 
 
     private Stage comPortStage = new Stage();
-    private ComPortController comPortController;
+    public ComPortController comPortController;
 
     private void ComPortLoad() {
         FXMLLoader loader = new FXMLLoader();
@@ -169,6 +192,7 @@ public  class ControllerTest  implements Initializable {
         tfLogNum.setDisable(!b);
         btStartTest.setDisable(b);
         btStopTest.setDisable(b);
+        Pult.setDisable(b);
 
     }
 
@@ -234,6 +258,7 @@ public  class ControllerTest  implements Initializable {
                     smsController.DisconnectSMS();
                     gprsController.DisconnectSMS();
                     comPortController.DisconnectCOM();
+                    controllerPultMX.DisconnectPult();
                     SetDisable(true);
                 }
             }
@@ -767,6 +792,7 @@ public  class ControllerTest  implements Initializable {
                         connectionState = ConnectionState.WAITCOM;
                         comPortController.SetSettings(setting.comPort);
                         comPortController.ConnectCom();
+                        controllerPultMX.ConnectionPult();
 
                         break;
                     case WAITCOM:
@@ -813,6 +839,7 @@ public  class ControllerTest  implements Initializable {
                     case ERRORCONNECT:
                         System.out.println("ConnectionStateTread - ERRORCONNECT");
                         tbConnect.setSelected(false);
+
                         Platform.runLater(() -> {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setHeaderText("Connection");
@@ -823,6 +850,7 @@ public  class ControllerTest  implements Initializable {
                         break;
                     case STOP:
                         System.out.println("ConnectionStateTread - STOP");
+
                         connectThread = false;
                         break;
                     default:break;
