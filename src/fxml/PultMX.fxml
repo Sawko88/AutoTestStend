@@ -100,7 +100,7 @@
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
-                  <JFXToggleButton fx:id="adc1on" onAction="#Adc1onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <JFXToggleButton fx:id="ADC1on" onAction="#Adc1onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
                   <TextField fx:id="ADC1text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
@@ -113,7 +113,7 @@
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
-                  <JFXToggleButton fx:id="adc2on" onAction="#Adc2onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <JFXToggleButton fx:id="ADC2on" onAction="#Adc2onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
                   <TextField fx:id="ADC2text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
@@ -126,7 +126,7 @@
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
-                  <JFXToggleButton fx:id="adc3on" onAction="#Adc3onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <JFXToggleButton fx:id="ADC3on" onAction="#Adc3onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
                   <TextField fx:id="ADC3text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>
@@ -139,7 +139,7 @@
                   </Label>
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="53.0" text="выкл" />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="42.0" text="вкл" />
-                  <JFXToggleButton fx:id="adc4on" onAction="#Adc4onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
+                  <JFXToggleButton fx:id="ADC4on" onAction="#Adc4onAction" prefHeight="58.0" prefWidth="102.0" text=" " />
                   <TextField fx:id="ADC4text" alignment="CENTER" editable="false" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </FlowPane>

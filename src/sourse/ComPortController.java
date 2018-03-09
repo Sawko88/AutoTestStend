@@ -71,6 +71,8 @@ public class ComPortController extends Application implements Initializable {
         this.nameComPort = comPort;
     }
     private ParserResIndikacia parserResIndikacia = new ParserResIndikacia();
+    private ParserResBlockBezProv parserResBlockBezProv = new ParserResBlockBezProv();
+    private ParserZumerMetki parserZumerMetki = new ParserZumerMetki();
 
     public void ConnectCom() {
         if (comPort1.Open(nameComPort)) {
@@ -81,7 +83,13 @@ public class ComPortController extends Application implements Initializable {
             UpdateDataTread();
             parserResIndikacia.SetTablePlase(1);
             parserResIndikacia.StartParsing();
-            SendMess("inp1=?");
+
+            parserZumerMetki.SetTablePlase(2);
+            parserZumerMetki.StartParsing();
+
+            parserResBlockBezProv.SetTablePlase(3);
+            parserResBlockBezProv.StartParsing();
+            //SendMess("inp1=?");
         } else {
             Platform.runLater(() -> {
                 PrintText(nameComPort+": "+"ComPort не удалось открыть",  MessangeSourse.INF0);
@@ -92,6 +100,8 @@ public class ComPortController extends Application implements Initializable {
     public void DisconnectCOM() {
         updateDataState = false;
         parserResIndikacia.StopParsing();
+        parserResBlockBezProv.StopParsing();
+        parserZumerMetki.StopParsing();
         Platform.runLater(() -> {
             PrintText(nameComPort+": "+"Закрыт",  MessangeSourse.INF0);
         });
@@ -108,6 +118,14 @@ public class ComPortController extends Application implements Initializable {
 
     public Indikacia GetCurrentInd() {
         return parserResIndikacia.currIndikacia;
+    }
+
+    public ReleBezProv GetCurrentRRBlock() {
+        return parserResBlockBezProv.currReleBezProv;
+    }
+
+    public ZumerMetki GetCurrentZumerMetki() {
+        return parserZumerMetki.currZum;
     }
 
     public enum MessangeSourse{
@@ -152,7 +170,9 @@ public class ComPortController extends Application implements Initializable {
     private boolean updateDataState = false;
     private void UpdateDataTread() {
         updateDataState = true;
+
         UpdateDataT = new UpdateDataRun();
+        UpdateDataT.setPriority(Thread.MAX_PRIORITY);
         UpdateDataT.start();
 
     }
@@ -168,7 +188,8 @@ public class ComPortController extends Application implements Initializable {
             while (updateDataState) {
 
                 if (!comPort1.messList.isEmpty())
-                {   try {
+                {
+                    try {
                         String mess = comPort1.messList.getFirst();
 
                         if (mess.equals("") || mess == null) {
@@ -178,6 +199,13 @@ public class ComPortController extends Application implements Initializable {
                             if(mess.contains(Indikacia.code)){
                                 parserResIndikacia.messInd.add(mess);
                             }
+                            if(mess.contains(ReleBezProv.code)){
+                                parserResBlockBezProv.messRRBlock.add(mess);
+                            }
+
+                            if(mess.contains(ZumerMetki.code)){
+                                parserZumerMetki.messZumMetki.add(mess);
+                            }
 
                             Platform.runLater(() -> {
                                 PrintText(mess, MessangeSourse.FROMSMS);
@@ -186,25 +214,26 @@ public class ComPortController extends Application implements Initializable {
                         comPort1.messList.removeFirst();
                     } catch (NoSuchElementException x){
                         System.out.println("Error COM- port:"+x);
-                        Platform.runLater(() -> {
+                        /*Platform.runLater(() -> {
                             PrintText("Error COM- port:"+x, MessangeSourse.INF0);
-                        });
+                        });*/
                         comPort1.messList.clear();
                     }
                 }
 
 
-                while (!toStend.isEmpty()){
-                    String txMess = toStend.poll();
+                if (!toStend.isEmpty()){
+                    String txMess = toStend.getFirst();
                     comPort1.Send(txMess);
                     Platform.runLater(() -> {
                         PrintText(txMess,  MessangeSourse.TOSMS);
                     });
+                    toStend.removeFirst();
                 }
 
 
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(5);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

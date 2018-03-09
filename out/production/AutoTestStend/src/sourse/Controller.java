@@ -56,7 +56,7 @@ public class Controller implements Initializable {
            // stage.setResizable(false);
             stage.setTitle("ControlTest");
             stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initModality(Modality.WINDOW_MODAL);
             stage.setOnHidden(event -> {
 
                     controllerTest.shutdoun();

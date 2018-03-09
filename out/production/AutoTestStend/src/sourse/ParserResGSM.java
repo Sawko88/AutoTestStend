@@ -73,12 +73,14 @@ public class ParserResGSM {
                                     case NONE:
                                         if (messres.equals(parserResult.resultat.signalSResultat.get(i).code)) {
                                             parserResult.resultat.signalSResultat.get(i).state = true;
+                                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, parserResult.logickTest.currentTest.name+" : Получено сообщение <-- "+parserResult.resultat.signalSResultat.get(i).name));
                                             messGsm.remove(g);
                                         }
                                         break;
                                     case CONTROL:
                                         if (messres.contains("CODE " + parserResult.resultat.signalSResultat.get(i).code)) {
                                             parserResult.resultat.signalSResultat.get(i).state = true;
+                                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, parserResult.logickTest.currentTest.name+" : Получено сообщение <-- "+parserResult.resultat.signalSResultat.get(i).name));
                                             messGsm.remove(g);
                                         }
                                         break;

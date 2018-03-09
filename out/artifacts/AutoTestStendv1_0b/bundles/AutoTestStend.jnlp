@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="AutoTestStend.jar" size="562648" download="eager" />
+    <jar href="AutoTestStend.jar" size="604660" download="eager" />
     <jar href="controlsfx-8.40.14.jar" size="1215643" download="eager" />
     <jar href="controlsfx-samples-8.40.14.jar" size="725707" download="eager" />
     <jar href="flowless-0.6.jar" size="64324" download="eager" />

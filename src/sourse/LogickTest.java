@@ -21,6 +21,8 @@ public class LogickTest {
         this.smsController = smsController;
         this.gprsController = gprsController;
         parserResult.SetChannels(comPortController,smsController,gprsController);
+        parserResult.SetLogickTest(this);
+
     }
 
     private ObgectTest obgectTest;
@@ -55,7 +57,7 @@ public class LogickTest {
         LogickTestThread.start();
         logickTestState = LogickTestState.START;
     }
-    private SaveParam currentTest;
+    public  SaveParam currentTest;
     private class LogickTestStateThread implements Runnable {
         @Override
         public void run() {
@@ -66,14 +68,17 @@ public class LogickTest {
                 switch (logickTestState){
 
                     case START:
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "-----------------------------------------------------------------------------------"));
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "Тестирование " + obgectTest.logNum+ " началось"));
                         System.out.println("LogickTestStateThread - START");
                         parserGsmSend.InitObgect(obgectTest);
                         logickTestState = LogickTestState.BEGINTEST;
+                        controllerTest.ClearColorElement();
                         break;
                     case BEGINTEST:
                         System.out.println("LogickTestStateThread - BEGINTEST");
                         currentTest = listLogickTest.getFirst();
-
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.OK, currentTest.name+ " поехали"));
                         parserResult.SetResult(currentTest.res);
 
                         System.out.println(currentTest.name+" - begin");
@@ -81,6 +86,7 @@ public class LogickTest {
                         break;
                     case TEST:
                         System.out.println("LogickTestStateThread - TEST");
+
                         ParsingTest(currentTest.personlist);
 
                         break;
@@ -99,12 +105,17 @@ public class LogickTest {
                             case OK:
                                 System.out.println("LogickTestStateThread - ResultTest - OK");
                                 logickTestState = LogickTestState.FINISHTEST;
+                                LogController.logMessList.add(new LogMess(LogMess.LogType.OK, currentTest.name+ " закончили без ошибок"));
+                                controllerTest.SetColorElement(listLogickTest.getFirst().pos, ControllerTest.ColorTestElement.GREAN);
                                 break;
                             case ERROR:
                                 System.out.println("LogickTestStateThread - ResultTest - ERROR");
+                                LogController.logMessList.add(new LogMess(LogMess.LogType.ERROR, currentTest.name+ " закончили со следующими ошибками:"));
                                 for (int err = 0 ; err< parserResult.errorLsst.size(); err++){
                                     System.out.println(parserResult.errorLsst.get(err));
+                                    LogController.logMessList.add(new LogMess(LogMess.LogType.ERROR, parserResult.errorLsst.get(err)));
                                 }
+                                controllerTest.SetColorElement(listLogickTest.getFirst().pos, ControllerTest.ColorTestElement.RED);
                                 parserResult.errorLsst.clear();
                                 logickTestState = LogickTestState.FINISHTEST;
                                 break;
@@ -133,6 +144,8 @@ public class LogickTest {
                         break;
                     case STOP:
                         System.out.println("LogickTestStateThread - STOP");
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "Тестирование " + obgectTest.logNum+ " закончилось"));
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "-----------------------------------------------------------------------------------"));
                         controllerTest.btStopTest.setDisable(true);
                         parserResult.StopResult();
                         logickTestThreadConfirm = false;
@@ -172,6 +185,7 @@ public class LogickTest {
             tableTest =  personlist.get(countPersonList);
 
             System.out.println(currentTest.name+" : "+tableTest.actionTest.name+"-->"+tableTest.actionTest.namePosition);
+            LogController.logMessList.add(new LogMess(LogMess.LogType.STEPTEST, currentTest.name+" : "+tableTest.actionTest.name+"-->"+tableTest.actionTest.namePosition));
 
             switch (tableTest.actionTest.type){
 

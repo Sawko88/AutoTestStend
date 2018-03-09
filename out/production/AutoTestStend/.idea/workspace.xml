@@ -8,55 +8,101 @@
   <component name="ChangeListManager">
     <list id="3baabc7b-64b3-4a05-b392-f4812e2d349f" name="New changelist" comment="21" />
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_scream3r_jssc_2_8_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_scream3r_jssc_2_8_0.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/AutoTestStend.jar" afterPath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/AutoTestStend.jar" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/AutoTestStend.jnlp" afterPath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/AutoTestStend.jnlp" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStend.jar" afterPath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStend.jar" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStend.jnlp" afterPath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStend.jnlp" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStendv1.0b/app/AutoTestStend.jar" afterPath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStendv1.0b/app/AutoTestStend.jar" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStendv1.0b/app/settingsControl.ini" afterPath="$PROJECT_DIR$/out/artifacts/AutoTestStendv1_0b/bundles/AutoTestStendv1.0b/app/settingsControl.ini" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/.idea/libraries/org_scream3r_jssc_2_8_0.xml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/.idea/libraries/org_scream3r_jssc_2_8_0.xml" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/.idea/workspace.xml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/fxml/PersoneElement.fxml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/fxml/PersoneElement.fxml" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/fxml/PultMX.fxml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/fxml/PultMX.fxml" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/fxml/Test.fxml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/fxml/Test.fxml" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPort$ComPortMessPArserRun.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPort$ComPortMessPArserRun.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPort$PortReader.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPort$PortReader.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPort.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPort.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController$1.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController$MessangeSourse.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController$MessangeSourse.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController$UpdateDataRun.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController$UpdateDataRun.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ComPortController.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/Controller.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/Controller.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$1.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$2.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$2.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$3.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$3.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$UpdateDataRun.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX$UpdateDataRun.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/Indikacia.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/Indikacia.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerPultMX.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$1.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$10.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$10.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$11.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$11.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$12.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$12.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$13.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$13.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$14.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$14.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$2.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$2.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$3.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$3.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$4.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$4.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$5.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$5.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$6.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$6.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$7.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$7.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$8.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$8.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$9.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$9.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$ConnectionState.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$ConnectionState.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$ConnectionStateTread.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest$ConnectionStateTread.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ControllerTest.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/KomandaCollection.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/KomandaCollection.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest$1.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest$LogickTestState.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest$LogickTestState.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest$LogickTestStateThread.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest$LogickTestStateThread.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/LogickTest.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResGSM$ResvMessFromGSMThread.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResGSM$ResvMessFromGSMThread.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResIndikacia$IndikaciaCheckThread.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResIndikacia$IndikaciaCheckThread.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResIndikacia$ResvMessIndikaciaThread.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResIndikacia$ResvMessIndikaciaThread.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResIndikacia.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResIndikacia.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$1.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$1.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$ResStatus.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$ResStatus.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$ResvMessFromGSMThread.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$ResvMessFromGSMThread.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$ResultatThreadListening.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$ResultatThreadListening.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$StateRes.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult$StateRes.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ParserResult.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$1.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$1.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$10.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$10.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$11.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$11.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$12.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$12.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$13.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$13.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$14.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$14.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$15.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$15.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$2.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$2.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$3.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$3.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$4.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$4.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$5.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$5.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$6.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$6.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$7.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$7.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$8.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$8.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$9.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController$9.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/PersonTestController.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/Resultat.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/Resultat.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ReleBezProv.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ReleBezProv.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ReleBezProvCollection.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ReleBezProvCollection.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ZumerMetki.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ZumerMetki.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ZumerMetkiCollection.class" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/sourse/ZumerMetkiCollection.class" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/fxml/PersoneElement.fxml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/fxml/PersoneElement.fxml" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/fxml/PultMX.fxml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/fxml/PultMX.fxml" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/fxml/Test.fxml" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/fxml/Test.fxml" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ComPort.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ComPort.java" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ComPortController.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ComPortController.java" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/Indikacia.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/Indikacia.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/Controller.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/Controller.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ControllerPultMX.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ControllerPultMX.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ControllerTest.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ControllerTest.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/KomandaCollection.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/KomandaCollection.java" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/LogickTest.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/LogickTest.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ParserResGSM.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ParserResGSM.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ParserResIndikacia.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ParserResIndikacia.java" />
       <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ParserResult.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ParserResult.java" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/PersonTestController.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/PersonTestController.java" />
-      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/Resultat.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/Resultat.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ReleBezProv.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ReleBezProv.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ReleBezProvCollection.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ReleBezProvCollection.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ZumerMetki.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ZumerMetki.java" />
+      <change beforePath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ZumerMetkiCollection.java" afterPath="$PROJECT_DIR$/out/production/AutoTestStend/src/sourse/ZumerMetkiCollection.java" />
       <change beforePath="$PROJECT_DIR$/src/fxml/PersoneElement.fxml" afterPath="$PROJECT_DIR$/src/fxml/PersoneElement.fxml" />
+      <change beforePath="$PROJECT_DIR$/src/fxml/PultMX.fxml" afterPath="$PROJECT_DIR$/src/fxml/PultMX.fxml" />
+      <change beforePath="$PROJECT_DIR$/src/fxml/Test.fxml" afterPath="$PROJECT_DIR$/src/fxml/Test.fxml" />
       <change beforePath="$PROJECT_DIR$/src/sourse/ComPort.java" afterPath="$PROJECT_DIR$/src/sourse/ComPort.java" />
       <change beforePath="$PROJECT_DIR$/src/sourse/ComPortController.java" afterPath="$PROJECT_DIR$/src/sourse/ComPortController.java" />
-      <change beforePath="$PROJECT_DIR$/src/sourse/Indikacia.java" afterPath="$PROJECT_DIR$/src/sourse/Indikacia.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/Controller.java" afterPath="$PROJECT_DIR$/src/sourse/Controller.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ControllerPultMX.java" afterPath="$PROJECT_DIR$/src/sourse/ControllerPultMX.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ControllerTest.java" afterPath="$PROJECT_DIR$/src/sourse/ControllerTest.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/KomandaCollection.java" afterPath="$PROJECT_DIR$/src/sourse/KomandaCollection.java" />
       <change beforePath="$PROJECT_DIR$/src/sourse/LogickTest.java" afterPath="$PROJECT_DIR$/src/sourse/LogickTest.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ParserResGSM.java" afterPath="$PROJECT_DIR$/src/sourse/ParserResGSM.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ParserResIndikacia.java" afterPath="$PROJECT_DIR$/src/sourse/ParserResIndikacia.java" />
       <change beforePath="$PROJECT_DIR$/src/sourse/ParserResult.java" afterPath="$PROJECT_DIR$/src/sourse/ParserResult.java" />
-      <change beforePath="$PROJECT_DIR$/src/sourse/PersonTestController.java" afterPath="$PROJECT_DIR$/src/sourse/PersonTestController.java" />
-      <change beforePath="$PROJECT_DIR$/src/sourse/Resultat.java" afterPath="$PROJECT_DIR$/src/sourse/Resultat.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ReleBezProv.java" afterPath="$PROJECT_DIR$/src/sourse/ReleBezProv.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ReleBezProvCollection.java" afterPath="$PROJECT_DIR$/src/sourse/ReleBezProvCollection.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ZumerMetki.java" afterPath="$PROJECT_DIR$/src/sourse/ZumerMetki.java" />
+      <change beforePath="$PROJECT_DIR$/src/sourse/ZumerMetkiCollection.java" afterPath="$PROJECT_DIR$/src/sourse/ZumerMetkiCollection.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,7 +115,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/AutoTestStend$Main.coverage" NAME="Main Coverage Results" MODIFIED="1509099831605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/AutoTestStend$Main.coverage" NAME="Main Coverage Results" MODIFIED="1520590149343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>sample.*</FILTER>
     </SUITE>
   </component>
@@ -119,95 +165,60 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LogickTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sourse/LogickTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="75" column="40" lean-forward="false" selection-start-line="75" selection-start-column="40" selection-end-line="75" selection-end-column="40" />
-              <folding>
-                <element signature="e#9189#9190#0" expanded="true" />
-                <element signature="e#9239#9240#0" expanded="true" />
-                <element signature="e#9684#9685#0" expanded="true" />
-                <element signature="e#9732#9733#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IndikaciaCollection.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sourse/IndikaciaCollection.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComPortController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sourse/ComPortController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="116" column="35" lean-forward="false" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComPort.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sourse/ComPort.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="66" column="48" lean-forward="false" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ParserResult.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ParserResult.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sourse/ParserResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1158">
-              <caret line="117" column="18" lean-forward="false" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
+            <state relative-caret-position="3757">
+              <caret line="227" column="183" lean-forward="false" selection-start-line="227" selection-start-column="62" selection-end-line="227" selection-end-column="183" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#5614#5615#0" expanded="true" />
-                <element signature="e#5657#5658#0" expanded="true" />
-                <element signature="e#5699#5700#0" expanded="true" />
-                <element signature="e#5732#5733#0" expanded="true" />
+                <element signature="e#1392#1393#0" expanded="true" />
+                <element signature="e#1436#1437#0" expanded="true" />
+                <element signature="e#14512#14513#0" expanded="true" />
+                <element signature="e#14545#14546#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Indikacia.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sourse/Indikacia.java">
+      <file leaf-file-name="ParserResGSM.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/ParserResGSM.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+            <state relative-caret-position="1139">
+              <caret line="75" column="151" lean-forward="false" selection-start-line="75" selection-start-column="151" selection-end-line="75" selection-end-column="151" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PersoneElement.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/fxml/PersoneElement.fxml">
+      <file leaf-file-name="ParserResIndikacia.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/ParserResIndikacia.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3094">
-              <caret line="182" column="46" lean-forward="false" selection-start-line="182" selection-start-column="46" selection-end-line="182" selection-end-column="46" />
+            <state relative-caret-position="2839">
+              <caret line="173" column="17" lean-forward="false" selection-start-line="173" selection-start-column="17" selection-end-line="173" selection-end-column="17" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="LogickTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/sourse/LogickTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="70" column="133" lean-forward="false" selection-start-line="70" selection-start-column="133" selection-end-line="70" selection-end-column="133" />
+              <folding>
+                <element signature="e#1264#1275#0" expanded="true" />
+                <element signature="e#1313#1314#0" expanded="true" />
+                <element signature="e#1367#1368#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PersonTestController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sourse/PersonTestController.java">
+      <file leaf-file-name="SaveParam.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/SaveParam.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8432">
-              <caret line="526" column="44" lean-forward="false" selection-start-line="526" selection-start-column="44" selection-end-line="526" selection-end-column="44" />
+            <state relative-caret-position="136">
+              <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -217,18 +228,56 @@
         <entry file="file://$PROJECT_DIR$/src/sourse/Resultat.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="13" column="49" lean-forward="false" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+              <caret line="13" column="50" lean-forward="false" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ControllerTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sourse/ControllerTest.java">
+      <file leaf-file-name="ControllerPultMX.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/ControllerPultMX.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11101">
-              <caret line="700" column="35" lean-forward="false" selection-start-line="700" selection-start-column="35" selection-end-line="700" selection-end-column="35" />
+            <state relative-caret-position="15249">
+              <caret line="935" column="28" lean-forward="false" selection-start-line="935" selection-start-column="28" selection-end-line="935" selection-end-column="28" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Indikacia.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/Indikacia.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="697">
+              <caret line="44" column="11" lean-forward="false" selection-start-line="44" selection-start-column="11" selection-end-line="44" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogMess.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/LogMess.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LogController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sourse/LogController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2635">
+              <caret line="183" column="10" lean-forward="false" selection-start-line="183" selection-start-column="10" selection-end-line="183" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1977#1978#0" expanded="true" />
+                <element signature="e#2028#2029#0" expanded="true" />
+                <element signature="e#2086#2087#0" expanded="true" />
+                <element signature="e#2115#2116#0" expanded="true" />
+                <element signature="e#3097#3098#0" expanded="true" />
+                <element signature="e#3135#3136#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -247,17 +296,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onClosedStatus</find>
-      <find>ConnectionDisplayState</find>
-      <find>displayState</find>
-      <find>autoConnect</find>
-      <find>UpdateDataTread</find>
-      <find>Socket is closed</find>
-      <find>connected</find>
-      <find>smsController</find>
-      <find>INITPROG</find>
-      <find>SOCKETINIT</find>
-      <find>toStend</find>
       <find>SendMessSMS- stop</find>
       <find>BtnOkAct</find>
       <find>btnOkPersonOne</find>
@@ -277,6 +315,17 @@
       <find>GetObgectPhone</find>
       <find>NULL</find>
       <find>comPortString</find>
+      <find>controllerPultMX</find>
+      <find>Pult</find>
+      <find>gps</find>
+      <find>gpsSt</find>
+      <find>GenrateGpsString</find>
+      <find>rar1</find>
+      <find>ErrorLevel</find>
+      <find>Zum</find>
+      <find>Error COM</find>
+      <find>Indi</find>
+      <find>SAve</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -296,25 +345,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/sourse/Constants.java" />
-        <option value="$PROJECT_DIR$/src/sample/style.css" />
-        <option value="$PROJECT_DIR$/src/fxml/SMS.fxml" />
-        <option value="$PROJECT_DIR$/src/fxml/Test.fxml" />
-        <option value="$PROJECT_DIR$/src/sourse/ArkanList.java" />
-        <option value="$PROJECT_DIR$/src/sourse/Setting.java" />
-        <option value="$PROJECT_DIR$/src/sourse/SocketListener.java" />
-        <option value="$PROJECT_DIR$/src/sourse/FxSocketClient.java" />
-        <option value="$PROJECT_DIR$/src/sourse/GenericSocket.java" />
-        <option value="$PROJECT_DIR$/src/fxml/GPRS.fxml" />
-        <option value="$PROJECT_DIR$/src/sourse/MySocketG.java" />
-        <option value="$PROJECT_DIR$/src/sourse/GprsController.java" />
-        <option value="$PROJECT_DIR$/src/sourse/SettingsController.java" />
-        <option value="$PROJECT_DIR$/src/sourse/MySocket.java" />
-        <option value="$PROJECT_DIR$/settingsControl.ini" />
-        <option value="$PROJECT_DIR$/src/sourse/Obgect.java" />
-        <option value="$PROJECT_DIR$/src/fxml/ComPort.fxml" />
-        <option value="$PROJECT_DIR$/src/sourse/Nastroika.java" />
-        <option value="$PROJECT_DIR$/src/sourse/OnOffOneController.java" />
         <option value="$PROJECT_DIR$/src/sourse/Pitanie9_15Controller.java" />
         <option value="$PROJECT_DIR$/src/sourse/PausaController.java" />
         <option value="$PROJECT_DIR$/src/sourse/KomandaFormaController.java" />
@@ -326,27 +356,46 @@
         <option value="$PROJECT_DIR$/src/sourse/OneActionController.java" />
         <option value="$PROJECT_DIR$/src/sourse/Element.java" />
         <option value="$PROJECT_DIR$/src/sourse/SaveParam.java" />
-        <option value="$PROJECT_DIR$/src/sourse/Controller.java" />
         <option value="$PROJECT_DIR$/src/sourse/ARKAN.java" />
         <option value="$PROJECT_DIR$/src/sourse/KOmanda.java" />
-        <option value="$PROJECT_DIR$/src/sourse/KomandaCollection.java" />
         <option value="$PROJECT_DIR$/src/sourse/ParserGsmSend.java" />
         <option value="$PROJECT_DIR$/src/sourse/ActionTest.java" />
-        <option value="$PROJECT_DIR$/src/sourse/ActionTestCollection.java" />
         <option value="$PROJECT_DIR$/src/sourse/CRC8.java" />
         <option value="$PROJECT_DIR$/src/sourse/ParserCanSend.java" />
         <option value="$PROJECT_DIR$/src/sourse/CanCollection.java" />
         <option value="$PROJECT_DIR$/src/sourse/Signal.java" />
-        <option value="$PROJECT_DIR$/src/sourse/SignalCollection.java" />
-        <option value="$PROJECT_DIR$/src/sourse/ControllerTest.java" />
         <option value="$PROJECT_DIR$/src/sourse/SmsController.java" />
         <option value="$PROJECT_DIR$/src/sourse/PersonTestController.java" />
         <option value="$PROJECT_DIR$/src/sourse/Resultat.java" />
-        <option value="$PROJECT_DIR$/src/sourse/LogickTest.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ResTableElement.java" />
+        <option value="$PROJECT_DIR$/src/sourse/SignalCollection.java" />
+        <option value="$PROJECT_DIR$/src/sourse/IndikaciaTime.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ResTable.java" />
         <option value="$PROJECT_DIR$/src/sourse/Indikacia.java" />
-        <option value="$PROJECT_DIR$/src/sourse/ComPort.java" />
+        <option value="$PROJECT_DIR$/src/sourse/IndikaciaCollection.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ActionTestCollection.java" />
+        <option value="$PROJECT_DIR$/src/fxml/PultMX.fxml" />
+        <option value="$PROJECT_DIR$/src/sourse/GPS.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ReleBezProvCollection.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ReleBezProv.java" />
+        <option value="$PROJECT_DIR$/src/sourse/KomandaCollection.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ParserResBlockBezProv.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ZumerMetkiTime.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ZumerMetki.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ParserZumerMetki.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ZumerMetkiCollection.java" />
         <option value="$PROJECT_DIR$/src/sourse/ComPortController.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ComPort.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ParserResIndikacia.java" />
+        <option value="$PROJECT_DIR$/src/sourse/Controller.java" />
+        <option value="$PROJECT_DIR$/src/fxml/LOG.fxml" />
+        <option value="$PROJECT_DIR$/src/sourse/LogMess.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ControllerTest.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ParserResGSM.java" />
         <option value="$PROJECT_DIR$/src/sourse/ParserResult.java" />
+        <option value="$PROJECT_DIR$/src/sourse/ControllerPultMX.java" />
+        <option value="$PROJECT_DIR$/src/sourse/LogController.java" />
+        <option value="$PROJECT_DIR$/src/sourse/LogickTest.java" />
       </list>
     </option>
   </component>
@@ -358,10 +407,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="408" />
-    <option name="y" value="-11" />
-    <option name="width" value="861" />
-    <option name="height" value="984" />
+    <option name="x" value="191" />
+    <option name="y" value="-10" />
+    <option name="width" value="1296" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -404,7 +453,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -414,37 +462,16 @@
             </path>
             <path>
               <item name="AutoTestStend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AutoTestStend" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AutoTestStend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AutoTestStend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AutoTestStend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AutoTestStend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="fxml" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AutoTestStend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AutoTestStend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="sourse" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AutoTestStend" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -475,10 +502,11 @@
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="ExtractSuperBase.RECENT_KEYS">
-      <recent name="sourse" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Shestakov\autoTest\AutoTestStend\src\fxml" />
+      <recent name="D:\Shestakov\autoTest\AutoTestStend\src\sourse" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
+    <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="sourse" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -487,9 +515,8 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="sourse" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Shestakov\autoTest\AutoTestStend\src\fxml" />
-      <recent name="D:\Shestakov\autoTest\AutoTestStend\src\sourse" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="sourse" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -703,17 +730,17 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2733189" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24466951" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23940678" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23861171" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27966103" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329718" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19083156" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19509594" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19296375" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28199565" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="595" width="1876" height="229" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28850326" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="595" width="1876" height="229" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -821,71 +848,71 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="545" />
+      <option name="time" value="604" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="tableTb" language="JAVA" />
-        <watch expression="messSendList.get(0)" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/util/Map.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/net/SocketInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="128" column="17" lean-forward="false" selection-start-line="128" selection-start-column="17" selection-end-line="128" selection-end-column="17" />
+        <state relative-caret-position="202">
+          <caret line="93" column="23" lean-forward="false" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/OnOffOneController.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/javafx-src.zip!/com/sun/javafx/tk/quantum/QuantumToolkit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="12" column="83" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="83" />
+        <state relative-caret-position="465">
+          <caret line="318" column="0" lean-forward="false" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Nastroika.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ParserCanSend.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+        <state relative-caret-position="442">
+          <caret line="27" column="9" lean-forward="false" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/NullNastroika.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/KOmanda.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="18" column="61" lean-forward="false" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxml/PersonOneAction.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ActionTestCollection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="11" lean-forward="false" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-          <folding>
-            <element signature="e#128#129#0" expanded="false" />
-            <element signature="e#170#171#0" expanded="false" />
-          </folding>
+          <caret line="6" column="59" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/PersonOneActionController.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/GPS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="176" column="0" lean-forward="false" selection-start-line="176" selection-start-column="0" selection-end-line="176" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="4148">
+          <caret line="269" column="19" lean-forward="false" selection-start-line="269" selection-start-column="12" selection-end-line="269" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/PausaController.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/TableElement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/OneActionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-753">
-          <caret line="25" column="101" lean-forward="false" selection-start-line="25" selection-start-column="101" selection-end-line="25" selection-end-column="101" />
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -893,170 +920,266 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/util/LinkedHashMap.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ReleBezProv.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="366" column="11" lean-forward="false" selection-start-line="366" selection-start-column="11" selection-end-line="366" selection-end-column="11" />
+        <state relative-caret-position="323">
+          <caret line="19" column="33" lean-forward="false" selection-start-line="19" selection-start-column="33" selection-end-line="19" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/lang/Runnable.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ReleBezProvCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="67" column="25" lean-forward="false" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
+        <state relative-caret-position="119">
+          <caret line="8" column="77" lean-forward="false" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/fxml/sample.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/autoteststend1_Fri_Feb_16_14-57-16_MSK_2018.xml" />
-    <entry file="file://$PROJECT_DIR$/autoteststend1.xml" />
-    <entry file="file://$PROJECT_DIR$/autoteststend1.properties" />
-    <entry file="file://$PROJECT_DIR$/autoteststend1_Fri_Feb_16_15-05-38_MSK_2018.xml" />
-    <entry file="file://$PROJECT_DIR$/src/sourse/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/SignalCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="50" column="57" lean-forward="false" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="57" />
+        <state relative-caret-position="306">
+          <caret line="19" column="83" lean-forward="false" selection-start-line="19" selection-start-column="83" selection-end-line="19" selection-end-column="83" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/settingsControl.ini">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/scream3r/jssc/2.8.0/jssc-2.8.0.jar!/jssc/SerialNativeInterface.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        <state relative-caret-position="210">
+          <caret line="52" column="26" lean-forward="false" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/KOmanda.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="18" column="61" lean-forward="false" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fxml/Pitanie9_15.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/fxml/PultMX.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ActionTestCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="25" column="87" lean-forward="true" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
+        <state relative-caret-position="466">
+          <caret line="141" column="47" lean-forward="false" selection-start-line="141" selection-start-column="47" selection-end-line="141" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/CanFormaController.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/FxSocketClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="49" column="30" lean-forward="true" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
+        <state relative-caret-position="-255">
+          <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sourse/KomandaCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="93" lean-forward="false" selection-start-line="10" selection-start-column="89" selection-end-line="10" selection-end-column="93" />
+        <state relative-caret-position="204">
+          <caret line="13" column="82" lean-forward="false" selection-start-line="13" selection-start-column="82" selection-end-line="13" selection-end-column="82" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/net/SocketInputStream.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/lang/Object.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="93" column="23" lean-forward="false" selection-start-line="93" selection-start-column="23" selection-end-line="93" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ParserGsmSend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+        <state relative-caret-position="210">
+          <caret line="500" column="22" lean-forward="false" selection-start-line="500" selection-start-column="22" selection-end-line="500" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sourse/GenericSocket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4233">
-          <caret line="42" column="22" lean-forward="false" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+        <state relative-caret-position="151">
+          <caret line="195" column="18" lean-forward="false" selection-start-line="195" selection-start-column="18" selection-end-line="195" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/CRC8.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/Sirena.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ARKAN.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ZumerSniatia.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1819">
-          <caret line="121" column="0" lean-forward="false" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+        <state relative-caret-position="68">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ActionTest.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ZumerSniatiaCollection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="32" column="25" lean-forward="false" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/scream3r/jssc/2.8.0/jssc-2.8.0.jar!/jssc/SerialPort.class">
+    <entry file="file://$PROJECT_DIR$/src/sourse/OneActionController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="94" column="19" lean-forward="false" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+        <state relative-caret-position="202">
+          <caret line="29" column="17" lean-forward="false" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/CanCollection.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/Element.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+        <state relative-caret-position="202">
+          <caret line="60" column="16" lean-forward="true" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Can.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/PersonTestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
+        <state relative-caret-position="250">
+          <caret line="515" column="64" lean-forward="true" selection-start-line="515" selection-start-column="64" selection-end-line="515" selection-end-column="64" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ParserCanSend.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/PersonOneActionController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="9" lean-forward="true" selection-start-line="27" selection-start-column="9" selection-end-line="27" selection-end-column="9" />
+        <state relative-caret-position="-4726">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Signal.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ParserResBlockBezProv.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+        <state relative-caret-position="510">
+          <caret line="32" column="85" lean-forward="false" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/IndikaciaCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="59" lean-forward="false" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/IndikaciaTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="26" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ZumerMetki.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="41" lean-forward="false" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ZumerMetkiTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ParserZumerMetki.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ZumerMetkiCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="153" lean-forward="false" selection-start-line="7" selection-start-column="153" selection-end-line="7" selection-end-column="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ComPort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="81" column="26" lean-forward="true" selection-start-line="81" selection-start-column="26" selection-end-line="81" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ResTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxml/Test.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="68" column="35" lean-forward="false" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/MySocket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="47" column="16" lean-forward="false" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="61" column="39" lean-forward="false" selection-start-line="61" selection-start-column="39" selection-end-line="61" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/fxml/LOG.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="39" column="51" lean-forward="false" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ComPortController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="712">
+          <caret line="211" column="31" lean-forward="true" selection-start-line="211" selection-start-column="28" selection-end-line="211" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/SmsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="370" column="68" lean-forward="false" selection-start-line="370" selection-start-column="12" selection-end-line="370" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="797" column="29" lean-forward="false" selection-start-line="797" selection-start-column="29" selection-end-line="797" selection-end-column="29" />
+          <folding>
+            <element signature="e#3806#3807#0" expanded="false" />
+            <element signature="e#3863#3864#0" expanded="false" />
+            <element signature="e#5200#5201#0" expanded="false" />
+            <element signature="e#5255#5256#0" expanded="false" />
+            <element signature="e#6697#6698#0" expanded="false" />
+            <element signature="e#6757#6758#0" expanded="false" />
+            <element signature="e#8311#8312#0" expanded="false" />
+            <element signature="e#8368#8369#0" expanded="false" />
+            <element signature="e#13342#13343#0" expanded="false" />
+            <element signature="e#13398#13399#0" expanded="false" />
+            <element signature="e#17831#17832#0" expanded="false" />
+            <element signature="e#17886#17887#0" expanded="false" />
+            <element signature="e#18131#18132#0" expanded="false" />
+            <element signature="e#18213#18214#0" expanded="false" />
+            <element signature="e#18376#18377#0" expanded="false" />
+            <element signature="e#18428#18429#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/ParserResIndikacia.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2839">
+          <caret line="173" column="17" lean-forward="false" selection-start-line="173" selection-start-column="17" selection-end-line="173" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1064,83 +1187,15 @@
     <entry file="file://$PROJECT_DIR$/src/sourse/SaveParam.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="11" column="34" lean-forward="false" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fxml/Test.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
-          <caret line="86" column="107" lean-forward="true" selection-start-line="86" selection-start-column="107" selection-end-line="86" selection-end-column="107" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Bagagnik.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="11" lean-forward="false" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/SmsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5440">
-          <caret line="349" column="43" lean-forward="false" selection-start-line="348" selection-start-column="4" selection-end-line="349" selection-end-column="43" />
-          <folding>
-            <element signature="e#2204#2205#0" expanded="false" />
-            <element signature="e#2236#2237#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/SignalCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="16" column="65" lean-forward="false" selection-start-line="16" selection-start-column="65" selection-end-line="16" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="64" column="32" lean-forward="true" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/javafx-src.zip!/javafx/event/EventHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="44" column="9" lean-forward="false" selection-start-line="44" selection-start-column="9" selection-end-line="44" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/fxml/PersoneElement.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3094">
-          <caret line="182" column="46" lean-forward="false" selection-start-line="182" selection-start-column="46" selection-end-line="182" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/PersonTestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8432">
-          <caret line="526" column="44" lean-forward="false" selection-start-line="526" selection-start-column="44" selection-end-line="526" selection-end-column="44" />
+          <caret line="11" column="33" lean-forward="false" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ControllerTest.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/Indikacia.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11101">
-          <caret line="700" column="35" lean-forward="false" selection-start-line="700" selection-start-column="35" selection-end-line="700" selection-end-column="35" />
+        <state relative-caret-position="697">
+          <caret line="44" column="11" lean-forward="false" selection-start-line="44" selection-start-column="11" selection-end-line="44" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -1148,66 +1203,72 @@
     <entry file="file://$PROJECT_DIR$/src/sourse/Resultat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="13" column="49" lean-forward="false" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+          <caret line="13" column="50" lean-forward="false" selection-start-line="13" selection-start-column="50" selection-end-line="13" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/Indikacia.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ParserResGSM.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+        <state relative-caret-position="1139">
+          <caret line="75" column="151" lean-forward="false" selection-start-line="75" selection-start-column="151" selection-end-line="75" selection-end-column="151" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/IndikaciaCollection.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/LogMess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ComPort.java">
+    <entry file="file://$PROJECT_DIR$/src/sourse/ControllerPultMX.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="66" column="48" lean-forward="false" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
+        <state relative-caret-position="15249">
+          <caret line="935" column="28" lean-forward="false" selection-start-line="935" selection-start-column="28" selection-end-line="935" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/ComPortController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="116" column="35" lean-forward="false" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sourse/LogickTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="75" column="40" lean-forward="false" selection-start-line="75" selection-start-column="40" selection-end-line="75" selection-end-column="40" />
-          <folding>
-            <element signature="e#9189#9190#0" expanded="true" />
-            <element signature="e#9239#9240#0" expanded="true" />
-            <element signature="e#9684#9685#0" expanded="true" />
-            <element signature="e#9732#9733#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sourse/ParserResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1158">
-          <caret line="117" column="18" lean-forward="false" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
+        <state relative-caret-position="3757">
+          <caret line="227" column="183" lean-forward="false" selection-start-line="227" selection-start-column="62" selection-end-line="227" selection-end-column="183" />
+          <folding>
+            <element signature="e#1392#1393#0" expanded="true" />
+            <element signature="e#1436#1437#0" expanded="true" />
+            <element signature="e#14512#14513#0" expanded="true" />
+            <element signature="e#14545#14546#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/LogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2635">
+          <caret line="183" column="10" lean-forward="false" selection-start-line="183" selection-start-column="10" selection-end-line="183" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5614#5615#0" expanded="true" />
-            <element signature="e#5657#5658#0" expanded="true" />
-            <element signature="e#5699#5700#0" expanded="true" />
-            <element signature="e#5732#5733#0" expanded="true" />
+            <element signature="e#1977#1978#0" expanded="true" />
+            <element signature="e#2028#2029#0" expanded="true" />
+            <element signature="e#2086#2087#0" expanded="true" />
+            <element signature="e#2115#2116#0" expanded="true" />
+            <element signature="e#3097#3098#0" expanded="true" />
+            <element signature="e#3135#3136#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sourse/LogickTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="70" column="133" lean-forward="false" selection-start-line="70" selection-start-column="133" selection-end-line="70" selection-end-column="133" />
+          <folding>
+            <element signature="e#1264#1275#0" expanded="true" />
+            <element signature="e#1313#1314#0" expanded="true" />
+            <element signature="e#1367#1368#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1219,8 +1280,8 @@
         <settings>
           <artifact-editor>
             <show-content>
-              <type id="library" />
               <type id="artifact" />
+              <type id="library" />
             </show-content>
           </artifact-editor>
           <last-edited>AutoTestStendv1.0b</last-edited>
@@ -1228,7 +1289,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

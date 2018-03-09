@@ -47,6 +47,7 @@ public class ComPort {
     private void ComPortMessThread() {
         comPortThread = true;
         Thread ComPortMessParser = new Thread(new ComPort.ComPortMessPArserRun());
+        ComPortMessParser.setPriority(Thread.MAX_PRIORITY);
         ComPortMessParser.start();
     }
 

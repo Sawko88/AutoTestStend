@@ -5,6 +5,8 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/scream3r/jssc/2.8.0/jssc-2.8.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/jssc-2.8.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

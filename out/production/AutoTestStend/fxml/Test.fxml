@@ -66,6 +66,11 @@
                   <FontIcon iconColor="#5330ab" iconLiteral="fa-tty" iconSize="26" />
                </graphic>
             </ToggleButton>
+            <ToggleButton fx:id="tbLogi" maxHeight="35.0" maxWidth="35.0" minHeight="35.0" minWidth="35.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0">
+               <graphic>
+                  <FontIcon iconColor="#dd6c8e" iconLiteral="fa-paw" iconSize="26" />
+               </graphic>
+            </ToggleButton>
             <TextField fx:id="tfLogNum" prefHeight="31.0" prefWidth="123.0">
                <font>
                   <Font size="15.0" />

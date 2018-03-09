@@ -82,9 +82,9 @@
                                     </ToolBar>
                                     <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
                                        <items>
-                                          <JFXCheckBox fx:id="cbZumerSnatie" checkedColor="#eb335b" onAction="#CbZumerSnatieAction" text=" " />
-                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер пост/снятие:" />
-                                          <ComboBox fx:id="cboxZumerSnatie" prefHeight="25.0" prefWidth="120.0" />
+                                          <JFXCheckBox fx:id="cbZumerMetki" checkedColor="#eb335b" onAction="#CbZumerMetkiAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер метки:" />
+                                          <ComboBox fx:id="cboxZumerMetki" prefHeight="25.0" prefWidth="120.0" />
                                        </items>
                                     </ToolBar>
                                     <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0">
@@ -92,6 +92,13 @@
                                           <JFXCheckBox fx:id="cbReleBezprov" checkedColor="#eb335b" onAction="#CbReleBezprovAction" text=" " />
                                           <Label prefHeight="17.0" prefWidth="110.0" text="Реле безпроводое:" />
                                           <ComboBox fx:id="cboxReleBezprov" prefHeight="25.0" prefWidth="120.0" />
+                                       </items>
+                                    </ToolBar>
+                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0" visible="false">
+                                       <items>
+                                          <JFXCheckBox fx:id="cbZumerSnatie" checkedColor="#eb335b" onAction="#CbZumerSnatieAction" text=" " />
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер пост/снятие:" />
+                                          <ComboBox fx:id="cboxZumerSnatie" prefHeight="25.0" prefWidth="120.0" />
                                        </items>
                                     </ToolBar>
                                     <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0" visible="false">
@@ -127,13 +134,6 @@
                                           <JFXCheckBox fx:id="cbAutozap" checkedColor="#eb335b" onAction="#CbAutozapAction" text=" " />
                                           <Label prefHeight="17.0" prefWidth="110.0" text="Автозапуск:" />
                                           <ComboBox fx:id="cboxAutozap" prefHeight="25.0" prefWidth="120.0" />
-                                       </items>
-                                    </ToolBar>
-                                    <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0" visible="false">
-                                       <items>
-                                          <JFXCheckBox fx:id="cbZumerMetki" checkedColor="#eb335b" onAction="#CbZumerMetkiAction" text=" " />
-                                          <Label prefHeight="17.0" prefWidth="110.0" text="Зумер метки:" />
-                                          <ComboBox fx:id="cboxZumerMetki" prefHeight="25.0" prefWidth="120.0" />
                                        </items>
                                     </ToolBar>
                                     <ToolBar maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="200.0" visible="false">

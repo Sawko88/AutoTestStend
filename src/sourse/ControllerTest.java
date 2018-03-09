@@ -53,6 +53,7 @@ public  class ControllerTest  implements Initializable {
     public ToggleButton tbComPort;
     public Button btStartTest;
     public Button btStopTest;
+    public ToggleButton tbLogi;
 
     private Setting setting = new Setting();
 
@@ -94,12 +95,55 @@ public  class ControllerTest  implements Initializable {
         PultLoad();
         MyTbPultListener();
 
+        LogLoad();
+        MyTbLogListener();
+
         MyTbConnectListener();
 
         SetDisable(true);
 
 
 
+    }
+
+    private void MyTbLogListener() {
+        tbLogi.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (tbLogi.isSelected()){
+                    logStage.show();
+                } else {
+                    logStage.hide();
+                }
+            }
+        });
+    }
+
+
+    private Stage logStage = new Stage();
+    public LogController logController;
+    private void LogLoad() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ControllerTest.class.getResource("/fxml/LOG.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        logStage.setTitle("Логи");
+        logStage.setScene(new Scene(root));
+        logStage.initModality(Modality.WINDOW_MODAL);
+        logStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                tbLogi.setSelected(false);
+            }
+        });
+        logController = loader.getController();
+        logController.SetControllerTest(this);
     }
 
     private void MyTbPultListener() {
@@ -259,6 +303,7 @@ public  class ControllerTest  implements Initializable {
                     gprsController.DisconnectSMS();
                     comPortController.DisconnectCOM();
                     controllerPultMX.DisconnectPult();
+                    logController.StopLog();
                     SetDisable(true);
                 }
             }
@@ -418,6 +463,7 @@ public  class ControllerTest  implements Initializable {
         smsController.DisconnectSMS();
         gprsController.DisconnectSMS();
         comPortController.DisconnectCOM();
+        logController.StopLog();
         tbConnect.setSelected(false);
         Platform.exit();
     }
@@ -751,6 +797,7 @@ public  class ControllerTest  implements Initializable {
             }
             logickTest.StartLogickTest(listLogickTest);
 
+
         }
 
     }
@@ -766,9 +813,33 @@ public  class ControllerTest  implements Initializable {
 
     }
 
+    public static enum ColorTestElement{
+        RED, GREAN
+    }
+
+    public void SetColorElement(int pos, ColorTestElement color) {
+        switch (color){
+
+            case RED:
+                vbAdd.getChildren().get(pos).setStyle("-fx-background-color:#da7781");
+                break;
+            case GREAN:
+                vbAdd.getChildren().get(pos).setStyle("-fx-background-color:#77c2bb");
+                break;
+        }
+
+    }
+
+    public void ClearColorElement() {
+        for (int i =0 ; i < vbAdd.getChildren().size(); i++){
+            vbAdd.getChildren().get(i).setStyle("-fx-background-color:#fafafa");
+        }
+
+    }
+
     public enum ConnectionState {
 
-        START, CONNECTCOM, WAITCOM, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS, OKCONNECT, NONE, ERRORCONNECT, STOP
+        START, LOGSTART, LOGWAIT, CONNECTCOM, WAITCOM, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS, OKCONNECT, NONE, ERRORCONNECT, STOP
     }
     private ConnectionState connectionState = ConnectionState.NONE;
     private boolean connectThread = false;
@@ -784,8 +855,17 @@ public  class ControllerTest  implements Initializable {
                         countConnection = 0;
                         StartSpinner();
                         GetSettigs();
-                        connectionState = ConnectionState.CONNECTCOM;
+                        connectionState = ConnectionState.LOGSTART;
 
+                        break;
+                    case LOGSTART:
+                        System.out.println("ConnectionStateTread - LOGSTART");
+                        connectionState = ConnectionState.LOGWAIT;
+                        logController.StartLog();
+
+                        break;
+                    case LOGWAIT:
+                        System.out.println("ConnectionStateTread - LOGWAIT");
                         break;
                     case CONNECTCOM:
                         System.out.println("ConnectionStateTread - CONNECTCOM");

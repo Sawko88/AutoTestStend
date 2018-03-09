@@ -30,7 +30,9 @@ public class ParserResIndikacia {
         messInd.clear();
         indList.clear();
         resvMessIndickaciaState = true;
+
         ResvMessIndikacia = new Thread(new ResvMessIndikaciaThread());
+        ResvMessIndikacia.setPriority(Thread.MAX_PRIORITY);
         ResvMessIndikacia.start();
 
         indikaciaCheckState =true;
@@ -61,13 +63,20 @@ public class ParserResIndikacia {
             System.out.println("ResvMessIndikaciaThread - begin");
             while (resvMessIndickaciaState){
                 if(!messInd.isEmpty()){
-                    String messFromList = messInd.getFirst();
-                    IndikaciaTime indikaciaTimeBuf = new IndikaciaTime();
-                    int ind = messFromList.indexOf("=");
-                    indikaciaTimeBuf.state = messFromList.substring(ind+1, ind+2);
-                    indikaciaTimeBuf.timeMC = System.currentTimeMillis();
-                    indList.add(indikaciaTimeBuf);
-                    messInd.removeFirst();
+                    try {
+
+
+                        String messFromList = messInd.getFirst();
+                        IndikaciaTime indikaciaTimeBuf = new IndikaciaTime();
+                        int ind = messFromList.indexOf("=");
+                        indikaciaTimeBuf.state = messFromList.substring(ind + 1, ind + 2);
+                        indikaciaTimeBuf.timeMC = System.currentTimeMillis();
+                        indList.add(indikaciaTimeBuf);
+                        messInd.removeFirst();
+                    }catch (NoSuchElementException xz){
+                        System.out.println("Indikacia error : "+xz);
+                        messInd.clear();
+                    }
                 }
 
                 try {
@@ -100,7 +109,7 @@ public class ParserResIndikacia {
                         indBuf = indList.getFirst();
                         int delta = (int) (indBuf.timeMC - currIndTime.timeMC);
                         if (currIndTime.state.contains("1")) {
-                            if (30 < delta && delta < 350) {
+                            if (0 < delta && delta < 350) {
                                 lista.add(Indikacia.TypeTick.HB);
                             } else if ((currIndikacia.timePausaMin * 0.5) < delta) {
                                 lista.add(Indikacia.TypeTick.HP);
@@ -109,7 +118,7 @@ public class ParserResIndikacia {
                             }
                         }
                         if (currIndTime.state.contains("0")) {
-                            if (30 < delta && delta < 350) {
+                            if (0 < delta && delta < 350) {
                                 lista.add(Indikacia.TypeTick.LB);
                             } else if ((currIndikacia.timePausaMin * 0.5) < delta) {
                                 lista.add(Indikacia.TypeTick.LP);
@@ -190,7 +199,7 @@ public class ParserResIndikacia {
                 newIndikacia = IndikaciaCollection.indikaciaSpisok.get(i);
                 if (newIndikacia.typeInd != currIndikacia.typeInd){
                     countIndnew++;
-                    if (countIndnew>1){
+                    if (countIndnew>2){
                         currIndikacia = newIndikacia;
                         System.out.println("Indikacia = " + currIndikacia.name);
                         countIndnew = 0;
