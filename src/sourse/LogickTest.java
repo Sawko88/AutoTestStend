@@ -2,10 +2,12 @@ package sourse;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.util.Duration;
 
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+
 import java.util.Map;
 
 public class LogickTest {
@@ -13,7 +15,7 @@ public class LogickTest {
     private SmsController gprsController;
     private ComPortController comPortController;
     private ParserGsmSend parserGsmSend = new ParserGsmSend();
-    private ParserCanSend parserCanSend = new ParserCanSend();
+    public ParserCanSend parserCanSend = new ParserCanSend();
     private ParserResult parserResult = new ParserResult();
 
     public void SetChannals(SmsController smsController, SmsController gprsController, ComPortController comPortController) {
@@ -37,10 +39,22 @@ public class LogickTest {
     }
 
 
-    private LinkedList<SaveParam> listLogickTest = new LinkedList<SaveParam>();
+    private ArrayList<SaveParam> listLogickTest = new ArrayList<SaveParam>();
 
     public void StopLogickTest() {
+        erroFlag = ErrorFlag.XZ;
         logickTestState = LogickTestState.STOP;
+    }
+
+    public void InitThread() {
+        logickTestThreadConfirm = true;
+        LogickTestThread = new Thread(new LogickTestStateThread());
+        LogickTestThread.start();
+    }
+
+    public void StopTherad() {
+        parserResult.StopResult();
+        logickTestThreadConfirm = false;
     }
 
     public enum LogickTestState {
@@ -50,35 +64,46 @@ public class LogickTest {
     private Thread LogickTestThread;
     private boolean logickTestThreadConfirm = false;
 
-    public void StartLogickTest(LinkedList<SaveParam> listLogickTest) {
-        this.listLogickTest = (LinkedList<SaveParam>) listLogickTest.clone();
-        logickTestThreadConfirm = true;
-        LogickTestThread = new Thread(new LogickTestStateThread());
-        LogickTestThread.start();
+    public void StartLogickTest(ArrayList<SaveParam> listLogickTest) {
+        this.listLogickTest = (ArrayList<SaveParam>) listLogickTest.clone();
+
         logickTestState = LogickTestState.START;
     }
-    public  SaveParam currentTest;
+    public SaveParam currentTest;
+    public enum ErrorFlag {
+        XZ, OK, ERROR
+    }
+    public ErrorFlag erroFlag = ErrorFlag.XZ;
+
     private class LogickTestStateThread implements Runnable {
         @Override
         public void run() {
             System.out.println("LogickTestStateThread - run");
-            controllerTest.ControlButtonTest(true);
+
 
             while (logickTestThreadConfirm){
                 switch (logickTestState){
 
                     case START:
-                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "-----------------------------------------------------------------------------------"));
+                        erroFlag = ErrorFlag.OK;
+                        controllerTest.ControlButtonTest(true);
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "---------------------------------------------------------------------------------"));
                         LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "Тестирование " + obgectTest.logNum+ " началось"));
                         System.out.println("LogickTestStateThread - START");
                         parserGsmSend.InitObgect(obgectTest);
                         logickTestState = LogickTestState.BEGINTEST;
-                        controllerTest.ClearColorElement();
+                        //controllerTest.errorListShow.clear();
+                        Platform.runLater(() -> {
+                            controllerTest.ClearColorElement();
+                        });
                         break;
                     case BEGINTEST:
                         System.out.println("LogickTestStateThread - BEGINTEST");
-                        currentTest = listLogickTest.getFirst();
-                        LogController.logMessList.add(new LogMess(LogMess.LogType.OK, currentTest.name+ " поехали"));
+                        currentTest = listLogickTest.get(0);
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.START, currentTest.name+ " поехали"));
+                        Platform.runLater(() -> {
+                                    controllerTest.SetElementState(listLogickTest.get(0).pos, "В процессе");
+                                });
                         parserResult.SetResult(currentTest.res);
 
                         System.out.println(currentTest.name+" - begin");
@@ -106,16 +131,23 @@ public class LogickTest {
                                 System.out.println("LogickTestStateThread - ResultTest - OK");
                                 logickTestState = LogickTestState.FINISHTEST;
                                 LogController.logMessList.add(new LogMess(LogMess.LogType.OK, currentTest.name+ " закончили без ошибок"));
-                                controllerTest.SetColorElement(listLogickTest.getFirst().pos, ControllerTest.ColorTestElement.GREAN);
+                                Platform.runLater(() -> {
+                                    controllerTest.SetColorElement(listLogickTest.get(0).pos, ControllerTest.ColorTestElement.GREAN);
+                                });
                                 break;
                             case ERROR:
                                 System.out.println("LogickTestStateThread - ResultTest - ERROR");
+                                erroFlag = ErrorFlag.ERROR;
                                 LogController.logMessList.add(new LogMess(LogMess.LogType.ERROR, currentTest.name+ " закончили со следующими ошибками:"));
+                                //controllerTest.errorListShow.addAll(parserResult.errorLsst);
                                 for (int err = 0 ; err< parserResult.errorLsst.size(); err++){
                                     System.out.println(parserResult.errorLsst.get(err));
                                     LogController.logMessList.add(new LogMess(LogMess.LogType.ERROR, parserResult.errorLsst.get(err)));
+                                    controllerTest.errorListShow.add(currentTest.name+ " : "+parserResult.errorLsst.get(err));
                                 }
-                                controllerTest.SetColorElement(listLogickTest.getFirst().pos, ControllerTest.ColorTestElement.RED);
+                                Platform.runLater(() -> {
+                                            controllerTest.SetColorElement(listLogickTest.get(0).pos, ControllerTest.ColorTestElement.RED);
+                                        });
                                 parserResult.errorLsst.clear();
                                 logickTestState = LogickTestState.FINISHTEST;
                                 break;
@@ -133,7 +165,7 @@ public class LogickTest {
 
                         parserResult.StopResult();
 
-                        listLogickTest.removeFirst();
+                        listLogickTest.remove(0);
                         if (listLogickTest.isEmpty()){
                             logickTestState = LogickTestState.STOP;
                         }else {
@@ -145,10 +177,18 @@ public class LogickTest {
                     case STOP:
                         System.out.println("LogickTestStateThread - STOP");
                         LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "Тестирование " + obgectTest.logNum+ " закончилось"));
-                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "-----------------------------------------------------------------------------------"));
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.XZ, "---------------------------------------------------------------------------------"));
                         controllerTest.btStopTest.setDisable(true);
                         parserResult.StopResult();
-                        logickTestThreadConfirm = false;
+                        //logickTestThreadConfirm = false;
+                        if (timeline!=null){
+                            timeline.stop();
+
+                        }
+                        countPersonList = 0;
+                        controllerTest.ControlButtonTest(false);
+                        controllerTest.ShowAllert(erroFlag);
+                        logickTestState = LogickTestState.NONE;
                         break;
                     case PAUSASTART:
                         System.out.println("LogickTestStateThread - PAUSASTART");
@@ -170,7 +210,7 @@ public class LogickTest {
                 }
             }
             System.out.println("LogickTestStateThread - finish");
-            controllerTest.ControlButtonTest(false);
+
         }
     }
 
@@ -183,8 +223,11 @@ public class LogickTest {
         } else
         {
             tableTest =  personlist.get(countPersonList);
-
-            System.out.println(currentTest.name+" : "+tableTest.actionTest.name+"-->"+tableTest.actionTest.namePosition);
+            try {
+                System.out.println(currentTest.name + " : " + tableTest.actionTest.name + "-->" + tableTest.actionTest.namePosition);
+            }catch (NullPointerException w){
+                System.out.println(currentTest.name + w);
+            }
             LogController.logMessList.add(new LogMess(LogMess.LogType.STEPTEST, currentTest.name+" : "+tableTest.actionTest.name+"-->"+tableTest.actionTest.namePosition));
 
             switch (tableTest.actionTest.type){
@@ -200,6 +243,7 @@ public class LogickTest {
                 case PWRNAP:
                     String par;
                     par = String.valueOf((int)(70 - (Double.parseDouble(tableTest.actionTest.currentstait)-9)*5));
+                    System.out.println("PWRnap = "+ par);
                     String messPWRNAP = tableTest.actionTest.code+par;
                     SendToPult(messPWRNAP);
                     break;

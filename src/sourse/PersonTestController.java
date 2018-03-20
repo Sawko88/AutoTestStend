@@ -62,6 +62,11 @@ public class PersonTestController implements Initializable{
     public TextField tfHourTime;
     public TextField tfMinTime;
     public TextField tfSecTime;
+    public JFXCheckBox cbSignalIgnor;
+    public CheckComboBox ccbSignalIgnor;
+    public JFXCheckBox cbValidCoord;
+    public ComboBox cboxValodCoord;
+
     private SignalCollection signalCollection = new SignalCollection();
     private IndikaciaCollection indikaciaCollection = new IndikaciaCollection();
     private ReleProvcollection releProvcollection = new ReleProvcollection();
@@ -73,6 +78,7 @@ public class PersonTestController implements Initializable{
     private ZumerSniatiaCollection zumerSniatiaCollection = new ZumerSniatiaCollection();
     private ZumerMetkiCollection zumerMetkiCollection = new ZumerMetkiCollection();
     private PovorotCollection povorotCollection = new PovorotCollection();
+    private ValidCoordCollection validCoordCollection = new ValidCoordCollection();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -90,6 +96,41 @@ public class PersonTestController implements Initializable{
                 } else {
                     ccbSignal.setDisable(true);
                     ccbSignal.getCheckModel().clearChecks();
+                }
+            }
+        });
+
+        for (int i = 0; i < signalCollection.signalSpisok.size(); i++) {
+            ccbSignalIgnor.getItems().add(signalCollection.signalSpisok.get(i).name);
+
+        }
+        ccbSignalIgnor.setDisable(true);
+        cbSignalIgnor.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (cbSignalIgnor.isSelected()){
+                    ccbSignalIgnor.setDisable(false);
+                } else {
+                    ccbSignalIgnor.setDisable(true);
+                    ccbSignalIgnor.getCheckModel().clearChecks();
+                }
+            }
+        });
+
+        for (int i = 0; i < validCoordCollection.validCoordList.size(); i++) {
+            cboxValodCoord.getItems().add(validCoordCollection.validCoordList.get(i).name);
+
+        }
+        cboxValodCoord.getSelectionModel().select(0);
+        cboxValodCoord.setDisable(true);
+        cbValidCoord.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (cbValidCoord.isSelected()){
+                    cboxValodCoord.setDisable(false);
+                } else {
+                    cboxValodCoord.setDisable(true);
+                    cboxValodCoord.getSelectionModel().select(0);
                 }
             }
         });
@@ -447,6 +488,17 @@ public class PersonTestController implements Initializable{
             resbuf.signalSResultat.clear();
         }
 
+        resbuf.stateSignalIgnor = cbSignalIgnor.isSelected();
+        if (cbSignalIgnor.isSelected()){
+            for (int i = 0; i < ccbSignalIgnor.getItems().size(); i ++){
+                if (ccbSignalIgnor.getCheckModel().isChecked(i)){
+                    resbuf.signalSResultatIgnor.add(signalCollection.signalSpisok.get(i));
+                }
+            }
+        }else {
+            resbuf.signalSResultatIgnor.clear();
+        }
+
         resbuf.stateIndikacia = cbIndikacia.isSelected();
         resbuf.indikaciaResultat = IndikaciaCollection.indikaciaSpisok.get(cboxIndikacia.getSelectionModel().getSelectedIndex());
 
@@ -477,6 +529,9 @@ public class PersonTestController implements Initializable{
         resbuf.statePovorot = cbPovorot.isSelected();
         resbuf.povorotResultat = povorotCollection.povorots.get(cboxPovorot.getSelectionModel().getSelectedIndex());
 
+        resbuf.stateValidCoord = cbValidCoord.isSelected();
+        resbuf.validCoordRes = validCoordCollection.validCoordList.get(cboxValodCoord.getSelectionModel().getSelectedIndex());
+
         resbuf.secTime = tfSecTime.getText();
         resbuf.minTime = tfMinTime.getText();
         resbuf.hourTine = tfHourTime.getText();
@@ -489,6 +544,13 @@ public class PersonTestController implements Initializable{
         if (resElement.stateSignal) {
             for (int i = 0; i < resElement.signalSResultat.size(); i++) {
                 ccbSignal.getCheckModel().check(resElement.signalSResultat.get(i).index);
+            }
+        }
+
+        cbSignalIgnor.setSelected(resElement.stateSignalIgnor);
+        if (resElement.stateSignalIgnor) {
+            for (int i = 0; i < resElement.signalSResultatIgnor.size(); i++) {
+                ccbSignalIgnor.getCheckModel().check(resElement.signalSResultatIgnor.get(i).index);
             }
         }
 
@@ -522,6 +584,9 @@ public class PersonTestController implements Initializable{
         cbPovorot.setSelected(resElement.statePovorot);
         cboxPovorot.getSelectionModel().select(resElement.povorotResultat.index);
 
+        cbValidCoord.setSelected(resElement.stateValidCoord);
+        cboxValodCoord.getSelectionModel().select(resElement.validCoordRes.index);
+
         tfHourTime.setText(resElement.hourTine);
         tfMinTime.setText(resElement.minTime);
         tfSecTime.setText(resElement.secTime);
@@ -554,5 +619,11 @@ public class PersonTestController implements Initializable{
     }
 
     public void CbZumerMetkiAction(ActionEvent actionEvent) {
+    }
+
+    public void CbSignalIgnorAction(ActionEvent actionEvent) {
+    }
+
+    public void CbValidCoordAction(ActionEvent actionEvent) {
     }
 }

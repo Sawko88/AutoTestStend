@@ -19,10 +19,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LogController extends Application implements Initializable {
 
@@ -103,7 +100,7 @@ public class LogController extends Application implements Initializable {
         logThreadStage = false;
     }
 
-    public static LinkedList<LogMess> logMessList  = new LinkedList<LogMess>();
+    public static ArrayList<LogMess> logMessList  = new ArrayList<LogMess>();
 
     private class LogUpdateThread extends Thread implements Runnable{
         @Override
@@ -111,11 +108,11 @@ public class LogController extends Application implements Initializable {
             System.out.println("LogUpdateThread- start");
             while (logThreadStage){
                 if(!logMessList.isEmpty()){
-                    LogMess logMessBuf = logMessList.getFirst();
+                    LogMess logMessBuf = logMessList.get(0);
                     Platform.runLater(() -> {
                         PrintText(logMessBuf);
                     });
-                    logMessList.removeFirst();
+                    logMessList.remove(0);
                 }
 
 
@@ -158,6 +155,9 @@ public class LogController extends Application implements Initializable {
                 break;
             case RESTEST:
                 s+= " : "+logMess.mess+"\r\n"; colorText="-fx-fill: #88179a;";
+                break;
+            case START:
+                s+= " : "+logMess.mess+"\r\n"; colorText="-fx-fill: #161717;";
                 break;
         }
 

@@ -1,22 +1,26 @@
 package sourse;
 
-import java.util.LinkedList;
+
+import java.util.ArrayList;
 
 public class ParserResGSM {
 
-    ParserResult parserResult;
+    ParserResult parserResult ;
     public void SetRes(ParserResult parserResult) {
         this.parserResult = parserResult;
     }
 
-    public void StartParsing() {
+
+    private ParserValid parserValid = new ParserValid();
+    public void StartParsing(ParserValid parserValid) {
+        this.parserValid = parserValid;
         StartThreadGSM();
     }
     public void StopParsing(){
         resvMessGSMState = false;
     }
 
-    public LinkedList<String> messGsm = new LinkedList<String>();
+    public ArrayList<String> messGsm = new ArrayList<String>();
     private Thread ResvMessFromGSM;
     private boolean resvMessGSMState = false;
 
@@ -63,10 +67,25 @@ public class ParserResGSM {
                         currentElementGprs++;
                     }
                 }
+                //проверка игнора
+                if (!messGsm.isEmpty()){
+                    if (parserResult.resultat.stateSignalIgnor){
+                        for(int g = messGsm.size() ; g>0; g--) {
+                            int k = g-1;
+                            String messres = messGsm.get(k);
+                            FindSignalIgnor(messres,k);
+                        }
+                    }
+                }
+
+                //проверка полученных сообщений
+
                 if (!messGsm.isEmpty()){
                     if(parserResult.resTable.resTableEl.get(tablePlase).wait){
-                        for(int g = 0 ; g<messGsm.size(); g++) {
+                        for(int k = messGsm.size() ; k>0; k--) {
+                            int g = k-1;
                             String messres = messGsm.get(g);
+
                             for (int i = 0; i < parserResult.resultat.signalSResultat.size(); i++) {
                                 switch (parserResult.resultat.signalSResultat.get(i).signalType) {
 
@@ -79,18 +98,36 @@ public class ParserResGSM {
                                         break;
                                     case CONTROL:
                                         if (messres.contains("CODE " + parserResult.resultat.signalSResultat.get(i).code)) {
+                                            parserValid.CheckValid(messres);
                                             parserResult.resultat.signalSResultat.get(i).state = true;
                                             LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, parserResult.logickTest.currentTest.name+" : Получено сообщение <-- "+parserResult.resultat.signalSResultat.get(i).name));
                                             messGsm.remove(g);
                                         }
                                         break;
                                     case PARAM_OB:
+                                        if(messres.contains(parserResult.resultat.signalSResultat.get(i).code)){
+                                            parserResult.resultat.signalSResultat.get(i).state = true;
+                                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, parserResult.logickTest.currentTest.name+" : Получено сообщение <-- "+parserResult.resultat.signalSResultat.get(i).name));
+                                            messGsm.remove(g);
+                                        }
                                         break;
                                     case PARAM_GSM:
+                                        if(messres.contains(parserResult.resultat.signalSResultat.get(i).code)){
+                                            parserResult.resultat.signalSResultat.get(i).state = true;
+                                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, parserResult.logickTest.currentTest.name+" : Получено сообщение <-- "+parserResult.resultat.signalSResultat.get(i).name));
+                                            messGsm.remove(g);
+                                        }
                                         break;
                                     case PARAM_CAN:
                                         break;
                                     case PARAM_VER:
+                                        break;
+                                    case TEST0531:
+                                        if(parserResult.resultat.signalSResultat.get(i).code.contains(messres)) {
+                                            parserResult.resultat.signalSResultat.get(i).state = true;
+                                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, parserResult.logickTest.currentTest.name+" : Получено сообщение <-- "+parserResult.resultat.signalSResultat.get(i).name));
+                                            messGsm.remove(g);
+                                        }
                                         break;
                                 }
                             }
@@ -106,12 +143,13 @@ public class ParserResGSM {
 
                     if (!messGsm.isEmpty()){
 
-                        for (int err = 0; err< messGsm.size(); err++) {
-                            if (messGsm.getFirst().contains("**STATUS**")){
-                                messGsm.removeFirst();
+                        for (int err =  messGsm.size(); err>0; err--) {
+                            int i = err-1;
+                            if (messGsm.get(i).contains("**STATUS**")){
+                                messGsm.remove(i);
                             } else {
-                                parserResult.resTable.resTableEl.get(tablePlase).errorList.add("Лишнее сообщение: " + messGsm.getFirst());
-                                messGsm.removeFirst();
+                                parserResult.resTable.resTableEl.get(tablePlase).errorList.add("Лишнее сообщение: " + messGsm.get(i));
+                                messGsm.remove(i);
                             }
                         }
                     }
@@ -129,5 +167,39 @@ public class ParserResGSM {
             currentElementGprs = 0;
             System.out.println("ResvMessFromGSMThread - finish");
         }
+    }
+
+    private void FindSignalIgnor(String messres, int g) {
+
+            for (int i = 0; i < parserResult.resultat.signalSResultatIgnor.size(); i++) {
+                switch (parserResult.resultat.signalSResultatIgnor.get(i).signalType) {
+
+                    case NONE:
+                        if (messres.equals(parserResult.resultat.signalSResultatIgnor.get(i).code)) {
+                            messGsm.remove(g);
+                        }
+                        break;
+                    case CONTROL:
+                        if (messres.contains("CODE " + parserResult.resultat.signalSResultatIgnor.get(i).code)) {
+                            messGsm.remove(g);
+                        }
+                        break;
+                    case PARAM_OB:
+                        if(messres.contains(parserResult.resultat.signalSResultatIgnor.get(i).code)){
+                            messGsm.remove(g);
+                        }
+                        break;
+                    case PARAM_GSM:
+                        if(messres.contains(parserResult.resultat.signalSResultatIgnor.get(i).code)){
+                            messGsm.remove(g);
+                        }
+                        break;
+                    case PARAM_CAN:
+                        break;
+                    case PARAM_VER:
+                        break;
+                }
+            }
+
     }
 }

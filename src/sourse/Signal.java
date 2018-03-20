@@ -17,7 +17,7 @@ public class Signal implements Serializable{
     }
 
     public  enum SignalType {
-        NONE, CONTROL , PARAM_OB, PARAM_GSM, PARAM_CAN, PARAM_VER
+        NONE, CONTROL , PARAM_OB, PARAM_GSM, PARAM_CAN, PARAM_VER, TEST0531
     }
     public SignalType signalType = SignalType.NONE;
 

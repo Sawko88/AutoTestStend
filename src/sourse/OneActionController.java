@@ -59,8 +59,9 @@ public class OneActionController implements Initializable {
         //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        // stage.setResizable(false);
+        stage.setResizable(false);
         stage.setScene(new Scene(root));
+        stage.sizeToScene();
         stage.initModality(Modality.APPLICATION_MODAL);
 
         personOneActionController = loader.getController();

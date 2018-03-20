@@ -5,11 +5,11 @@ import java.util.List;
 
 public class ResTable {
     public static List<ResTableElement> resTableEl = Arrays.asList(
-         new ResTableElement(0, ResTableElement.TypeElementRes.SIGNAL),
-         new ResTableElement(1, ResTableElement.TypeElementRes.INDIKACIA),
-         new ResTableElement(2, ResTableElement.TypeElementRes.ZVUK),
-         new ResTableElement(3, ResTableElement.TypeElementRes.RR_BLOK)
-
+         new ResTableElement(0, ResTableElement.TypeElementRes.SIGNAL, "Не пришёл сигнал"),
+         new ResTableElement(1, ResTableElement.TypeElementRes.INDIKACIA, "Нет индикации"),
+         new ResTableElement(2, ResTableElement.TypeElementRes.ZVUK, "Нет звукового сигнала метки"),
+         new ResTableElement(3, ResTableElement.TypeElementRes.RR_BLOK, "Нет блокировки"),
+         new ResTableElement(4, ResTableElement.TypeElementRes.VALID, "Нет валидности")
     );
 
     public void ClearAllFlags() {

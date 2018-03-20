@@ -16,7 +16,7 @@ public class KOmanda implements Serializable{
     }
 
     public enum TypeKomand {
-        PARAMNEW_OB, COMANDNEW, PARAM_OB,PARAM_GSM, PARAM_CAN , COMAND, NONE, PARAMNEW_GSM, PARAMNEW_CAN
+        PARAMNEW_OB, COMANDNEW, PARAM_OB,PARAM_GSM, PARAM_CAN , COMAND, NONE, PARAMNEW_GSM, PARAMNEW_CAN, SLED
     }
 
     public KOmanda(int i, String name, String s) {

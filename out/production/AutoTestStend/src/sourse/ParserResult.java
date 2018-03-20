@@ -4,10 +4,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ParserResult {
-    public Resultat resultat = new Resultat();
+    public Resultat resultat ;
     public SmsController smsController;
     public SmsController gprsController;
     public ComPortController comPortController;
@@ -36,9 +37,16 @@ public class ParserResult {
     }
 
     private void ClearLists() {
-        comPortController.messResvTestList.clear();
-        smsController.messResvTestList.clear();
-        gprsController.messResvTestList.clear();
+        if (comPortController!=null) {
+            comPortController.messResvTestList.clear();
+        }
+        if (smsController!=null) {
+            smsController.messResvTestList.clear();
+        }
+        if (gprsController!= null) {
+            gprsController.messResvTestList.clear();
+        }
+
     }
 
 
@@ -65,6 +73,7 @@ public class ParserResult {
         this.resultat = res;
         StartResultatThread();
         parserResGSM.SetRes(this);
+        parserValid.SetRes(this);
         //parserResIndikacia.SetRes(this);
         resStatus = ResStatus.WAIT;
         stateRes = StateRes.INIT;
@@ -93,9 +102,10 @@ public class ParserResult {
     }
     public StateRes stateRes = StateRes.NONE;
 
-    public LinkedList<String> errorLsst = new LinkedList<String>();
+    public ArrayList<String> errorLsst = new ArrayList<String>();
 
-    private ParserResGSM parserResGSM = new ParserResGSM();
+    public ParserResGSM parserResGSM = new ParserResGSM();
+    public ParserValid parserValid = new ParserValid();
     //private ParserResIndikacia parserResIndikacia = new ParserResIndikacia();
 
     private class ResultatThreadListening implements Runnable {
@@ -116,6 +126,7 @@ public class ParserResult {
                         System.out.println("ResultatThreadListening - stateRes - INITTABLE");
                         InitTable();
                         parserResGSM.SetTablePlase(0);
+                        parserValid.SetTablePlase(4);
 
                         stateRes = StateRes.START;
                         break;
@@ -123,7 +134,7 @@ public class ParserResult {
                         System.out.println("ResultatThreadListening - stateRes - START");
                         ReadTest(true);
                         //StartThreadCom();
-                        parserResGSM.StartParsing();
+                        parserResGSM.StartParsing(parserValid);
 
                         StartTimer();
                         stateRes = StateRes.WAITRES;
@@ -177,18 +188,102 @@ public class ParserResult {
         if (resTable.resTableEl.get(2).wait){
             ZumerMetki zumerMetkiBud = new ZumerMetki();
             zumerMetkiBud = comPortController.GetCurrentZumerMetki();
-            if (resultat.zumerMetkiResultat.typeZumMetki == ZumerMetki.TypeZumMetki.OPR){
-                if (zumerMetkiBud.typeZumMetki == resultat.zumerMetkiResultat.typeZumMetki) {
-                    resTable.resTableEl.get(2).finish = true;
-                    LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name+" : Зумер метки получен <-- "+resultat.releBezProvResultat.name ));
+            switch (resultat.zumerMetkiResultat.typeZumMetki){
 
-                    currZunerMetki = zumerMetkiBud;
+                case XZ:
+                    break;
+                case DVA:
+                    if (zumerMetkiBud.typeZumMetki == resultat.zumerMetkiResultat.typeZumMetki) {
+                        if (currZunerMetki.typeZumMetki != zumerMetkiBud.typeZumMetki){
+                            resTable.resTableEl.get(2).finish = true;
+                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name + " : Зумер метки получен <-- " + resultat.zumerMetkiResultat.name));
+
+                            currZunerMetki = zumerMetkiBud;
+                        }
+                    } else if (zumerMetkiBud.typeZumMetki !=ZumerMetki.TypeZumMetki.NEOPR ){
+                        if (currZunerMetki.typeZumMetki != zumerMetkiBud.typeZumMetki) {
+                            resTable.resTableEl.get(2).errorList.add("Сработал Зумер Метки " + zumerMetkiBud.name);
+                            currZunerMetki = zumerMetkiBud;
+                        }
+                    } else {
+                        currZunerMetki = zumerMetkiBud;
+                    }
+                    break;
+                case NEOPR:
+                    if (zumerMetkiBud.typeZumMetki == resultat.zumerMetkiResultat.typeZumMetki) {
+
+                            if (!resTable.resTableEl.get(2).finish) {
+                                LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name + " : Зумер метки получен <-- " + resultat.zumerMetkiResultat.name));
+                            }
+                            resTable.resTableEl.get(2).finish = true;
+                            currZunerMetki = zumerMetkiBud;
+
+                    }
+                    if (zumerMetkiBud.typeZumMetki != resultat.zumerMetkiResultat.typeZumMetki) {
+                        if (currZunerMetki.typeZumMetki!= zumerMetkiBud.typeZumMetki) {
+                            //resTable.resTableEl.get(2).finish = false;
+                            resTable.resTableEl.get(2).errorList.add("Сработал Зумер Метки "+ zumerMetkiBud.name);
+                            currZunerMetki = zumerMetkiBud;
+                        }
+                        //errorZumMetki = true;
+                    }
+                    break;
+                case ODIN:
+                    if (zumerMetkiBud.typeZumMetki == resultat.zumerMetkiResultat.typeZumMetki) {
+                        if (currZunerMetki.typeZumMetki != zumerMetkiBud.typeZumMetki){
+                            resTable.resTableEl.get(2).finish = true;
+                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name + " : Зумер метки получен <-- " + resultat.zumerMetkiResultat.name));
+
+                            currZunerMetki = zumerMetkiBud;
+                        }
+                    } else if (zumerMetkiBud.typeZumMetki != ZumerMetki.TypeZumMetki.NEOPR ){
+                        if (currZunerMetki.typeZumMetki != zumerMetkiBud.typeZumMetki) {
+                            resTable.resTableEl.get(2).errorList.add("Сработал Зумер Метки " + zumerMetkiBud.name);
+                            currZunerMetki = zumerMetkiBud;
+                        }
+                    } else {
+                        currZunerMetki = zumerMetkiBud;
+                    }
+                    break;
+                case TEST:
+                    if ((zumerMetkiBud.typeZumMetki == ZumerMetki.TypeZumMetki.ODIN)||(zumerMetkiBud.typeZumMetki == ZumerMetki.TypeZumMetki.DVA)) {
+                        if (currZunerMetki.typeZumMetki != zumerMetkiBud.typeZumMetki) {
+                            resTable.resTableEl.get(2).finish = true;
+                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name + " : Зумер метки получен <-- " + resultat.zumerMetkiResultat.name));
+
+                            currZunerMetki = zumerMetkiBud;
+                        }
+                    } else if (zumerMetkiBud.typeZumMetki == ZumerMetki.TypeZumMetki.NEOPR){
+
+                        currZunerMetki = zumerMetkiBud;
+                    } else {
+                        if (currZunerMetki.typeZumMetki != zumerMetkiBud.typeZumMetki) {
+                            resTable.resTableEl.get(2).errorList.add("Сработал Зумер Метки " + zumerMetkiBud.name);
+                            currZunerMetki = zumerMetkiBud;
+                        }
+                    }
+                    break;
+                case NOANAL:
+                    if (!resTable.resTableEl.get(2).finish) {
+                        resTable.resTableEl.get(2).finish = true;
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name + " : Зумер метки получен <-- " + resultat.zumerMetkiResultat.name));
+                    }
+
+            }
+            /*if (resultat.zumerMetkiResultat.typeZumMetki == ZumerMetki.TypeZumMetki.OPR){
+                if (zumerMetkiBud.typeZumMetki == resultat.zumerMetkiResultat.typeZumMetki) {
+                    if (currZunerMetki.typeZumMetki != zumerMetkiBud.typeZumMetki){
+                        resTable.resTableEl.get(2).finish = true;
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name + " : Зумер метки получен <-- " + resultat.zumerMetkiResultat.name));
+
+                        currZunerMetki = zumerMetkiBud;
+                    }
                 }
             }else {
 
                     if (zumerMetkiBud.typeZumMetki == resultat.zumerMetkiResultat.typeZumMetki) {
                         resTable.resTableEl.get(2).finish = true;
-                        LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name+" : Зумер метки получен <-- "+resultat.releBezProvResultat.name ));
+                        LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, logickTest.currentTest.name+" : Зумер метки получен <-- "+resultat.zumerMetkiResultat.name ));
 
                         currZunerMetki = zumerMetkiBud;
                     }
@@ -202,14 +297,14 @@ public class ParserResult {
                     }
 
 
-            }
+            }*/
 
         } else {
             ZumerMetki zumerMetkiBud = new ZumerMetki();
             zumerMetkiBud = comPortController.GetCurrentZumerMetki();
             if (currZunerMetki.typeZumMetki!= zumerMetkiBud.typeZumMetki) {
-                if (zumerMetkiBud.typeZumMetki == ZumerMetki.TypeZumMetki.OPR) {
-                    resTable.resTableEl.get(2).errorList.add("Сработал Зумер Метки ");
+                if (zumerMetkiBud.typeZumMetki != ZumerMetki.TypeZumMetki.NEOPR) {
+                    resTable.resTableEl.get(2).errorList.add("Сработал Зумер Метки "+ zumerMetkiBud.name);
                     currZunerMetki = zumerMetkiBud;
                 }
             }
@@ -280,7 +375,7 @@ public class ParserResult {
         }
     }
 
-    private Indikacia currInd = new Indikacia();
+    private Indikacia currInd = new Indikacia() ;
     private ReleBezProv currRRBlock = new ReleBezProv();
     private ZumerMetki currZunerMetki = new ZumerMetki();
 
@@ -321,6 +416,9 @@ public class ParserResult {
         }
         if (resultat.stateReleBezProv){
             resTable.SetFlag(3,true, false);
+        }
+        if (resultat.stateValidCoord){
+            resTable.SetFlag(4, true,false);
         }
 
 
@@ -373,9 +471,11 @@ public class ParserResult {
 */
 
     private void ReadTest(boolean b) {
-        smsController.SetTesting(b);
-        gprsController.SetTesting(b);
-        //comPortController.SetTesting(b);
+        if(smsController!=null) {
+            smsController.SetTesting(b);
+            gprsController.SetTesting(b);
+            //comPortController.SetTesting(b);
+        }
     }
 
 
@@ -400,12 +500,12 @@ public class ParserResult {
 
             if (resTable.resTableEl.get(i).wait) {
                 if (!resTable.resTableEl.get(i).finish) {
-                    errorLsst.add("Тест завершон по таймеру " + resTable.resTableEl.get(i).typeElementRes);
+                    errorLsst.add("Тест завершон по таймеру : " + resTable.resTableEl.get(i).name);
                 }
             }
         }
         //errorLsst.add("Тест завершон по таймеру");
-        resStatus = ResStatus.ERROR;
+        stateRes = StateRes.CHECKERROR;
     }
 
 

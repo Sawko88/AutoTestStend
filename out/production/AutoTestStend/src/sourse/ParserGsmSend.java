@@ -42,11 +42,20 @@ public class ParserGsmSend {
 
                 break;
 
+            case SLED:
+                mess = GetSled(parserkom.komanda, obgectTest.code);
+                break;
             default: break;
         }
 
 
         return mess;
+    }
+    //"GPSG# XXXX 1 60"
+    private String GetSled(String komanda, String code) {
+        String messSled = komanda;
+        messSled = messSled.replaceAll("XXXX", code);
+        return messSled;
     }
 
     private String GetParamCan(String komanda, String code) {
@@ -93,7 +102,7 @@ public class ParserGsmSend {
     private String GetParamOb(String komanda, String code) {
         String messParamOb = komanda;
         messParamOb = messParamOb.substring(0,1)+code.substring(0,1) + code
-                +messParamOb.substring(6,103)+obgectTest.code+messParamOb.substring(108,messParamOb.length());
+                +messParamOb.substring(6,103)+obgectTest.code+messParamOb.substring(107,messParamOb.length());
         return messParamOb;
     }
 }

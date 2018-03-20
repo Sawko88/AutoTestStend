@@ -3,12 +3,12 @@ package sourse;
 import java.io.Serializable;
 
 public class Can implements Serializable{
-    String name = "";
-    Integer index;
-    Integer state;
-    String curstait="";
-    String onstait = "";
-    String offstait = "";
+    public String name = "";
+    public int index;
+    public int state;
+    public String curstait="";
+    public String onstait = "";
+    public String offstait = "";
     public int baytnumber = 0;
     public int bitnumber = 0;
 
@@ -38,4 +38,6 @@ public class Can implements Serializable{
         this.baytnumber = baytnumber;
         this.bitnumber = bitnumber;
     }
+
+
 }

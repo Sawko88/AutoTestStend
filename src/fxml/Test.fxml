@@ -2,31 +2,38 @@
 
 <?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.validation.ValidationFacade?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.glyphfont.Glyph?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="anMain" focusTraversable="true" prefHeight="500.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerTest">
+<AnchorPane fx:id="anMain" focusTraversable="true" prefHeight="530.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerTest">
    <children>
-      <JFXToggleButton fx:id="Pult" layoutX="2.0" layoutY="387.0" onAction="#PultAction" prefHeight="61.0" prefWidth="96.0" size="8.0" text="Пульт " AnchorPane.topAnchor="387.0" />
-      <ScrollPane layoutX="105.0" layoutY="32.0" prefHeight="398.0" prefWidth="518.0" AnchorPane.topAnchor="50.0">
+      <ScrollPane layoutX="123.0" layoutY="52.0" prefHeight="443.0" prefWidth="609.0" AnchorPane.topAnchor="52.0">
          <content>
-            <VBox fx:id="vbAdd" prefHeight="396.0" prefWidth="510.0" />
+            <VBox fx:id="vbAdd" prefHeight="440.0" prefWidth="605.0" />
          </content>
       </ScrollPane>
-      <Button fx:id="btnAdd" layoutX="11.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActBtnAdd" prefHeight="25.0" prefWidth="77.0" text="add" AnchorPane.topAnchor="50.0" />
+      <Button fx:id="btnAdd" alignment="BASELINE_LEFT" layoutX="11.0" layoutY="32.0" mnemonicParsing="false" onAction="#ActBtnAdd" prefHeight="35.0" prefWidth="103.0" text="Добавить" AnchorPane.topAnchor="50.0">
+         <graphic>
+            <FontIcon fill="#bf2323" iconColor="#2174b9" iconLiteral="mdi-plus-circle-outline" iconSize="25" stroke="#f8f4f4" strokeLineCap="BUTT" strokeLineJoin="BEVEL" strokeType="OUTSIDE" />
+         </graphic></Button>
       <ToolBar layoutX="5.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <Button fx:id="btnNewFile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnNewFileAction" prefHeight="35.0" prefWidth="35.0">
                <graphic>
-                  <FontIcon iconColor="#d03ba1" iconLiteral="fa-file" iconSize="24" />
+                  <FontIcon iconColor="#d03ba1" iconLiteral="fa-file-excel-o" iconSize="24" />
                </graphic>
             </Button>
             <Button fx:id="btnLoad" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnLoadAction" prefHeight="35.0" prefWidth="35.0">
@@ -86,10 +93,33 @@
                   <FontIcon iconColor="#0f90d1" iconLiteral="fa-info-circle" iconSize="26" />
                </graphic>
             </Button>
+            <JFXToggleButton fx:id="Pult" graphicTextGap="0.0" onAction="#PultAction" prefHeight="35.0" prefWidth="117.0" size="8.0" text="Пульт " />
         </items>
       </ToolBar>
       <JFXSpinner fx:id="spConnect" layoutX="38.0" layoutY="208.0" prefHeight="130.0" prefWidth="123.0" visible="false" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="180.0" />
-      <Button fx:id="btStartTest" layoutX="11.0" layoutY="86.0" mnemonicParsing="false" onAction="#ActionBtStartTest" prefHeight="25.0" prefWidth="77.0" text="Start" />
-      <Button fx:id="btStopTest" layoutX="11.0" layoutY="123.0" mnemonicParsing="false" onAction="#ActionbtStopTest" prefHeight="25.0" prefWidth="77.0" text="Stop" />
+      <Button fx:id="btStartTest" alignment="BASELINE_LEFT" layoutX="11.0" layoutY="94.0" mnemonicParsing="false" onAction="#ActionBtStartTest" prefHeight="33.0" prefWidth="103.0" text="Старт">
+         <graphic>
+            <FontIcon iconColor="#0cc31e" iconLiteral="mdi-play-circle-outline" iconSize="25" />
+         </graphic></Button>
+      <Button fx:id="btStopTest" alignment="BASELINE_LEFT" layoutX="12.0" layoutY="136.0" mnemonicParsing="false" onAction="#ActionbtStopTest" prefHeight="33.0" prefWidth="103.0" text="Стоп">
+         <graphic>
+            <FontIcon iconColor="#dd1515" iconLiteral="mdi-stop-circle-outline" iconSize="25" />
+         </graphic></Button>
+      <Separator layoutY="496.0" prefHeight="15.0" prefWidth="740.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <ValidationFacade />
+      <HBox alignment="BOTTOM_LEFT" layoutY="507.0" prefHeight="15.0" prefWidth="740.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label prefHeight="22.0" prefWidth="66.0" text="Индикация:">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="lbIndikacia" prefHeight="17.0" prefWidth="103.0" text="хз">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

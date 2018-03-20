@@ -20,6 +20,7 @@ import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -216,7 +217,7 @@ public class SmsController extends Application implements Initializable {
                             controllerTest.setConnectState(ControllerTest.ConnectionState.CONNECTGPRS);
                         }
                         if (nameModul == "GPRS"){
-                            controllerTest.setConnectState(ControllerTest.ConnectionState.OKCONNECT);
+                            controllerTest.setConnectState(ControllerTest.ConnectionState.SATRTLOGICKTEST);
                         }
                         break;
                     case NONE:
@@ -344,13 +345,13 @@ public class SmsController extends Application implements Initializable {
 
     private Thread SendMessT;
     private boolean sendMessTState = false;
-    public LinkedList<ArkanList> messSendList = new LinkedList<ArkanList>();
+    public ArrayList<ArkanList> messSendList = new ArrayList<ArkanList>();
 
     private Thread ResvMessT;
     private boolean resvMessTState = false;
-    public LinkedList<String> messResvList = new LinkedList<String>();
+    public ArrayList<String> messResvList = new ArrayList<String>();
 
-    public LinkedList<String> messResvTestList = new LinkedList<String>();
+    public ArrayList<String> messResvTestList = new ArrayList<String>();
 
     private void StartApplication() {
         sendMessTState = true;
@@ -420,11 +421,7 @@ public class SmsController extends Application implements Initializable {
                                 arkanConfirm.setConfirmParam(arkanResv.counterCure, arkanResv.code);
                                 arkanConfirm.setARKAN(ARKAN.STATUS);
                                 messSendList.add(new ArkanList(arkanConfirm,true, 1));
-                                /*ARKAN arkanInit = new ARKAN();
-                                arkanInit.setPassword(password);
-                                arkanInit = arkanInit.setARKAN(ARKAN.INITIALIZATION);
-                                //if (isConnected()) {
-                                messSendList.add(new ArkanList(arkanInit,false, 3));*/
+
                                 messResvList.remove(0);
                                 break;
                             default:
@@ -486,14 +483,19 @@ public class SmsController extends Application implements Initializable {
                     if (find >= 0) {
                         String arkanMessConf = messSendList.get(find).arkan.mess;
                        // if(isConnected()) {
-                            mySocket.SendMEss(arkanMessConf);
+                        mySocket.SendMEss(arkanMessConf);
                         //}
-                        messSendList.remove(find);
+                        try {
+                            messSendList.remove(find);
+                        }catch (IndexOutOfBoundsException e){
+                            System.out.println("Error SendMessThread = "+e);
+                        }
+
 
                     }
                 }
                 if (!messSendList.isEmpty()) {
-                    ArkanList arksend = messSendList.getFirst();
+                    ArkanList arksend = messSendList.get(0);
                     //socket.sendMessage(arksend.arkan.mess);
                     //messSendList.removeFirst();
 
@@ -508,7 +510,7 @@ public class SmsController extends Application implements Initializable {
                         Platform.runLater(() -> {
                             PrintText("Error Send Mess "+arksend.arkan.mess,  MessangeSourse.INF0);
                         });
-                        messSendList.removeFirst();
+                        messSendList.remove(0);
                         counterTimeout = 50;
                     }
                     if (arksend.confirm) {
@@ -517,7 +519,7 @@ public class SmsController extends Application implements Initializable {
                                 PrintText(arksend.arkan.data, MessangeSourse.TOSMS);
                             });
                         }
-                        messSendList.removeFirst();
+                        messSendList.remove(0);
                         counterTimeout = 50;
                     }
                 }

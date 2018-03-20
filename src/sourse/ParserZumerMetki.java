@@ -1,7 +1,7 @@
 package sourse;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -16,8 +16,8 @@ public class ParserZumerMetki {
     }
 
 
-    public LinkedList<String> messZumMetki = new LinkedList<String>();
-    public LinkedList<ZumerMetkiTime> zumMetkiList = new LinkedList<ZumerMetkiTime>();
+    public ArrayList<String> messZumMetki = new ArrayList<String>();
+    public ArrayList<ZumerMetkiTime> zumMetkiList = new ArrayList<ZumerMetkiTime>();
     private Thread ResvMessZumMetki;
     private boolean resvMessZumMetkiState = false;
 
@@ -50,7 +50,7 @@ public class ParserZumerMetki {
             while (resvMessZumMetkiState){
 
                 if(!messZumMetki.isEmpty()){
-                    String messFromList = messZumMetki.getFirst();
+                    String messFromList = messZumMetki.get(0);
                     ZumerMetkiTime zumerMetkiTimeBuf = new ZumerMetkiTime();
                     int ind = messFromList.indexOf("=");
                     if (ind>0) {
@@ -59,7 +59,7 @@ public class ParserZumerMetki {
 
                         zumMetkiList.add(zumerMetkiTimeBuf);
                     }
-                    messZumMetki.removeFirst();
+                    messZumMetki.remove(0);
 
 
                 }
@@ -97,7 +97,7 @@ public class ParserZumerMetki {
                         countLevel = 0;
                         ZumerMetkiTime zumerMetkiBuf = new ZumerMetkiTime();
 
-                        zumerMetkiBuf = zumMetkiList.getFirst();
+                        zumerMetkiBuf = zumMetkiList.get(0);
                         int delta = (int) (zumerMetkiBuf.timeMC - currZumTime.timeMC);
                         if (currZumTime.state.contains("1")) {
                             if (0 < delta && delta < ZumerMetki.timePickBig) {
@@ -124,7 +124,7 @@ public class ParserZumerMetki {
 
                         currZumTime = zumerMetkiBuf;
                         //System.out.println(indBuf.state+"==>"+indBuf.timeMC);
-                        zumMetkiList.removeFirst();
+                        zumMetkiList.remove(0);
                     } catch (NoSuchElementException g){
                         System.out.println("Error ZumMetkiCheckThread "+ g);
                         zumMetkiList.clear();
@@ -133,7 +133,7 @@ public class ParserZumerMetki {
                 }
 
                 countLevel++;
-                if (countLevel>20){
+                if (countLevel>5){
                     if (currZumTime.state.contains("1")){
                         lista.add(ZumerMetki.TypeTick.LEVEL_H);
                     }

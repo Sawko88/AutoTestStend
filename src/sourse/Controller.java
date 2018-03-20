@@ -27,6 +27,8 @@ import static java.lang.System.out;
 
 public class Controller implements Initializable {
 
+
+    //public String versia = "v01.02";
     public Button CancelBut;
     public Button OkBut;
     public ComboBox ComboboxComplect;
@@ -51,11 +53,13 @@ public class Controller implements Initializable {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/Test.fxml"));
             Parent root = loader.load();
             ControllerTest controllerTest = loader.getController();
-            stage = new Stage();
 
+            stage = new Stage();
+            stage.setResizable(false);
            // stage.setResizable(false);
-            stage.setTitle("ControlTest");
+            stage.setTitle(Constants.GetNameApp());
             stage.setScene(new Scene(root));
+            stage.sizeToScene();
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setOnHidden(event -> {
 

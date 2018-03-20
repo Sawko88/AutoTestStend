@@ -18,11 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="803.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerPultMX">
+<AnchorPane prefHeight="751.0" prefWidth="1066.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.ControllerPultMX">
    <children>
-      <AnchorPane fx:id="PaneComPort" blendMode="DARKEN" focusTraversable="true" layoutX="5.0" layoutY="14.0" prefHeight="661.0" prefWidth="870.0" style="-fx-border-color: blue;" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="14.0">
+      <AnchorPane fx:id="PaneComPort" blendMode="DARKEN" focusTraversable="true" layoutX="5.0" layoutY="14.0" prefHeight="661.0" prefWidth="870.0" style="-fx-border-color: blue;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
          <children>
-            <VBox layoutX="12.0" layoutY="31.0" prefHeight="676.0" prefWidth="95.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="30.0">
+            <VBox layoutX="12.0" layoutY="31.0" prefHeight="676.0" prefWidth="95.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="30.0">
                <children>
                   <JFXToggleButton fx:id="out1" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#Out1Action" prefHeight="66.0" prefWidth="85.0" text="ЗЗ" unToggleColor="#e40808" unToggleLineColor="#da7781" />
                   <JFXToggleButton fx:id="out2" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#Out2Action" prefHeight="25.0" prefWidth="85.0" text="Капот" unToggleColor="#e40808" unToggleLineColor="#da7781" />
@@ -32,7 +32,7 @@
                   <JFXToggleButton fx:id="out6" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#Out6Action" prefHeight="25.0" prefWidth="85.0" text="КТС" unToggleColor="#e40808" unToggleLineColor="#da7781" />
                </children>
             </VBox>
-            <FlowPane alignment="TOP_RIGHT" layoutX="109.0" layoutY="33.0" prefHeight="670.0" prefWidth="120.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="30.0">
+            <FlowPane alignment="TOP_RIGHT" layoutX="112.0" layoutY="32.0" prefHeight="676.0" prefWidth="120.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;" AnchorPane.leftAnchor="111.0" AnchorPane.topAnchor="31.0">
                <children>
                   <Label alignment="CENTER" prefHeight="33.0" prefWidth="82.0" text="Индикатор" />
                   <Button fx:id="inp1" mnemonicParsing="false" prefHeight="16.0" prefWidth="26.0">
@@ -363,6 +363,20 @@
                </children>
             </VBox>
             <Label alignment="CENTER" layoutX="830.0" layoutY="360.0" prefHeight="20.0" prefWidth="91.0" text="Моторы">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <VBox layoutX="940.0" layoutY="32.0" prefHeight="676.0" prefWidth="95.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;">
+               <children>
+                  <JFXToggleButton fx:id="canZZ" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canZZAction" prefHeight="66.0" prefWidth="85.0" text="ЗЗ" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canKap" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canKapAction" prefHeight="25.0" prefWidth="85.0" text="Капот" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canDor" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canDorAction" prefHeight="25.0" prefWidth="85.0" text="Дверь" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canTor" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canTorAction" prefHeight="25.0" prefWidth="85.0" text="Тормоз" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canBag" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canBagAction" prefHeight="25.0" prefWidth="85.0" text="Багажник" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+               </children>
+            </VBox>
+            <Label alignment="CENTER" layoutX="942.0" layoutY="13.0" prefHeight="20.0" prefWidth="91.0" text="CAN">
                <font>
                   <Font size="14.0" />
                </font>

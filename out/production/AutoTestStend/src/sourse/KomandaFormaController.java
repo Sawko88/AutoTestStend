@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -13,8 +14,10 @@ import java.util.ResourceBundle;
 
 public class KomandaFormaController implements Initializable {
     public ComboBox cbKomand;
-    public TextField tfKomanda;
+    //public TextField tfKomanda;
     public KomandaCollection komandaCollection = new KomandaCollection();
+    public TextArea taKomanda;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Iterator<KOmanda> iterator = komandaCollection.komndaSpisok.iterator();
@@ -27,21 +30,21 @@ public class KomandaFormaController implements Initializable {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 //System.out.println(cbKomand.getValue());
                 if (cbKomand.getSelectionModel().getSelectedIndex() == 0){
-                    tfKomanda.setDisable(false);
-                    tfKomanda.setText(komandaCollection.GetKonamda(cbKomand.getSelectionModel().getSelectedIndex()));
+                    taKomanda.setDisable(false);
+                    taKomanda.setText(komandaCollection.GetKonamda(cbKomand.getSelectionModel().getSelectedIndex()));
                 } else {
-                    tfKomanda.setDisable(true);
-                    tfKomanda.clear();
+                    taKomanda.setDisable(true);
+                    taKomanda.clear();
                 }
                 //Updatenastroika();
             }
         });
 
-        tfKomanda.textProperty().addListener(new ChangeListener<String>() {
+        taKomanda.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (cbKomand.getSelectionModel().getSelectedIndex()==0) {
-                    komandaCollection.SetKomand(tfKomanda.getText());
+                    komandaCollection.SetKomand(taKomanda.getText());
 
                 }
                 //Updatenastroika();
@@ -68,7 +71,7 @@ public class KomandaFormaController implements Initializable {
         int index = nastroika.kOmanda.index;
         cbKomand.getSelectionModel().select(index);
         if (index == 0){
-            tfKomanda.setText(nastroika.kOmanda.komanda);
+            taKomanda.setText(nastroika.kOmanda.komanda);
         }
         //Updatenastroika();
 

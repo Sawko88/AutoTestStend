@@ -6,11 +6,11 @@
 <?import javafx.scene.control.ToolBar?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<ToolBar fx:id="tbOne" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.OneActionController">
+<ToolBar fx:id="tbOne" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="35.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.OneActionController">
    <items>
       <Label fx:id="lbPos" prefHeight="17.0" prefWidth="23.0" text="0" />
-      <TextField fx:id="tfName" editable="false" prefHeight="25.0" prefWidth="131.0" text="-" />
-      <TextField fx:id="tfNameParam" editable="false" prefHeight="25.0" prefWidth="108.0" />
+      <TextField fx:id="tfName" editable="false" prefHeight="25.0" prefWidth="150.0" text="-" />
+      <TextField fx:id="tfNameParam" editable="false" prefHeight="25.0" prefWidth="125.0" />
       <Button fx:id="btnOneSet" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#BtnOneSetAct" prefHeight="25.0" prefWidth="25.0">
          <graphic>
             <FontIcon iconLiteral="mdi-settings" iconSize="22" wrappingWidth="22.0" />

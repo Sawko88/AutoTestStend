@@ -35,7 +35,7 @@ public class Element implements Initializable{
     public Button btSetting;
     public Button btDel;
     public ControllerTest controllerTest;
-    TableElement te;
+    public TableElement te;
     private HashMap<Integer, TableTest> actionList = new HashMap<Integer, TableTest>();
     private Resultat resElement = new Resultat();
 
@@ -45,7 +45,9 @@ public class Element implements Initializable{
     }
 
     public void ActBtStart(ActionEvent actionEvent) {
-        System.out.println("Test"+String.valueOf(te.index));
+
+        System.out.println("Test "+position);
+        controllerTest.StartOneTest(position);
     }
 
     public void ActBtSetting(ActionEvent actionEvent) throws IOException {
@@ -54,7 +56,7 @@ public class Element implements Initializable{
         //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PersoneElement.fxml"));
         Parent root = loader.load();
         Stage stage = new Stage();
-        // stage.setResizable(false);
+        stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
 
@@ -87,13 +89,17 @@ public class Element implements Initializable{
         this.controllerTest = controllerTest;
     }
 
-    public void init() {
-        te =  controllerTest.tableTb.get(tbTest);
+    public void init(TableElement tableElement) {
+        te =  tableElement;
+        position = te.index;
         labPos.setText(String.valueOf(te.index));
         labName.setText("Test"+String.valueOf(te.index));
     }
 
+
+    private int position= 0 ;
     public void SetPosition(int index){
+        this.position = index;
         labPos.setText(String.valueOf(index));
         (controllerTest.tableTb.get(tbTest)).index = index;
     }
@@ -143,5 +149,9 @@ public class Element implements Initializable{
 
     public HashMap<Integer,TableTest> GetActinList() {
         return (HashMap<Integer, TableTest>) actionList.clone();
+    }
+
+    public void SetStateText(String text) {
+        lbState.setText(text);
     }
 }

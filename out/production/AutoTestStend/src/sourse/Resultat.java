@@ -10,6 +10,9 @@ public class Resultat implements Serializable{
     public   List<Signal> signalSResultat = new ArrayList<Signal>();
     public boolean signalFinish = false;
 
+    public boolean stateSignalIgnor = false;
+    public   List<Signal> signalSResultatIgnor = new ArrayList<Signal>();
+
     public boolean stateIndikacia = false;
     public Indikacia indikaciaResultat = new Indikacia();
     public boolean indikaciaFinish = false;
@@ -37,6 +40,9 @@ public class Resultat implements Serializable{
 
     public boolean stateZumerMetki = false;
     public ZumerMetki zumerMetkiResultat = new ZumerMetki();
+
+    public boolean stateValidCoord = false;
+    public ValidCoord validCoordRes = new ValidCoord();
 
     public boolean statePovorot = false;
     public Povorot povorotResultat = new Povorot();

@@ -9,7 +9,8 @@ import jssc.SerialPortException;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
+import java.util.ArrayList;
+
 import java.util.Queue;
 import java.util.function.Consumer;
 
@@ -32,10 +33,12 @@ public class ComPort {
             serialPort.setParams(SerialPort.BAUDRATE_115200, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,SerialPort.PARITY_NONE);
             serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
             serialPort.setEventsMask(SerialPort.MASK_RXCHAR);
-            serialPort.addEventListener(
-                    new ComPort.PortReader(buffer -> Platform.runLater(() -> ComPortAddString(buffer))),
-                    SerialPort.MASK_RXCHAR);
-            ComPortMessThread();
+           /* serialPort.addEventListener(
+                    new PortReader(buffer -> Platform.runLater(() -> ComPortAddString(buffer))),
+                    SerialPort.MASK_RXCHAR);*/
+            serialPort.addEventListener(new PortReader(), SerialPort.MASK_RXCHAR);
+
+            //ComPortMessThread();
             return true;
         } catch (SerialPortException e) {
             e.printStackTrace();
@@ -46,40 +49,41 @@ public class ComPort {
 
     private void ComPortMessThread() {
         comPortThread = true;
-        Thread ComPortMessParser = new Thread(new ComPort.ComPortMessPArserRun());
+        Thread ComPortMessParser = new Thread(new ComPortMessPArserRun());
         ComPortMessParser.setPriority(Thread.MAX_PRIORITY);
         ComPortMessParser.start();
     }
 
-    public LinkedList<String> messList = new LinkedList<>();
+    public ArrayList<String> messList = new ArrayList<String>();
 
-    //String string = "";
+    String stringItogo = "";
     private class ComPortMessPArserRun extends Thread {
         @Override
         public void run() {
             while (comPortThread){
 
-                    if (!comPortString.equals("")) {
-                        int i = comPortString.indexOf("\n");
+
+                /*if (!comPortString.equals("") || comPortString != null){
+                       stringItogo += comPortString;
+                       comPortString="";
+                }
+                if (!stringItogo.equals("") || stringItogo!=null) {
+                        int i = stringItogo.indexOf("\n");
                         if (i>0){
                             while (i>0) {
-                                String str = comPortString.substring(0, i+1);
+                                String str = stringItogo.substring(0, i+1);
                                 //System.out.println(str);
                                 messList.add(str);
-                                comPortString = comPortString.substring(i+1);
-                                i = comPortString.indexOf("\n");
+                                stringItogo = stringItogo.substring(i+1);
+                                i = stringItogo.indexOf("\n");
 
                             }
-                        }else {
-                            comPortString+="";
                         }
-                        //string =  comPort1.comPortString.substring(comPort1.comPortString.indexOf("/n"));
 
-
-                    }
+                 }*/
 
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -89,16 +93,29 @@ public class ComPort {
     }
 
     private class PortReader implements SerialPortEventListener {
-        private final Consumer<String> textHandler;
+       /* private final Consumer<String> textHandler;
 
         PortReader(Consumer<String> textHandler) {
             this.textHandler = textHandler;
-        }
+        }*/
 
         @Override
         public void serialEvent(SerialPortEvent event) {
-            if (event.isRXCHAR()) {
+            if (event.isRXCHAR()&& event.getEventValue() > 0) {
                 try {
+                    comPortString += serialPort.readString(event.getEventValue());
+                    while (comPortString.contains("\n")){
+                        int i = comPortString.indexOf("\n");
+                        String str = comPortString.substring(0, i+1);
+                        //System.out.println(str);
+                        messList.add(str);
+                        comPortString = comPortString.substring(i+1);
+
+                    }
+                } catch (SerialPortException e) {
+                    e.printStackTrace();
+                }
+               /* try {
 
                     String buffer = serialPort.readString();
                     if (buffer!=null){
@@ -108,7 +125,7 @@ public class ComPort {
                     }
                 } catch (SerialPortException ex) {
                     System.out.println(ex);
-                }
+                }*/
             }
         }
     }

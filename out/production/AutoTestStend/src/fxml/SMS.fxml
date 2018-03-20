@@ -12,9 +12,9 @@
 <?import org.fxmisc.richtext.InlineCssTextArea?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="477.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.SmsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="369.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.SmsController">
    <children>
-      <FlowPane layoutY="-1.0" prefHeight="414.0" prefWidth="369.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <FlowPane layoutY="-1.0" prefHeight="414.0" prefWidth="369.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ToolBar prefHeight="40.0" prefWidth="369.0">
                <items>
@@ -55,7 +55,7 @@
             </TextField>
             <Button fx:id="btSend" mnemonicParsing="false" onAction="#BtSendAction" prefHeight="25.0" prefWidth="81.0" text="Отправить">
                <FlowPane.margin>
-                  <Insets right="5.0" />
+                  <Insets />
                </FlowPane.margin>
             </Button>
          </children>

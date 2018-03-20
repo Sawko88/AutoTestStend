@@ -17,7 +17,17 @@ public class SignalCollection {
             new Signal(9, Signal.SignalType.NONE, "TEST 000000000","Тестирование пройдено успешно"),
             new Signal(10, Signal.SignalType.CONTROL, "5E","Зажигание включено"),
             new Signal(11, Signal.SignalType.CONTROL, "5F","Зажигание выключено"),
-            new Signal(12, Signal.SignalType.CONTROL, "34","Двигатель разблокирован")
+            new Signal(12, Signal.SignalType.CONTROL, "34","Двигатель разблокирован"),
+            new Signal(13, Signal.SignalType.CONTROL, "55","Подача питания на блок"),
+            new Signal(14, Signal.SignalType.PARAM_GSM, "IP:","Настройки GSM"),
+            new Signal(15, Signal.SignalType.PARAM_OB, "79214280028","Настройки общие"),
+            new Signal(16, Signal.SignalType.NONE, "TEST 000000001","Тестирование пройдено успешно, без GPS"),
+            new Signal(17, Signal.SignalType.CONTROL, "6F","Мониторинг"),
+            new Signal(18, Signal.SignalType.TEST0531, "TEST 000000000 TEST 000000001","Тестирование 0531"),
+            new Signal(19, Signal.SignalType.CONTROL, "51","Выход их сервиса по кнопке"),
+            new Signal(20, Signal.SignalType.CONTROL, "66","Восстановлене резервной АКБ"),
+            new Signal(21, Signal.SignalType.CONTROL, "24","Восстановление АКБ")
+
 
     );
 }

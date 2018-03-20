@@ -13,12 +13,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
-        primaryStage.setTitle("AutoTest");
-        primaryStage.setMaxWidth(260);
+        primaryStage.setTitle(Constants.GetNameApp());
+        /*primaryStage.setMaxWidth(260);
         primaryStage.setMaxHeight(215);
         primaryStage.setMaxWidth(260);
-        primaryStage.setMinHeight(215);
-        Scene scene = new Scene(root, 245,200);
+        primaryStage.setMinHeight(215);*/
+        primaryStage.setResizable(false);
+        Scene scene = new Scene(root );
+        primaryStage.sizeToScene();
         //scene.getStylesheets().add(0,"sample/1111.css");
         primaryStage.setScene(scene);
         primaryStage.show();

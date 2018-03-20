@@ -2,6 +2,7 @@ package sourse;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -14,12 +15,12 @@ public class ParserResIndikacia {
     }
 
 
-    public LinkedList<String> messInd = new LinkedList<String>();
+    public ArrayList<String> messInd = new ArrayList<String>();
     private Thread ResvMessIndikacia;
     private boolean resvMessIndickaciaState = false;
     public Indikacia currIndikacia = new Indikacia(Indikacia.TypeInd.LOADING);
     private Indikacia newIndikacia = new Indikacia(Indikacia.TypeInd.LOADING);
-
+    private Indikacia midIndikacia = new Indikacia(Indikacia.TypeInd.LOADING);
     private Thread IndikaciaCheck;
     private boolean indikaciaCheckState = false;
 
@@ -46,7 +47,7 @@ public class ParserResIndikacia {
 
 
 
-    private LinkedList<IndikaciaTime> indList = new LinkedList<IndikaciaTime>();
+    private ArrayList<IndikaciaTime> indList = new ArrayList<>();
 
     public IndikaciaTime currIndTime = new IndikaciaTime();
 
@@ -55,6 +56,10 @@ public class ParserResIndikacia {
         indikaciaCheckState = false;
         messInd.clear();
         indList.clear();
+    }
+    private ControllerTest controllerTest;
+    public void SetCotrollerTest(ControllerTest controllerTest) {
+        this.controllerTest = controllerTest;
     }
 
     private class ResvMessIndikaciaThread implements Runnable {
@@ -66,15 +71,20 @@ public class ParserResIndikacia {
                     try {
 
 
-                        String messFromList = messInd.getFirst();
+                        String messFromList = messInd.get(0);
                         IndikaciaTime indikaciaTimeBuf = new IndikaciaTime();
                         int ind = messFromList.indexOf("=");
-                        indikaciaTimeBuf.state = messFromList.substring(ind + 1, ind + 2);
-                        indikaciaTimeBuf.timeMC = System.currentTimeMillis();
-                        indList.add(indikaciaTimeBuf);
-                        messInd.removeFirst();
+                        if (ind > 0) {
+                            indikaciaTimeBuf.state = messFromList.substring(ind + 1, ind + 2);
+                            indikaciaTimeBuf.timeMC = System.currentTimeMillis();
+                            indList.add(indikaciaTimeBuf);
+                        }
+                        messInd.remove(0);
                     }catch (NoSuchElementException xz){
                         System.out.println("Indikacia error : "+xz);
+                        messInd.clear();
+                    }catch (NullPointerException e){
+                        System.out.println("Indikacia error : "+e);
                         messInd.clear();
                     }
                 }
@@ -106,7 +116,7 @@ public class ParserResIndikacia {
                         countLevel = 0;
                         IndikaciaTime indBuf = new IndikaciaTime();
 
-                        indBuf = indList.getFirst();
+                        indBuf = indList.get(0);
                         int delta = (int) (indBuf.timeMC - currIndTime.timeMC);
                         if (currIndTime.state.contains("1")) {
                             if (0 < delta && delta < 350) {
@@ -135,10 +145,13 @@ public class ParserResIndikacia {
 
                         currIndTime = indBuf;
                         //System.out.println(indBuf.state+"==>"+indBuf.timeMC);
-                        indList.removeFirst();
+                        indList.remove(0);
                     } catch (NoSuchElementException g){
                         System.out.println("Error IndikaciaCheckThread "+ g);
                         indList.clear();
+                    } catch (NullPointerException e){
+                        System.out.println("Error IndikaciaCheckThread "+ e);
+                        indList.remove(0);
                     }
 
                 }
@@ -177,12 +190,15 @@ public class ParserResIndikacia {
             for (int i = 0 ; i<IndikaciaCollection.indikaciaSpisok.size(); i++){
                 if(lista.equals(IndikaciaCollection.indikaciaSpisok.get(i).arrayTicks)){
                     newIndikacia = IndikaciaCollection.indikaciaSpisok.get(i);
-                    if (newIndikacia.typeInd != currIndikacia.typeInd){
+                    if (newIndikacia.typeInd != currIndikacia.typeInd) {
 
 
-                            currIndikacia = newIndikacia;
-                            System.out.println("Indikacia = " + currIndikacia.name);
-
+                        currIndikacia = newIndikacia;
+                        System.out.println("Indikacia = " + currIndikacia.name);
+                        Platform.runLater(() -> {
+                            controllerTest.ShowIndikacia(currIndikacia.name);
+                        });
+                        //controllerTest.ShowIndikacia(currIndikacia.name);
 
 
                     }
@@ -198,12 +214,25 @@ public class ParserResIndikacia {
             if(lista.equals(IndikaciaCollection.indikaciaSpisok.get(i).arrayTicks)){
                 newIndikacia = IndikaciaCollection.indikaciaSpisok.get(i);
                 if (newIndikacia.typeInd != currIndikacia.typeInd){
-                    countIndnew++;
-                    if (countIndnew>2){
+                    //countIndnew++;
+
+                    if (midIndikacia.typeInd == newIndikacia.typeInd){
+
+                        countIndnew++;
+                        System.out.println("countIndnew = "+countIndnew );
+                    } else {
+                        countIndnew = 0;
+                        System.out.println("countIndnew = "+countIndnew );
+                    }
+                    if (countIndnew>0) {
                         currIndikacia = newIndikacia;
                         System.out.println("Indikacia = " + currIndikacia.name);
+                        Platform.runLater(() -> {
+                            controllerTest.ShowIndikacia(currIndikacia.name);
+                        });
                         countIndnew = 0;
                     }
+                    midIndikacia = newIndikacia;
 
                 }
                 lista.clear();

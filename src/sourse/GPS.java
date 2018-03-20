@@ -33,9 +33,9 @@ public class GPS {
     private int period =1;
     private String gpsSt ="";
     private String cs ;
-    public LinkedList<String> messGPS = new LinkedList<String>();
+    public ArrayList<String> messGPS = new ArrayList<String>();
 
-    public LinkedList<String> getMessGPS() {
+    public ArrayList<String> getMessGPS() {
         return messGPS;
     }
 

@@ -6,12 +6,12 @@
 <?import javafx.scene.control.ToolBar?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<ToolBar fx:id="tbTest" onMouseClicked="#MouseClickTbTest" onMouseMoved="#MouseMovedTbTest" prefHeight="40.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.Element">
+<ToolBar fx:id="tbTest" onMouseClicked="#MouseClickTbTest" onMouseMoved="#MouseMovedTbTest" prefHeight="42.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sourse.Element">
   <items>
       <Label fx:id="labPos" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="37.0" text="-" textAlignment="CENTER" />
-      <Label fx:id="labName" alignment="CENTER" prefHeight="17.0" prefWidth="139.0" text="--" />
-      <ComboBox fx:id="cbSviaz" prefHeight="25.0" prefWidth="120.0" />
-      <Label fx:id="lbState" alignment="CENTER" prefHeight="17.0" prefWidth="55.0" text="---" />
+      <Label fx:id="labName" alignment="CENTER" prefHeight="30.0" prefWidth="199.0" text="--" wrapText="true" />
+      <ComboBox fx:id="cbSviaz" prefHeight="25.0" prefWidth="118.0" />
+      <Label fx:id="lbState" alignment="CENTER" prefHeight="17.0" prefWidth="77.0" text="---" />
     <Button fx:id="btStart" mnemonicParsing="false" onAction="#ActBtStart" prefHeight="32.0" prefWidth="25.0">
        <graphic>
            <FontIcon fill="#28971c" iconLiteral="mdi-play" iconSize="24" />

@@ -1,5 +1,6 @@
 package sourse;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ParserResBlockBezProv {
@@ -10,7 +11,7 @@ public class ParserResBlockBezProv {
     }
 
 
-    public LinkedList<String> messRRBlock = new LinkedList<String>();
+    public ArrayList<String> messRRBlock = new ArrayList<String>();
     private Thread ResvMessRRBlock;
     private boolean resvMessRRBlockState = false;
 
@@ -39,7 +40,7 @@ public class ParserResBlockBezProv {
             while (resvMessRRBlockState){
 
                 if(!messRRBlock.isEmpty()) {
-                    String messFromList = messRRBlock.getFirst();
+                    String messFromList = messRRBlock.get(0);
                     //IndikaciaTime indikaciaTimeBuf = new IndikaciaTime();
                     int ind = messFromList.indexOf("=");
                     boolean bufstteblock = false;
@@ -54,7 +55,7 @@ public class ParserResBlockBezProv {
                         counterLevel = 0;
 
                     }
-                    messRRBlock.removeFirst();
+                    messRRBlock.remove(0);
                 }
                 counterLevel++;
                 if (counterLevel>2){

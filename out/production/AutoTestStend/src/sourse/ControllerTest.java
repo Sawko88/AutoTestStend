@@ -2,6 +2,7 @@ package sourse;
 
 import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXToggleButton;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -15,10 +16,16 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.*;
 
 import java.io.*;
@@ -54,6 +61,7 @@ public  class ControllerTest  implements Initializable {
     public Button btStartTest;
     public Button btStopTest;
     public ToggleButton tbLogi;
+    public  Label lbIndikacia;
 
     private Setting setting = new Setting();
 
@@ -63,7 +71,9 @@ public  class ControllerTest  implements Initializable {
     private SmsController gprsController;
 
     private Thread ConnectTread;
-    private LogickTest logickTest = new LogickTest();
+    public LogickTest logickTest = new LogickTest();
+
+    public ArrayList<String> errorListShow = new ArrayList<String>();
 
     public void PultAction(ActionEvent actionEvent) throws IOException {
 
@@ -74,6 +84,15 @@ public  class ControllerTest  implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("initialize");
 
+        tfLogNum.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tfLogNum.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 
         try {
             LoadfileSettings();
@@ -111,6 +130,7 @@ public  class ControllerTest  implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (tbLogi.isSelected()){
+                    logStage.sizeToScene();
                     logStage.show();
                 } else {
                     logStage.hide();
@@ -132,9 +152,10 @@ public  class ControllerTest  implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        logStage.setResizable(false);
         logStage.setTitle("Логи");
         logStage.setScene(new Scene(root));
+        logStage.sizeToScene();
         logStage.initModality(Modality.WINDOW_MODAL);
         logStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -172,9 +193,10 @@ public  class ControllerTest  implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        pultSrage.setResizable(false);
         pultSrage.setTitle("Пульт");
         pultSrage.setScene(new Scene(root));
+        pultSrage.sizeToScene();
         pultSrage.initModality(Modality.WINDOW_MODAL);
         pultSrage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -193,6 +215,7 @@ public  class ControllerTest  implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (tbComPort.isSelected()){
+                    comPortStage.sizeToScene();
                     comPortStage.show();
                 } else {
                     comPortStage.hide();
@@ -215,9 +238,10 @@ public  class ControllerTest  implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        comPortStage.setResizable(false);
         comPortStage.setTitle("ComPort-диспетчер");
         comPortStage.setScene(new Scene(root));
+        comPortStage.sizeToScene();
         comPortStage.initModality(Modality.WINDOW_MODAL);
         comPortStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -245,6 +269,7 @@ public  class ControllerTest  implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (tbGprs.isSelected()){
+                    stageGPRS.sizeToScene();
                     stageGPRS.show();
                 } else {
                     stageGPRS.hide();
@@ -263,9 +288,10 @@ public  class ControllerTest  implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        stageGPRS.setResizable(false);
         stageGPRS.setTitle("GPRS-диспетчер");
         stageGPRS.setScene(new Scene(root));
+        stageGPRS.sizeToScene();
         stageGPRS.initModality(Modality.WINDOW_MODAL);
         stageGPRS.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -304,6 +330,7 @@ public  class ControllerTest  implements Initializable {
                     comPortController.DisconnectCOM();
                     controllerPultMX.DisconnectPult();
                     logController.StopLog();
+                    logickTest.StopTherad();
                     SetDisable(true);
                 }
             }
@@ -318,6 +345,8 @@ public  class ControllerTest  implements Initializable {
         spConnect.setVisible(true);
     }
 
+    private String obgectTypeOnly = "Устройство ARKAN CONTROL GPRS (ARKAN_SOBR_GSM_2 и ARKAN_SOBR_GSM_3)";
+
     private void ConnectToBD(String bdIp, String bdName, String bdUser, String bdPas) {
         System.out.println("-------- MySQL JDBC Connection Testing ------------");
 
@@ -331,9 +360,12 @@ public  class ControllerTest  implements Initializable {
         }
 
         System.out.println("MySQL JDBC Driver Registered!");
+
         Connection connection = null;
-        if (obgectTest.logNum == ""){
+        if (tfLogNum.getText() == "" || tfLogNum.getText() == null || tfLogNum.getText().equals("")){
+            SetErrorConnect("Пустая строка логического номера");
             connectionState = ConnectionState.ERRORCONNECT;
+            return;
         }
         try {
             connection = DriverManager.getConnection("jdbc:sqlserver://"+bdIp+":1433;" + "databaseName="+bdName+";user="+bdUser+";password="+bdPas);
@@ -341,15 +373,29 @@ public  class ControllerTest  implements Initializable {
 
            // PreparedStatement preparedStatement = connection.prepareStatement("[autotest].[spu_GetDeviceInfo] @nDeviceID_ = 4783571");
             ResultSet rs = statement.executeQuery("[autotest].[spu_GetDeviceInfo] @nDeviceID_ = "+tfLogNum.getText());
-            while (rs.next()) {
-                obgectTest.logNum = tfLogNum.getText();
-                obgectTest.telefon = rs.getString("phone");
-                System.out.println(obgectTest.telefon);
-                obgectTest.code = rs.getString("password");
-                System.out.println(obgectTest.code);
-                obgectTest.typeDev = rs.getString("device_type");
-                System.out.println(obgectTest.typeDev);
+            if (rs.next()==false) {
+                SetErrorConnect("Пустое оборудование");
+                connectionState = ConnectionState.ERRORCONNECT;
+            }else {
+
+
+                do {
+                    obgectTest.logNum = tfLogNum.getText();
+                    obgectTest.telefon = rs.getString("phone");
+                    System.out.println(obgectTest.telefon);
+                    obgectTest.code = rs.getString("password");
+                    System.out.println(obgectTest.code);
+                    obgectTest.typeDev = rs.getString("device_type");
+                    System.out.println(obgectTest.typeDev);
+                } while (rs.next());
             }
+        } catch (com.microsoft.sqlserver.jdbc.SQLServerException ex){
+            System.out.println("Connection Failed! Check data type");
+
+            ex.printStackTrace();
+            SetErrorConnect("Не тот формат номера");
+            connectionState = ConnectionState.ERRORCONNECT;
+
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             e.printStackTrace();
@@ -357,9 +403,16 @@ public  class ControllerTest  implements Initializable {
             return;
         }
 
-        if (obgectTest.telefon !=""){
+        if (obgectTest.typeDev.contains(obgectTypeOnly)){
             connectionState = ConnectionState.CONNECTSMS;
+        } else {
+            SetErrorConnect("Не тот тип оборудования");
+            connectionState = ConnectionState.ERRORCONNECT;
         }
+
+        /*if (obgectTest.telefon !=""){
+            connectionState = ConnectionState.CONNECTSMS;
+        }*/
 
         if (connection != null) {
             System.out.println("You made it, take control your database now!");
@@ -374,11 +427,16 @@ public  class ControllerTest  implements Initializable {
         }
     }
 
+    private void SetErrorConnect(String error) {
+        errorConnect = error;
+    }
+
     private void MyTbSmsListener() {
         tbSms.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (tbSms.isSelected()){
+                    stageSms.sizeToScene();
                     stageSms.show();
                 } else {
                     stageSms.hide();
@@ -402,6 +460,8 @@ public  class ControllerTest  implements Initializable {
 
         stageSms.setTitle("SMS-диспетчер");
         stageSms.setScene(new Scene(root));
+        stageSms.setResizable(false);
+        stageSms.sizeToScene();
         stageSms.initModality(Modality.WINDOW_MODAL);
         stageSms.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -465,6 +525,7 @@ public  class ControllerTest  implements Initializable {
         comPortController.DisconnectCOM();
         logController.StopLog();
         tbConnect.setSelected(false);
+        logickTest.StopTherad();
         Platform.exit();
     }
 
@@ -521,8 +582,11 @@ public  class ControllerTest  implements Initializable {
         int index = vbAdd.getChildren().indexOf(toolBarMy);
         tableTb.put(toolBarMy, new TableElement(index,element));
 
-
-        element.init();
+       /* element.SetPosition(saveParam.pos);
+        element.SetName(saveParam.name);
+        element.SetActionList(saveParam.personlist);
+        element.SetResultat(saveParam.res);*/
+        element.init(tableTb.get(toolBarMy));
 
 
     }
@@ -616,6 +680,7 @@ public  class ControllerTest  implements Initializable {
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Contro files (*.control)", "*.control");
         fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         fileChooser.setTitle("Save control");
 
         //Show save file dialog
@@ -709,6 +774,7 @@ public  class ControllerTest  implements Initializable {
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Contro files (*.control)", "*.control");
         fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         fileChooser.setTitle("Load control");
 
         //Show save file dialog
@@ -749,6 +815,7 @@ public  class ControllerTest  implements Initializable {
         }
         //Stage stage = new Stage();
         // stage.setResizable(false);
+        stageSettigs.setResizable(false);
         stageSettigs.setScene(new Scene(root));
         stageSettigs.initModality(Modality.WINDOW_MODAL);
 
@@ -768,7 +835,8 @@ public  class ControllerTest  implements Initializable {
     }
 
 
-    private LinkedList<SaveParam> listLogickTest = new LinkedList<SaveParam>();
+    private ArrayList<SaveParam> listLogickTest = new ArrayList<SaveParam>();
+
     public void ActionBtStartTest(ActionEvent actionEvent) {
         listLogickTest.clear();
        // LinkedList<SaveParam> listLogickTest = new LinkedList<SaveParam>();
@@ -780,7 +848,7 @@ public  class ControllerTest  implements Initializable {
                 alert.showAndWait();
             });
         } else {
-            InitLogickTest();//потом убрать
+            //InitLogickTest();//потом убрать
             for (int i =0 ; i < vbAdd.getChildren().size(); i++){
                 ToolBar myTT = (ToolBar) vbAdd.getChildren().get(i);
                 SaveParam mySaveParam = new SaveParam();
@@ -795,7 +863,7 @@ public  class ControllerTest  implements Initializable {
                 //oos.writeObject();
 
             }
-            logickTest.StartLogickTest(listLogickTest);
+            StartLogickTest();
 
 
         }
@@ -804,6 +872,7 @@ public  class ControllerTest  implements Initializable {
 
     public void ControlButtonTest(boolean b){
         vbAdd.setDisable(b);
+        btnAdd.setDisable(b);
         btStopTest.setDisable(!b);
         btStartTest.setDisable(b);
     }
@@ -813,6 +882,122 @@ public  class ControllerTest  implements Initializable {
 
     }
 
+    public void StartOneTest(int index) {
+        listLogickTest.clear();
+        // LinkedList<SaveParam> listLogickTest = new LinkedList<SaveParam>();
+
+        //InitLogickTest();
+
+        ToolBar myTT = (ToolBar) vbAdd.getChildren().get(index);
+        SaveParam mySaveParam = new SaveParam();
+        String str = myTT.getStyle();
+
+
+        mySaveParam.name = tableTb.get(myTT).element.labName.getText();
+        mySaveParam.pos = Integer.parseInt(tableTb.get(myTT).element.labPos.getText());
+        mySaveParam.personlist = tableTb.get(myTT).element.GetActinList();
+        mySaveParam.res = tableTb.get(myTT).element.GetResultat();
+
+        listLogickTest.add(mySaveParam);
+                //oos.writeObject();
+
+        StartLogickTest();
+
+
+
+
+    }
+
+    private void StartLogickTest() {
+        logickTest.StartLogickTest(listLogickTest);
+        btStopTest.setDisable(false);
+    }
+
+    public ParserSignalTest parserSignalTest = new ParserSignalTest();
+
+    public void ShowAllert(LogickTest.ErrorFlag erroFlag) {
+
+        switch (erroFlag){
+
+            case XZ:
+                errorListShow.clear();
+                break;
+            case OK:
+                Platform.runLater(() -> {
+                    Alert alertOk = new Alert(Alert.AlertType.INFORMATION);
+                    Image image1 = new Image("res/cat-drunk-icon.png");
+
+                    ImageView imageView = new ImageView(image1);
+                    /*imageView.setFitWidth(64);
+                    imageView.setFitHeight(64);*/
+
+                    alertOk.setGraphic(imageView);
+                    alertOk.initModality(Modality.APPLICATION_MODAL);
+                    alertOk.setHeaderText(" ");
+                    alertOk.setContentText("Тестирование закончено без ошибок");
+
+
+                    alertOk.showAndWait();
+                });
+                errorListShow.clear();
+                break;
+            case ERROR:
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    Image image1 = new Image("res/cat-pirate-icon.png");
+
+                    ImageView imageView = new ImageView(image1);
+                    /*imageView.setFitWidth(64);
+                    imageView.setFitHeight(64);*/
+
+                    alert.setGraphic(imageView);
+
+                    alert.initModality(Modality.APPLICATION_MODAL);
+                    alert.setHeaderText(" ");
+
+                    alert.setContentText("Тестирование закончено с ошибками");
+
+                    VBox dialogPaneContent = new VBox();
+
+                    Label label1 = new Label("Получены следующие ошибки:");
+
+                    //String stackTrace = "errror";
+                    TextArea textArea = new TextArea();
+                    textArea.setMaxWidth(400);
+                    textArea.setMaxHeight(150);
+                    //textArea.setMinWidth(200);
+                    textArea.setWrapText(true);
+                    for (int i = 0 ; i<errorListShow.size(); i++){
+                        String messError = errorListShow.get(i);
+
+                        textArea.appendText(parserSignalTest.ParserMess(messError) +"\r\n");
+                        //errorListShow.remove(i-1);
+                    }
+                    errorListShow.clear();
+                    textArea.setStyle("-fx-text-fill: #dd1515;");
+                    //textArea.setText(stackTrace);
+
+                    dialogPaneContent.getChildren().addAll(label1,textArea);
+
+                    // Set content for Dialog Pane
+                    alert.getDialogPane().setContent(dialogPaneContent);
+
+                    alert.showAndWait();
+                });
+                break;
+        }
+    }
+
+    public void ShowIndikacia(String name) {
+        lbIndikacia.setText(name);
+    }
+
+    public void SetElementState(int pos, String text) {
+        tableTb.get( vbAdd.getChildren().get(pos)).element.SetStateText(text);
+
+    }
+
+
     public static enum ColorTestElement{
         RED, GREAN
     }
@@ -821,10 +1006,28 @@ public  class ControllerTest  implements Initializable {
         switch (color){
 
             case RED:
-                vbAdd.getChildren().get(pos).setStyle("-fx-background-color:#da7781");
+                vbAdd.getChildren().get(pos).setStyle("-fx-mybase:#da7781;"+
+                        "  TOP-COLOR: ladder(" +
+                        "          -fx-mybase," +
+                        "          derive(-fx-mybase,0%) 0%," +
+                        "          derive(-fx-mybase,46%) 100%" +
+                        "      );" +
+                "-fx-background-color: " +
+                        "linear-gradient(to bottom, derive(TOP-COLOR,25%) 0%, -fx-outer-border 90%)," +
+                        "linear-gradient(to bottom, TOP-COLOR 2%, derive(-fx-mybase,-2.1%) 95%);");
+                SetElementState(pos,"С ошибками");
                 break;
             case GREAN:
-                vbAdd.getChildren().get(pos).setStyle("-fx-background-color:#77c2bb");
+                vbAdd.getChildren().get(pos).setStyle("-fx-mybase:#77c2bb;"+
+                        "  TOP-COLOR: ladder(" +
+                        "          -fx-mybase," +
+                        "          derive(-fx-mybase,0%) 0%," +
+                        "          derive(-fx-mybase,46%) 100%" +
+                        "      );" +
+                    "-fx-background-color: " +
+                    "linear-gradient(to bottom, derive(TOP-COLOR,25%) 0%, -fx-outer-border 90%)," +
+                    "linear-gradient(to bottom, TOP-COLOR 2%, derive(-fx-mybase,-2.1%) 95%);");
+                SetElementState(pos,"Без ошибок");
                 break;
         }
 
@@ -832,18 +1035,34 @@ public  class ControllerTest  implements Initializable {
 
     public void ClearColorElement() {
         for (int i =0 ; i < vbAdd.getChildren().size(); i++){
-            vbAdd.getChildren().get(i).setStyle("-fx-background-color:#fafafa");
+            vbAdd.getChildren().get(i).setStyle("-fx-mybase: #ececec;" +
+                    "  TOP-COLOR: ladder(" +
+                    "          -fx-mybase," +
+                    "          derive(-fx-mybase,0%) 0%," +
+                    "          derive(-fx-mybase,46%) 100%" +
+                    "      );" +
+                    "      -fx-background-color:" +
+                    "          linear-gradient(to bottom, derive(TOP-COLOR,25%) 0%, -fx-outer-border 90%)," +
+                    "          linear-gradient(to bottom, TOP-COLOR 2%, derive(-fx-mybase,-2.1%) 95%);" +
+                    "      -fx-background-insets: 0 0 0 0, 1 0 1 0;" +
+                    "      -fx-padding: 0.416667em 0.5em 0.416667em 0.5em; /* 5 6  5 6 */" +
+                    "      -fx-spacing: 0.333em; /* 4 */" +
+                    "      -fx-alignment: CENTER_LEFT;");
+            tableTb.get( vbAdd.getChildren().get(i)).element.SetStateText("---");
+
         }
 
     }
 
     public enum ConnectionState {
 
-        START, LOGSTART, LOGWAIT, CONNECTCOM, WAITCOM, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS, OKCONNECT, NONE, ERRORCONNECT, STOP
+        START, LOGSTART, LOGWAIT, CONNECTCOM, WAITCOM, BDCONNECT, WAITBD, CONNECTSMS, WAITSMS, CONNECTGPRS, WAITGPRS,SATRTLOGICKTEST ,  OKCONNECT, NONE, ERRORCONNECT, STOP
     }
     private ConnectionState connectionState = ConnectionState.NONE;
     private boolean connectThread = false;
     private int countConnection = 0;
+
+    private String errorConnect = "";
 
     private class ConnectionStateTread implements Runnable {
         @Override
@@ -906,11 +1125,16 @@ public  class ControllerTest  implements Initializable {
                     case WAITGPRS:
                         System.out.println("ConnectionStateTread - WAITGPRS");
                         break;
+                    case SATRTLOGICKTEST:
+                        System.out.println("ConnectionStateTread - SATRTLOGICKTEST");
+                        InitLogickTest();
+                        connectionState = ConnectionState.OKCONNECT;
+                        break;
                     case OKCONNECT:
                         System.out.println("ConnectionStateTread - OKCONNECT");
                         StopSpinner();
                         SetDisable(false);
-                        InitLogickTest();
+                        btStopTest.setDisable(true);
                         connectionState = ConnectionState.STOP;
                         break;
                     case NONE:
@@ -923,7 +1147,7 @@ public  class ControllerTest  implements Initializable {
                         Platform.runLater(() -> {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
                             alert.setHeaderText("Connection");
-                            alert.setContentText("Не получилось подключиться");
+                            alert.setContentText(errorConnect);
                             alert.showAndWait();
                         });
                         //connectionState = ConnectionState.STOP;
@@ -937,6 +1161,7 @@ public  class ControllerTest  implements Initializable {
                 }
                 countConnection++;
                 if (countConnection>180){
+                    SetErrorConnect("Не подключился по таймауту");
                     connectionState = ConnectionState.ERRORCONNECT;
                     countConnection = 0;
                 }
@@ -954,7 +1179,8 @@ public  class ControllerTest  implements Initializable {
         logickTest.SetTest(this);
         logickTest.SetChannals(smsController, gprsController,comPortController);
         logickTest.SetObject(obgectTest);
-        btStopTest.setDisable(true);
+        logickTest.InitThread();
+
     }
 
     /*public void BtnConnectAction(ActionEvent event) {

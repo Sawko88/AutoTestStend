@@ -22,14 +22,14 @@ public class ZumerMetki implements Serializable {
     }
 
     public enum TypeZumMetki {
-        XZ, OPR, NEOPR
+        XZ, DVA, NEOPR, ODIN, TEST, NOANAL
     }
     public TypeZumMetki typeZumMetki = TypeZumMetki.XZ;
 
     public enum  TypeTick {
         XZ, LB, HB, LEVEL_H, LEVEL_L
     }
-    public static int timePickBig = 300;
+    public static int timePickBig = 500;
 
     public List<Indikacia.TypeTick> arrayTicks;
 

@@ -16,7 +16,8 @@ public class KomandaCollection {
             new KOmanda(8, KOmanda.TypeKomand.PARAM_GSM,"Настройки подключения", ":xxxxx*47#84.204.102.210*48#6009*49#APN*51#LOGIN*52#PASSWORD*58#TELEFONE*"),
             new KOmanda(9, KOmanda.TypeKomand.PARAM_CAN,"Настройки CAN", ":ххххх*80#0*87#11100000*88#1*89#1*91#3*92#1*93#1*85#00*"),
             new KOmanda(10, KOmanda.TypeKomand.COMAND, "Сервис вкл", "EXECUTE xxxx 19"),
-            new KOmanda(11, KOmanda.TypeKomand.COMAND,"Сервис выкл", "EXECUTE xxxx 1F")
+            new KOmanda(11, KOmanda.TypeKomand.COMAND,"Сервис выкл", "EXECUTE xxxx 1F"),
+            new KOmanda(12, KOmanda.TypeKomand.SLED,"Запрос координат", "GPSG# XXXX 1 60")
     );
 
     public void SetKomand(String text) {

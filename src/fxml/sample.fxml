@@ -28,7 +28,7 @@
                </VBox.margin>
                <items>
                   <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Control MX" />
+                     <String fx:value="Control C, V-G, MASTER" />
                      <String fx:value="Starline" />
                   </FXCollections>
                </items>

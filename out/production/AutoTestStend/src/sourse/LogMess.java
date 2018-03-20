@@ -9,7 +9,7 @@ public class LogMess {
     }
 
     public static enum LogType {
-        OK, ERROR, XZ, STEPTEST, RESTEST
+        OK, ERROR, XZ, STEPTEST, RESTEST, START
     }
     public LogType logType = LogType.XZ;
 

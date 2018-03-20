@@ -17,10 +17,7 @@ import org.fxmisc.richtext.InlineCssTextArea;
 import java.net.URL;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ComPortController extends Application implements Initializable {
     public Button btClear;
@@ -81,6 +78,7 @@ public class ComPortController extends Application implements Initializable {
             });
             controllerTest.setConnectState(ControllerTest.ConnectionState.BDCONNECT);
             UpdateDataTread();
+            parserResIndikacia.SetCotrollerTest(controllerTest);
             parserResIndikacia.SetTablePlase(1);
             parserResIndikacia.StartParsing();
 
@@ -179,56 +177,75 @@ public class ComPortController extends Application implements Initializable {
 
     private ComPort comPort1= new ComPort();
     private String nameComPort = "";
-    public  LinkedList<String> toStend = new LinkedList<String>();
-    public  LinkedList<String> messResvTestList = new LinkedList<String>();
+    public ArrayList<String> toStend = new ArrayList<String>();
+    public ArrayList<String> messResvTestList = new ArrayList<String>();
 
     private class UpdateDataRun extends Thread implements Runnable {
         @Override
         public void run() {
             while (updateDataState) {
 
-                if (!comPort1.messList.isEmpty())
-                {
+                if (!comPort1.messList.isEmpty()) {
                     try {
-                        String mess = comPort1.messList.getFirst();
+                        if (comPort1.messList.get(0) != null) {
 
-                        if (mess.equals("") || mess == null) {
+                            String mess = comPort1.messList.get(0);
+
+
+                            if (mess.equals("") || mess == null) {
+
+                            } else {
+                                controllerTest.controllerPultMX.pultList.add(mess);
+                                if (mess.contains(Indikacia.code)) {
+                                    parserResIndikacia.messInd.add(mess);
+                                }
+                                if (mess.contains(ReleBezProv.code)) {
+                                    parserResBlockBezProv.messRRBlock.add(mess);
+                                }
+
+                                if (mess.contains(ZumerMetki.code)) {
+                                    /*if (mess.contains(ZumerMetki.code+"1")){
+                                        System.out.println("Zum metki 1");
+                                    }else {
+                                        System.out.println("Zum metki 0");
+                                    }*/
+                                    parserZumerMetki.messZumMetki.add(mess);
+                                }
+
+                                Platform.runLater(() -> {
+                                    PrintText(mess, MessangeSourse.FROMSMS);
+                                });
+                            }
+                            comPort1.messList.remove(0);
 
                         } else {
-                            controllerTest.controllerPultMX.pultList.add(mess);
-                            if(mess.contains(Indikacia.code)){
-                                parserResIndikacia.messInd.add(mess);
-                            }
-                            if(mess.contains(ReleBezProv.code)){
-                                parserResBlockBezProv.messRRBlock.add(mess);
-                            }
-
-                            if(mess.contains(ZumerMetki.code)){
-                                parserZumerMetki.messZumMetki.add(mess);
-                            }
-
-                            Platform.runLater(() -> {
-                                PrintText(mess, MessangeSourse.FROMSMS);
-                            });
+                            comPort1.messList.remove(0);
                         }
-                        comPort1.messList.removeFirst();
-                    } catch (NoSuchElementException x){
-                        System.out.println("Error COM- port:"+x);
-                        /*Platform.runLater(() -> {
-                            PrintText("Error COM- port:"+x, MessangeSourse.INF0);
-                        });*/
+                    } catch (NoSuchElementException x) {
+                        System.out.println("Error COM- port:" + x);
+
                         comPort1.messList.clear();
+                    } catch (NullPointerException e) {
+                        System.out.println("Error COM- port:" + e);
+                        System.out.println("comPort1.messList.size:" + comPort1.messList.size());
+                        comPort1.messList.remove(0);
+                        continue;
                     }
+
+
                 }
 
 
                 if (!toStend.isEmpty()){
-                    String txMess = toStend.getFirst();
+                    String txMess = toStend.get(0);
                     comPort1.Send(txMess);
                     Platform.runLater(() -> {
                         PrintText(txMess,  MessangeSourse.TOSMS);
                     });
-                    toStend.removeFirst();
+                    if (txMess.contains("can1>")){
+                        controllerTest.controllerPultMX.pultList.add(txMess);
+                    }
+                    toStend.remove(0);
                 }
 
 

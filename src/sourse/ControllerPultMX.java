@@ -121,6 +121,11 @@ public class ControllerPultMX implements Initializable {
     public JFXToggleButton ADC2on;
     public JFXToggleButton ADC3on;
     public JFXToggleButton ADC4on;
+    public JFXToggleButton canZZ;
+    public JFXToggleButton canKap;
+    public JFXToggleButton canDor;
+    public JFXToggleButton canTor;
+    public JFXToggleButton canBag;
     //SerialPort serialPort;
     boolean ComPortTread = false;
     //ComPort comPort1= new ComPort();
@@ -186,7 +191,10 @@ public class ControllerPultMX implements Initializable {
 
         UpdateGPS();
 
+
     }
+
+    //private ParserCanSend parserCanSend = new ParserCanSend();
 
     private void UpdateGPS() {
         if (GroupTimeForm.getSelectedToggle() == radioGpsTime5zero) {
@@ -496,7 +504,7 @@ public class ControllerPultMX implements Initializable {
     );
 
 
-    public  LinkedList<String> pultList = new LinkedList<String>();
+    public  ArrayList<String> pultList = new ArrayList<String>();
 
     public void Met1Action(ActionEvent actionEvent) {
         JFXToggleButton xz = (JFXToggleButton) actionEvent.getSource();
@@ -570,6 +578,65 @@ public class ControllerPultMX implements Initializable {
         SendCom(mess);
     }
 
+    public void canZZAction(ActionEvent actionEvent) {
+        String mess = "can1>";
+        if (canZZ.isSelected()){
+            mess =mess+ controllerTest.logickTest.parserCanSend.SendCan(1,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(1).onstait);
+
+        } else {
+            mess = mess+ controllerTest.logickTest.parserCanSend.SendCan(1,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(1).offstait);
+        }
+        SendCom(mess);
+    }
+
+    public void canKapAction(ActionEvent actionEvent) {
+        String mess = "can1>";
+        if (canKap.isSelected()){
+            mess =mess+ controllerTest.logickTest.parserCanSend.SendCan(2,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(2).onstait);
+
+        } else {
+            mess = mess+ controllerTest.logickTest.parserCanSend.SendCan(2,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(2).offstait);
+        }
+        SendCom(mess);
+    }
+
+    public void canDorAction(ActionEvent actionEvent) {
+        String mess = "can1>";
+        if (canDor.isSelected()){
+            mess =mess+ controllerTest.logickTest.parserCanSend.SendCan(0,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(0).onstait);
+
+        } else {
+            mess = mess+ controllerTest.logickTest.parserCanSend.SendCan(0,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(0).offstait);
+        }
+        SendCom(mess);
+    }
+
+    public void canTorAction(ActionEvent actionEvent) {
+        String mess = "can1>";
+        if (canTor.isSelected()){
+            mess =mess+ controllerTest.logickTest.parserCanSend.SendCan(3,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(3).onstait);
+
+        } else {
+            mess = mess+ controllerTest.logickTest.parserCanSend.SendCan(3,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(3).offstait);
+        }
+        SendCom(mess);
+    }
+
+    public void canBagAction(ActionEvent actionEvent) {
+        String mess = "can1>";
+        if (canBag.isSelected()){
+            mess =mess+ controllerTest.logickTest.parserCanSend.SendCan(4,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(4).onstait);
+
+        } else {
+            mess = mess+ controllerTest.logickTest.parserCanSend.SendCan(4,controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(4).offstait);
+        }
+        SendCom(mess);
+    }
+
+
+    //private CanCollection canCollection = new CanCollection();
+    //private ParserCanSend parserCanSend = new ParserCanSend();
+
     private class UpdateDataRun implements Runnable {
         @Override
         public void run() {
@@ -578,375 +645,455 @@ public class ControllerPultMX implements Initializable {
 
                     if (!pultList.isEmpty()) {
                         try {
-                            String mess = pultList.getFirst();
-                            if (mess != "" && mess != null) {
+                            if (pultList.get(0) != null) {
 
-                                if (mess.contains("pwr")) {
-                                    int numbt = mess.indexOf(":");
-                                    if (numbt > 0) {
-                                        String nameBt;
-                                        nameBt = mess.substring(0, numbt);
-                                        String pwrState;
-                                        pwrState = mess.substring(numbt + 1, numbt + 2);
-                                        if (!mess.contains("?")) {
-                                            int iii = Integer.parseInt(pwrState);
-                                            if (PaneComPort.lookup("#" + nameBt) != null) {
-                                                JFXToggleButton pwrBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+                                String mess = pultList.get(0);
+                                if (mess != "" && mess != null) {
 
-                                                switch (iii) {
-                                                    case 1:
-
-                                                        Platform.runLater(() -> {
-                                                            pwrBut.setSelected(true);
-                                                        });
-
-                                                        break;
-                                                    case 0:
-                                                        Platform.runLater(() -> {
-                                                            pwrBut.setSelected(false);
-                                                        });
-                                                        break;
-                                                    default:
-                                                        Platform.runLater(() -> {
-
-                                                        });
-                                                        break;
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (mess.contains("met")) {
-                                    int numbt = mess.indexOf(":");
-                                    if (numbt > 0) {
-                                        String nameBt;
-                                        nameBt = mess.substring(0, numbt);
-                                        String metState;
-                                        metState = mess.substring(numbt + 1, numbt + 2);
-                                        if (!mess.contains("?")) {
-                                            int iii = Integer.parseInt(metState);
-                                            if (PaneComPort.lookup("#" + nameBt) != null) {
-                                                JFXToggleButton metBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
-
-                                                switch (iii) {
-                                                    case 1:
-
-                                                        Platform.runLater(() -> {
-                                                            metBut.setSelected(true);
-                                                        });
-
-                                                        break;
-                                                    case 0:
-                                                        Platform.runLater(() -> {
-                                                            metBut.setSelected(false);
-                                                        });
-                                                        break;
-                                                    default:
-                                                        Platform.runLater(() -> {
-
-                                                        });
-                                                        break;
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (mess.contains("rar")) {
-                                    int numbt = mess.indexOf(":");
-                                    if (numbt > 0) {
-                                        String nameBt;
-                                        nameBt = mess.substring(0, numbt);
-                                        String rarState;
-                                        rarState = mess.substring(numbt + 1, numbt + 2);
-                                        if (!mess.contains("?")) {
-                                            int iii = Integer.parseInt(rarState);
-                                            if (PaneComPort.lookup("#" + nameBt) != null) {
-                                                JFXToggleButton rarBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
-
-                                                switch (iii) {
-                                                    case 1:
-
-                                                        Platform.runLater(() -> {
-                                                            rarBut.setSelected(true);
-                                                        });
-
-                                                        break;
-                                                    case 0:
-                                                        Platform.runLater(() -> {
-                                                            rarBut.setSelected(false);
-                                                        });
-                                                        break;
-                                                    default:
-                                                        Platform.runLater(() -> {
-
-                                                        });
-                                                        break;
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (mess.contains("mot")) {
-                                    int numbt = mess.indexOf(":");
-                                    if (numbt > 0) {
-                                        String nameBt;
-                                        nameBt = mess.substring(0, numbt);
-                                        String motState;
-                                        motState = mess.substring(numbt + 1, numbt + 2);
-                                        if (!mess.contains("?")) {
-                                            int iii = Integer.parseInt(motState);
-                                            if (PaneComPort.lookup("#" + nameBt) != null) {
-                                                JFXToggleButton motBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
-
-                                                switch (iii) {
-                                                    case 1:
-
-                                                        Platform.runLater(() -> {
-                                                            motBut.setSelected(true);
-                                                        });
-
-                                                        break;
-                                                    case 0:
-                                                        Platform.runLater(() -> {
-                                                            motBut.setSelected(false);
-                                                        });
-                                                        break;
-                                                    default:
-                                                        Platform.runLater(() -> {
-
-                                                        });
-                                                        break;
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (mess.contains("ADC")) {
-                                    int i = mess.indexOf("=");
-                                    if (i > 0) {
-                                        String adcName = mess.substring(0, i);
-
-                                        if (PaneComPort.lookup("#" + adcName + "text") != null) {
-                                            TextField adcText;
-                                            try {
-                                                adcText= (TextField) PaneComPort.lookup("#" + adcName + "text");
-                                            } catch (ClassCastException xz){
-                                                System.out.println(" Pult - adc !!! "+ xz);
-                                                pultList.removeFirst();
-                                                continue;
-                                            }
-
-                                            float adcNum = (float) 0;
-                                            if (mess.contains(",")) {
-                                                int enfFloat = mess.indexOf(",");
-                                                if (enfFloat > 0) {
-                                                    try {
-                                                        adcNum = Float.parseFloat(mess.substring(i + 1, enfFloat)) / 1000;
-                                                    }catch (NumberFormatException xz){
-                                                        System.out.println("NumberFormatException !!!!! "+xz);
-                                                        pultList.removeFirst();
-                                                        continue;
-                                                    }
-
-                                                }
-                                            } else {
-                                                int enfFloat = mess.indexOf("\r");
-                                                if (enfFloat > 0) {
-                                                    try {
-                                                        adcNum = Float.parseFloat(mess.substring(i + 1, enfFloat)) / 1000;
-                                                    }catch (NumberFormatException xz){
-                                                        System.out.println("NumberFormatException !!!!! "+xz);
-                                                        pultList.removeFirst();
-                                                        continue;
-                                                    }
-
-                                                }
-                                            }
-                                            String adcMess = Float.toString(adcNum);
-
-                                            Platform.runLater(() -> {
-                                                adcText.setText(adcMess);
-                                            });
-
-                                        }
-                                    }
-                                    int k = mess.indexOf(":");
-                                    if (k>0){
-                                        String nameBt;
-                                        nameBt = mess.substring(0, k);
-                                        String adcState;
-                                        adcState = mess.substring(k + 1, k + 2);
-                                        if (!mess.contains("?")) {
-                                            int iii = Integer.parseInt(adcState);
-                                            if (PaneComPort.lookup("#" + nameBt+"on") != null) {
-                                                JFXToggleButton adcBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt+"on");
-
-                                                switch (iii) {
-                                                    case 1:
-
-                                                        Platform.runLater(() -> {
-                                                            adcBut.setSelected(true);
-                                                        });
-
-                                                        break;
-                                                    case 0:
-                                                        Platform.runLater(() -> {
-                                                            adcBut.setSelected(false);
-                                                        });
-                                                        break;
-                                                    default:
-                                                        Platform.runLater(() -> {
-
-                                                        });
-                                                        break;
-                                                }
-
-                                            }
-                                        }
-                                    }
+                                    if (mess.contains("can1>")) {
 
 
-                                    //ADC1text.setText(mess.substring(i + 1) + "V");
-                                }
-                                if (mess.contains("inp")) {
-
-                                    int numbt = mess.indexOf("=");
-                                    if (numbt > 0) {
-                                        String nameBt;
-                                        nameBt = mess.substring(0, numbt);
-                                        String inpState;
-                                        inpState = mess.substring(numbt + 1, numbt + 2);
-                                        int iii = Integer.parseInt(inpState);
-                                        if (PaneComPort.lookup("#" + nameBt) != null) {
-                                            Button inpbut = (Button) PaneComPort.lookup("#" + nameBt);
-                                            if (inpbut == inp1 || inpbut == inp2 || inpbut == inp3 || inpbut == inp4 || inpbut == inp5 || inpbut == inp6 || inpbut == inp7 || inpbut == inp8) {
-                                                switch (iii) {
-                                                    case 1:
-                                                        Platform.runLater(() -> {
-                                                            inpbut.setStyle("-fx-background-color:red;");
-                                                            //inpbut.setText("0");
-                                                        });
-                                                        break;
-                                                    case 0:
-                                                        Platform.runLater(() -> {
-                                                            inpbut.setStyle("-fx-background-color:green;");
-                                                            //inpbut.setText("1");
-
-                                                        });
-                                                        break;
-                                                    default:
-                                                        Platform.runLater(() -> {
-                                                            inpbut.setStyle("-fx-background-color:grey;");
-                                                            // inpbut.setText("-");
-                                                        });
-                                                        break;
-                                                }
-                                            } else {
-                                                switch (iii) {
-                                                    case 1:
-                                                        Platform.runLater(() -> {
-                                                            inpbut.setStyle("-fx-background-color:green;");
-                                                            //inpbut.setText("1");
-                                                        });
-                                                        break;
-                                                    case 0:
-                                                        Platform.runLater(() -> {
-                                                            inpbut.setStyle("-fx-background-color:red;");
-                                                            // inpbut.setText("0");
-                                                        });
-                                                        break;
-                                                    default:
-                                                        Platform.runLater(() -> {
-                                                            inpbut.setStyle("-fx-background-color:grey;");
-                                                            // inpbut.setText("-");
-                                                        });
-                                                        break;
-                                                }
-                                            }
-
-                                        }
-                                    }
-                                }
-                                if (mess.contains("out")) {
-                                    int numbt = mess.indexOf(":");
-                                    if (numbt > 0) {
-                                        String nameBt;
-                                        nameBt = mess.substring(0, numbt);
-                                        String outState;
-                                        outState = mess.substring(numbt + 1, numbt + 2);
-                                        int iii = Integer.parseInt(outState);
-                                        if (PaneComPort.lookup("#" + nameBt) != null) {
-                                            JFXToggleButton outBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
-
-                                            switch (iii) {
-                                                case 1:
-                                                    if (outBut == out2 || outBut == out3 || outBut == out6) {
-                                                        Platform.runLater(() -> {
-                                                            outBut.setSelected(false);
-                                                        });
-                                                    } else {
-                                                        Platform.runLater(() -> {
-                                                            outBut.setSelected(true);
-                                                        });
-                                                    }
-                                                    break;
+                                        for (int i = 0; i < controllerTest.logickTest.parserCanSend.canCollection.canSpisok.size(); i++) {
+                                            switch (controllerTest.logickTest.parserCanSend.canCollection.canSpisok.get(i).index) {
                                                 case 0:
-                                                    if (outBut == out2 || outBut == out3 || outBut == out6) {
+                                                    if (controllerTest.logickTest.parserCanSend.GetCanStetePult(i)) {
                                                         Platform.runLater(() -> {
-                                                            outBut.setSelected(true);
+                                                            canDor.setSelected(true);
                                                         });
                                                     } else {
                                                         Platform.runLater(() -> {
-                                                            outBut.setSelected(false);
+                                                            canDor.setSelected(false);
                                                         });
                                                     }
                                                     break;
-                                                default:
-                                                    Platform.runLater(() -> {
+                                                case 1:
+                                                    if (controllerTest.logickTest.parserCanSend.GetCanStetePult(i)) {
+                                                        Platform.runLater(() -> {
+                                                            canZZ.setSelected(true);
+                                                        });
+                                                    } else {
+                                                        Platform.runLater(() -> {
+                                                            canZZ.setSelected(false);
+                                                        });
+                                                    }
+                                                    break;
+                                                case 2:
+                                                    if (controllerTest.logickTest.parserCanSend.GetCanStetePult(i)) {
+                                                        Platform.runLater(() -> {
+                                                            canKap.setSelected(true);
+                                                        });
+                                                    } else {
+                                                        Platform.runLater(() -> {
+                                                            canKap.setSelected(false);
+                                                        });
+                                                    }
+                                                    break;
 
-                                                    });
+                                                case 3:
+                                                    if (controllerTest.logickTest.parserCanSend.GetCanStetePult(i)) {
+                                                        Platform.runLater(() -> {
+                                                            canTor.setSelected(true);
+                                                        });
+                                                    } else {
+                                                        Platform.runLater(() -> {
+                                                            canTor.setSelected(false);
+                                                        });
+                                                    }
+                                                    break;
+
+                                                case 4:
+                                                    if (controllerTest.logickTest.parserCanSend.GetCanStetePult(i)) {
+                                                        Platform.runLater(() -> {
+                                                            canBag.setSelected(true);
+                                                        });
+                                                    } else {
+                                                        Platform.runLater(() -> {
+                                                            canBag.setSelected(false);
+                                                        });
+                                                    }
                                                     break;
                                             }
 
                                         }
-                                    }
-                                }
-                            } else {
-                                System.out.println("Error Pult: пустое сообщение");
 
+                                    }
+
+                                    if (mess.contains("pwr")) {
+                                        int numbt = mess.indexOf(":");
+                                        if (numbt > 0) {
+                                            String nameBt;
+                                            nameBt = mess.substring(0, numbt);
+                                            String pwrState;
+                                            pwrState = mess.substring(numbt + 1, numbt + 2);
+                                            if (!mess.contains("?")) {
+                                                int iii = Integer.parseInt(pwrState);
+                                                if (PaneComPort.lookup("#" + nameBt) != null) {
+                                                    JFXToggleButton pwrBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                                    switch (iii) {
+                                                        case 1:
+
+                                                            Platform.runLater(() -> {
+                                                                pwrBut.setSelected(true);
+                                                            });
+
+                                                            break;
+                                                        case 0:
+                                                            Platform.runLater(() -> {
+                                                                pwrBut.setSelected(false);
+                                                            });
+                                                            break;
+                                                        default:
+                                                            Platform.runLater(() -> {
+
+                                                            });
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (mess.contains("met")) {
+                                        int numbt = mess.indexOf(":");
+                                        if (numbt > 0) {
+                                            String nameBt;
+                                            nameBt = mess.substring(0, numbt);
+                                            String metState;
+                                            metState = mess.substring(numbt + 1, numbt + 2);
+                                            if (!mess.contains("?")) {
+                                                int iii = Integer.parseInt(metState);
+                                                if (PaneComPort.lookup("#" + nameBt) != null) {
+                                                    JFXToggleButton metBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                                    switch (iii) {
+                                                        case 1:
+
+                                                            Platform.runLater(() -> {
+                                                                metBut.setSelected(true);
+                                                            });
+
+                                                            break;
+                                                        case 0:
+                                                            Platform.runLater(() -> {
+                                                                metBut.setSelected(false);
+                                                            });
+                                                            break;
+                                                        default:
+                                                            Platform.runLater(() -> {
+
+                                                            });
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (mess.contains("rar")) {
+                                        int numbt = mess.indexOf(":");
+                                        if (numbt > 0) {
+                                            String nameBt;
+                                            nameBt = mess.substring(0, numbt);
+                                            String rarState;
+                                            rarState = mess.substring(numbt + 1, numbt + 2);
+                                            if (!mess.contains("?")) {
+                                                int iii = Integer.parseInt(rarState);
+                                                if (PaneComPort.lookup("#" + nameBt) != null) {
+                                                    JFXToggleButton rarBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                                    switch (iii) {
+                                                        case 1:
+
+                                                            Platform.runLater(() -> {
+                                                                rarBut.setSelected(true);
+                                                            });
+
+                                                            break;
+                                                        case 0:
+                                                            Platform.runLater(() -> {
+                                                                rarBut.setSelected(false);
+                                                            });
+                                                            break;
+                                                        default:
+                                                            Platform.runLater(() -> {
+
+                                                            });
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (mess.contains("mot")) {
+                                        int numbt = mess.indexOf(":");
+                                        if (numbt > 0) {
+                                            String nameBt;
+                                            nameBt = mess.substring(0, numbt);
+                                            String motState;
+                                            motState = mess.substring(numbt + 1, numbt + 2);
+                                            if (!mess.contains("?")) {
+                                                int iii = Integer.parseInt(motState);
+                                                if (PaneComPort.lookup("#" + nameBt) != null) {
+                                                    JFXToggleButton motBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                                    switch (iii) {
+                                                        case 1:
+
+                                                            Platform.runLater(() -> {
+                                                                motBut.setSelected(true);
+                                                            });
+
+                                                            break;
+                                                        case 0:
+                                                            Platform.runLater(() -> {
+                                                                motBut.setSelected(false);
+                                                            });
+                                                            break;
+                                                        default:
+                                                            Platform.runLater(() -> {
+
+                                                            });
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (mess.contains("ADC")) {
+                                        int i = mess.indexOf("=");
+                                        if (i > 0) {
+                                            String adcName = mess.substring(0, i);
+
+                                            if (PaneComPort.lookup("#" + adcName + "text") != null) {
+                                                TextField adcText;
+                                                try {
+                                                    adcText = (TextField) PaneComPort.lookup("#" + adcName + "text");
+                                                } catch (ClassCastException xz) {
+                                                    System.out.println(" Pult - adc !!! " + xz);
+                                                    pultList.remove(0);
+                                                    continue;
+                                                }
+
+                                                float adcNum = (float) 0;
+                                                if (mess.contains(",")) {
+                                                    int enfFloat = mess.indexOf(",");
+                                                    if (enfFloat > 0) {
+                                                        try {
+                                                            adcNum = Float.parseFloat(mess.substring(i + 1, enfFloat)) / 1000;
+                                                        } catch (NumberFormatException xz) {
+                                                            System.out.println("NumberFormatException !!!!! " + xz);
+                                                            pultList.remove(0);
+                                                            continue;
+                                                        }
+
+                                                    }
+                                                } else {
+                                                    int enfFloat = mess.indexOf("\r");
+                                                    if (enfFloat > 0) {
+                                                        try {
+                                                            adcNum = Float.parseFloat(mess.substring(i + 1, enfFloat)) / 1000;
+                                                        } catch (NumberFormatException xz) {
+                                                            System.out.println("NumberFormatException !!!!! " + xz);
+                                                            pultList.remove(0);
+                                                            continue;
+                                                        }
+
+                                                    }
+                                                }
+                                                String adcMess = Float.toString(adcNum);
+
+                                                Platform.runLater(() -> {
+                                                    adcText.setText(adcMess);
+                                                });
+
+                                            }
+                                        }
+                                        int k = mess.indexOf(":");
+                                        if (k > 0) {
+                                            String nameBt;
+                                            nameBt = mess.substring(0, k);
+                                            String adcState;
+                                            adcState = mess.substring(k + 1, k + 2);
+                                            if (!mess.contains("?")) {
+                                                int iii = Integer.parseInt(adcState);
+                                                if (PaneComPort.lookup("#" + nameBt + "on") != null) {
+                                                    JFXToggleButton adcBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt + "on");
+
+                                                    switch (iii) {
+                                                        case 1:
+
+                                                            Platform.runLater(() -> {
+                                                                adcBut.setSelected(true);
+                                                            });
+
+                                                            break;
+                                                        case 0:
+                                                            Platform.runLater(() -> {
+                                                                adcBut.setSelected(false);
+                                                            });
+                                                            break;
+                                                        default:
+                                                            Platform.runLater(() -> {
+
+                                                            });
+                                                            break;
+                                                    }
+
+                                                }
+                                            }
+                                        }
+
+
+                                        //ADC1text.setText(mess.substring(i + 1) + "V");
+                                    }
+                                    if (mess.contains("inp")) {
+
+                                        int numbt = mess.indexOf("=");
+                                        if (numbt > 0) {
+                                            String nameBt;
+                                            nameBt = mess.substring(0, numbt);
+                                            String inpState;
+                                            inpState = mess.substring(numbt + 1, numbt + 2);
+                                            int iii = Integer.parseInt(inpState);
+                                            if (PaneComPort.lookup("#" + nameBt) != null) {
+                                                Button inpbut = (Button) PaneComPort.lookup("#" + nameBt);
+                                                if (inpbut == inp1 || inpbut == inp2 || inpbut == inp3 || inpbut == inp4 || inpbut == inp5 || inpbut == inp6 || inpbut == inp7 || inpbut == inp8) {
+                                                    switch (iii) {
+                                                        case 1:
+                                                            Platform.runLater(() -> {
+                                                                inpbut.setStyle("-fx-background-color:red;");
+                                                                //inpbut.setText("0");
+                                                            });
+                                                            break;
+                                                        case 0:
+                                                            Platform.runLater(() -> {
+                                                                inpbut.setStyle("-fx-background-color:green;");
+                                                                //inpbut.setText("1");
+
+                                                            });
+                                                            break;
+                                                        default:
+                                                            Platform.runLater(() -> {
+                                                                inpbut.setStyle("-fx-background-color:grey;");
+                                                                // inpbut.setText("-");
+                                                            });
+                                                            break;
+                                                    }
+                                                } else {
+                                                    switch (iii) {
+                                                        case 1:
+                                                            Platform.runLater(() -> {
+                                                                inpbut.setStyle("-fx-background-color:green;");
+                                                                //inpbut.setText("1");
+                                                            });
+                                                            break;
+                                                        case 0:
+                                                            Platform.runLater(() -> {
+                                                                inpbut.setStyle("-fx-background-color:red;");
+                                                                // inpbut.setText("0");
+                                                            });
+                                                            break;
+                                                        default:
+                                                            Platform.runLater(() -> {
+                                                                inpbut.setStyle("-fx-background-color:grey;");
+                                                                // inpbut.setText("-");
+                                                            });
+                                                            break;
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    if (mess.contains("out")) {
+                                        int numbt = mess.indexOf(":");
+                                        if (numbt > 0) {
+                                            String nameBt;
+                                            nameBt = mess.substring(0, numbt);
+                                            String outState;
+                                            outState = mess.substring(numbt + 1, numbt + 2);
+                                            int iii = Integer.parseInt(outState);
+                                            if (PaneComPort.lookup("#" + nameBt) != null) {
+                                                JFXToggleButton outBut = (JFXToggleButton) PaneComPort.lookup("#" + nameBt);
+
+                                                switch (iii) {
+                                                    case 1:
+                                                        if (outBut == out2 || outBut == out3 || outBut == out6) {
+                                                            Platform.runLater(() -> {
+                                                                outBut.setSelected(false);
+                                                            });
+                                                        } else {
+                                                            Platform.runLater(() -> {
+                                                                outBut.setSelected(true);
+                                                            });
+                                                        }
+                                                        break;
+                                                    case 0:
+                                                        if (outBut == out2 || outBut == out3 || outBut == out6) {
+                                                            Platform.runLater(() -> {
+                                                                outBut.setSelected(true);
+                                                            });
+                                                        } else {
+                                                            Platform.runLater(() -> {
+                                                                outBut.setSelected(false);
+                                                            });
+                                                        }
+                                                        break;
+                                                    default:
+                                                        Platform.runLater(() -> {
+
+                                                        });
+                                                        break;
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    System.out.println("Error Pult: пустое сообщение");
+
+                                }
+
+                                pultList.remove(0);
+                            } else {
+                                pultList.remove(0);
                             }
-                            pultList.removeFirst();
-                        } catch (NoSuchElementException e){
-                            System.out.println("Error Pult: " +e );
+                        } catch (NoSuchElementException e) {
+                            System.out.println("Error Pult: " + e);
                             pultList.clear();
+                            continue;
+                        } catch (NullPointerException xz) {
+                            System.out.println("Error Pult: " + xz);
+                            System.out.println("pultList.size: " + pultList.size());
+                            pultList.remove(0);
                             continue;
                         }
 
-                        }
+
+                    }
 
 
                         if (!gps.messGPS.isEmpty()) {
-                            String gpsMess = gps.messGPS.poll();
+                            String gpsMess = gps.messGPS.get(0);
                             SendCom("gps1>" + gpsMess);
                             Platform.runLater(() -> {
 
                                 textGpsLog.appendText(gpsMess + "\r\n");
                                 textGpsAzimutItigo.setText(gps.GetAzimutStr());
                             });
-
+                            gps.messGPS.remove(0);
 
                         }
 
                         countInit++;
-                        if (countInit > 10) {
+                        if (countInit > 25) {
                             countInit = 0;
                             if (numberInitMess < arrayInit.size()) {
                                 SendCom(arrayInit.get(numberInitMess));
