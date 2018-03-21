@@ -367,13 +367,13 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <VBox layoutX="940.0" layoutY="32.0" prefHeight="676.0" prefWidth="95.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;">
+            <VBox layoutX="940.0" layoutY="32.0" prefHeight="676.0" prefWidth="102.0" style="-fx-border-color: #77c2bb; -fx-border-width: 2;">
                <children>
-                  <JFXToggleButton fx:id="canZZ" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canZZAction" prefHeight="66.0" prefWidth="85.0" text="ЗЗ" unToggleColor="#e40808" unToggleLineColor="#da7781" />
-                  <JFXToggleButton fx:id="canKap" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canKapAction" prefHeight="25.0" prefWidth="85.0" text="Капот" unToggleColor="#e40808" unToggleLineColor="#da7781" />
-                  <JFXToggleButton fx:id="canDor" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canDorAction" prefHeight="25.0" prefWidth="85.0" text="Дверь" unToggleColor="#e40808" unToggleLineColor="#da7781" />
-                  <JFXToggleButton fx:id="canTor" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canTorAction" prefHeight="25.0" prefWidth="85.0" text="Тормоз" unToggleColor="#e40808" unToggleLineColor="#da7781" />
-                  <JFXToggleButton fx:id="canBag" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canBagAction" prefHeight="25.0" prefWidth="85.0" text="Багажник" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canZZ" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canZZAction" prefHeight="75.0" prefWidth="102.0" text="CAN-ЗЗ" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canKap" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canKapAction" prefHeight="75.0" prefWidth="100.0" text="CAN-Капот" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canDor" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canDorAction" prefHeight="75.0" prefWidth="100.0" text="CAN-Дверь" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canTor" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canTorAction" prefHeight="75.0" prefWidth="100.0" text="CAN-Тормоз" unToggleColor="#e40808" unToggleLineColor="#da7781" />
+                  <JFXToggleButton fx:id="canBag" contentDisplay="BOTTOM" graphicTextGap="0.0" onAction="#canBagAction" prefHeight="75.0" prefWidth="99.0" text="CAN-Багажник" unToggleColor="#e40808" unToggleLineColor="#da7781" />
                </children>
             </VBox>
             <Label alignment="CENTER" layoutX="942.0" layoutY="13.0" prefHeight="20.0" prefWidth="91.0" text="CAN">
