@@ -267,7 +267,7 @@ public class SmsController extends Application implements Initializable {
     }
 
 
-
+    private  int counterText = 0;
     public void PrintText(String text,  MessangeSourse inf0) {
         String s;
         Format format;
@@ -289,6 +289,12 @@ public class SmsController extends Application implements Initializable {
 
         ictam.moveTo(ictam.getLength());
         ictam.requestFollowCaret();
+
+        counterText++;
+        if (counterText>1000){
+            counterText = 0;
+            ictam.clear();
+        }
 
     }
 

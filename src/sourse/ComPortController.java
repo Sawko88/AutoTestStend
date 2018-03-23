@@ -197,19 +197,17 @@ public class ComPortController extends Application implements Initializable {
                             } else {
                                 controllerTest.controllerPultMX.pultList.add(mess);
                                 if (mess.contains(Indikacia.code)) {
-                                    parserResIndikacia.messInd.add(mess);
+                                    //parserResIndikacia.messInd.add(mess);
+                                    parserResIndikacia.AddInd(mess);
                                 }
                                 if (mess.contains(ReleBezProv.code)) {
                                     parserResBlockBezProv.messRRBlock.add(mess);
                                 }
 
                                 if (mess.contains(ZumerMetki.code)) {
-                                    /*if (mess.contains(ZumerMetki.code+"1")){
-                                        System.out.println("Zum metki 1");
-                                    }else {
-                                        System.out.println("Zum metki 0");
-                                    }*/
-                                    parserZumerMetki.messZumMetki.add(mess);
+
+                                    //parserZumerMetki.messZumMetki.add(mess);
+                                    parserZumerMetki.AddZum(mess);
                                 }
 
                                 Platform.runLater(() -> {
@@ -250,7 +248,7 @@ public class ComPortController extends Application implements Initializable {
 
 
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

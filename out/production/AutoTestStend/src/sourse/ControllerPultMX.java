@@ -471,7 +471,10 @@ public class ControllerPultMX implements Initializable {
 
     public void ConnectionPult() {
         SetDisable(false);
+        numberInitMess= 0;
+        countInit= 0;
         UpdateDataTread();
+
     }
 
     public void pwrOnActionRes(ActionEvent actionEvent) {
@@ -1105,7 +1108,7 @@ public class ControllerPultMX implements Initializable {
 
 
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

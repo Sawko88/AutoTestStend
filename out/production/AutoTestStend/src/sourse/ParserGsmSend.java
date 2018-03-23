@@ -45,12 +45,22 @@ public class ParserGsmSend {
             case SLED:
                 mess = GetSled(parserkom.komanda, obgectTest.code);
                 break;
+            case PARAM_FREE:
+                mess = GetParamFree(parserkom.komanda, obgectTest.code);
+                break;
             default: break;
         }
 
 
         return mess;
     }
+
+    private String GetParamFree(String komanda, String code) {
+        String messParamFree  = "";
+        messParamFree = ":"+code.substring(0,1) + code + komanda;
+        return messParamFree;
+    }
+
     //"GPSG# XXXX 1 60"
     private String GetSled(String komanda, String code) {
         String messSled = komanda;
@@ -101,8 +111,11 @@ public class ParserGsmSend {
     //:xxxxx*20#000001*21#10*22#2*23#1*24#0*25#0*26#2*27#0*28#0.0*33#1*34#1*35#79214280028*36#2*37#1*38#1*39#xxxx*43#0*44#0*45#0*46#1*53#1*54#0*55#1*56#00*57#5*"
     private String GetParamOb(String komanda, String code) {
         String messParamOb = komanda;
+        /*messParamOb = messParamOb.substring(0,1)+code.substring(0,1) + code
+                +messParamOb.substring(6,103)+obgectTest.code+messParamOb.substring(107,messParamOb.length());*/
+        messParamOb = messParamOb.replaceAll("CODE", obgectTest.code);
         messParamOb = messParamOb.substring(0,1)+code.substring(0,1) + code
-                +messParamOb.substring(6,103)+obgectTest.code+messParamOb.substring(107,messParamOb.length());
+                +messParamOb.substring(6,messParamOb.length());
         return messParamOb;
     }
 }

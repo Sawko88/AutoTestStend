@@ -16,18 +16,18 @@ public class ParserZumerMetki {
     }
 
 
-    public ArrayList<String> messZumMetki = new ArrayList<String>();
+    //public ArrayList<String> messZumMetki = new ArrayList<String>();
     public ArrayList<ZumerMetkiTime> zumMetkiList = new ArrayList<ZumerMetkiTime>();
-    private Thread ResvMessZumMetki;
-    private boolean resvMessZumMetkiState = false;
+    //private Thread ResvMessZumMetki;
+    //private boolean resvMessZumMetkiState = false;
 
     public void StartParsing() {
         ResTable.resTableEl.get(tablePlase).errorList.clear();
-        messZumMetki.clear();
+        //messZumMetki.clear();
         zumMetkiList.clear();
-        resvMessZumMetkiState = true;
-        ResvMessZumMetki = new Thread(new ResvMessZumMetkiThread());
-        ResvMessZumMetki.start();
+        //resvMessZumMetkiState = true;
+        //ResvMessZumMetki = new Thread(new ResvMessZumMetkiThread());
+        //ResvMessZumMetki.start();
 
         zumMetkiCheckState =true;
         ZumMetkiCheck = new Thread(new ZumMetkiCheckThread());
@@ -37,13 +37,26 @@ public class ParserZumerMetki {
     }
 
     public void StopParsing() {
-        resvMessZumMetkiState = false;
+        //resvMessZumMetkiState = false;
         zumMetkiCheckState = false;
-        messZumMetki.clear();
+        //messZumMetki.clear();
         zumMetkiList.clear();
     }
 
-    private class ResvMessZumMetkiThread implements Runnable {
+    public void AddZum(String mess) {
+        //String messFromList = messZumMetki.get(0);
+        ZumerMetkiTime zumerMetkiTimeBuf = new ZumerMetkiTime();
+        int ind = mess.indexOf("=");
+        if (ind>0) {
+            zumerMetkiTimeBuf.state = mess.substring(ind + 1, ind + 2);
+            zumerMetkiTimeBuf.timeMC = System.currentTimeMillis();
+
+            zumMetkiList.add(zumerMetkiTimeBuf);
+        }
+        //messZumMetki.remove(0);
+    }
+
+   /* private class ResvMessZumMetkiThread implements Runnable {
         @Override
         public void run() {
             System.out.println("ResvMessZumMetkiThread - begin");
@@ -76,7 +89,7 @@ public class ParserZumerMetki {
             System.out.println("ResvMessZumMetkiThread - finish");
 
         }
-    }
+    }*/
 
     public ZumerMetki currZum = new ZumerMetki(ZumerMetki.TypeZumMetki.XZ);
     private ZumerMetki newZum = new ZumerMetki(ZumerMetki.TypeZumMetki.XZ);

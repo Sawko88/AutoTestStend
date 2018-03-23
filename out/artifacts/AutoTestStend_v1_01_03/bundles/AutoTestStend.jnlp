@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="AutoTestStend.jnlp">
+  <information>
+    <title>AutoTestStendv1.0b</title>
+    <vendor>Arkan</vendor>
+    <description>AutoTestStend_v1.01.03</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="AutoTestStend.jar" size="898885" download="eager" />
+    <jar href="controlsfx-8.40.14.jar" size="1215643" download="eager" />
+    <jar href="controlsfx-samples-8.40.14.jar" size="725707" download="eager" />
+    <jar href="flowless-0.6.jar" size="64324" download="eager" />
+    <jar href="fxsampler-1.0.10.jar" size="30876" download="eager" />
+    <jar href="ikonli-core-2.0.0.jar" size="8990" download="eager" />
+    <jar href="ikonli-core-2.1.0.jar" size="9005" download="eager" />
+    <jar href="ikonli-fontawesome-pack-2.1.0.jar" size="678208" download="eager" />
+    <jar href="ikonli-javafx-2.0.0.jar" size="70378" download="eager" />
+    <jar href="ikonli-materialdesign-pack-2.0.0.jar" size="757147" download="eager" />
+    <jar href="jfoenix-1.9.1.jar" size="2384613" download="eager" />
+    <jar href="jssc-2.8.0.jar" size="153562" download="eager" />
+    <jar href="mssql-jdbc-6.3.6.jre8-preview.jar" size="904842" download="eager" />
+    <jar href="mysql-connector-java-6.0.6.jar" size="2001778" download="eager" />
+    <jar href="reactfx-2.0-M5.jar" size="428541" download="eager" />
+    <jar href="richtextfx-1.0.0-SNAPSHOT.jar" size="236643" download="eager" />
+    <jar href="undofx-1.3.1.jar" size="23755" download="eager" />
+    <jar href="wellbehavedfx-0.3.jar" size="66436" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="sourse.Main"  name="AutoTestStend_v1.01.03" />
+  <update check="background"/>
+</jnlp>

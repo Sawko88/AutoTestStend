@@ -119,6 +119,11 @@ public class ParserResGSM {
                                         }
                                         break;
                                     case PARAM_CAN:
+                                        if(messres.contains(parserResult.resultat.signalSResultat.get(i).code)){
+                                            parserResult.resultat.signalSResultat.get(i).state = true;
+                                            LogController.logMessList.add(new LogMess(LogMess.LogType.RESTEST, parserResult.logickTest.currentTest.name+" : Получено сообщение <-- "+parserResult.resultat.signalSResultat.get(i).name));
+                                            messGsm.remove(g);
+                                        }
                                         break;
                                     case PARAM_VER:
                                         break;

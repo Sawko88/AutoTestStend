@@ -26,7 +26,10 @@ public class SignalCollection {
             new Signal(18, Signal.SignalType.TEST0531, "TEST 000000000 TEST 000000001","Тестирование 0531"),
             new Signal(19, Signal.SignalType.CONTROL, "51","Выход их сервиса по кнопке"),
             new Signal(20, Signal.SignalType.CONTROL, "66","Восстановлене резервной АКБ"),
-            new Signal(21, Signal.SignalType.CONTROL, "24","Восстановление АКБ")
+            new Signal(21, Signal.SignalType.CONTROL, "24","Восстановление АКБ"),
+            new Signal(22, Signal.SignalType.CONTROL, "6A","Потеря контроля радиореле 1"),
+            new Signal(23, Signal.SignalType.CONTROL, "6B","Потеря контроля радиореле 2"),
+            new Signal(24, Signal.SignalType.PARAM_CAN, "79 32","Настройки CAN")
 
 
     );

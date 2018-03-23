@@ -29,7 +29,7 @@ public class KomandaFormaController implements Initializable {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 //System.out.println(cbKomand.getValue());
-                if (cbKomand.getSelectionModel().getSelectedIndex() == 0){
+                if (cbKomand.getSelectionModel().getSelectedIndex() == 0 || cbKomand.getSelectionModel().getSelectedIndex() == 13  ){
                     taKomanda.setDisable(false);
                     taKomanda.setText(komandaCollection.GetKonamda(cbKomand.getSelectionModel().getSelectedIndex()));
                 } else {
@@ -43,8 +43,8 @@ public class KomandaFormaController implements Initializable {
         taKomanda.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (cbKomand.getSelectionModel().getSelectedIndex()==0) {
-                    komandaCollection.SetKomand(taKomanda.getText());
+                if (cbKomand.getSelectionModel().getSelectedIndex()==0 || cbKomand.getSelectionModel().getSelectedIndex() == 13 ) {
+                    komandaCollection.SetKomand( cbKomand.getSelectionModel().getSelectedIndex(), taKomanda.getText());
 
                 }
                 //Updatenastroika();
@@ -70,7 +70,7 @@ public class KomandaFormaController implements Initializable {
     public void SetParam(ActionTest nastroika) {
         int index = nastroika.kOmanda.index;
         cbKomand.getSelectionModel().select(index);
-        if (index == 0){
+        if (index == 0 || index == 13){
             taKomanda.setText(nastroika.kOmanda.komanda);
         }
         //Updatenastroika();
@@ -93,7 +93,7 @@ public class KomandaFormaController implements Initializable {
             int index = cbKomand.getSelectionModel().getSelectedIndex();
             nastroikaBuf.kOmanda = komandaCollection.komndaSpisok.get(index);
             nastroikaBuf.namePosition = komandaCollection.komndaSpisok.get(index).name;
-            if (nastroikaBuf.kOmanda.index == 0) {
+            if (nastroikaBuf.kOmanda.index == 0 || nastroikaBuf.kOmanda.index == 13) {
                 nastroikaBuf.namePosition += " " + komandaCollection.komndaSpisok.get(index).komanda;
             }
         }//

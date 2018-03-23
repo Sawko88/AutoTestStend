@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import jssc.SerialPort;
 import jssc.SerialPortList;
 
 import java.net.URL;
@@ -67,7 +68,7 @@ public class SettingsController implements Initializable{
         this.controllerTest = controllerTest;
     }
 
-
+    SerialPort serialPort;
     public void SetSettings(Setting setting) {
         this.setting = setting;
         tfSmsIp.setText(setting.smsIp);
@@ -82,6 +83,12 @@ public class SettingsController implements Initializable{
         tfBdPas.setText(setting.bdPas);
 
         String[] portNames = SerialPortList.getPortNames();
+        cboxCom.getItems().clear();
+        for(int i = 0; i < portNames.length; i++) {
+
+            //System.out.println(portNames[i]);
+            cboxCom.getItems().add(i,portNames[i] );
+        }
         for(int i = 0; i < portNames.length; i++) {
             //System.out.println(portNames[i]);
             if (setting.comPort.equals(portNames[i])){

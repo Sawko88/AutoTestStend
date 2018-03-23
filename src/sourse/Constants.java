@@ -44,7 +44,7 @@ public class Constants {
     private Constants() {}
 
     public static String nameApp = "Autotest ";
-    public static String version = "v01.02";
+    public static String version = "v01.03";
 
     public static String GetNameApp() {
         return nameApp+version;

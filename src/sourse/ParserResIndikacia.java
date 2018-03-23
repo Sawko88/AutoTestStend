@@ -15,9 +15,9 @@ public class ParserResIndikacia {
     }
 
 
-    public ArrayList<String> messInd = new ArrayList<String>();
-    private Thread ResvMessIndikacia;
-    private boolean resvMessIndickaciaState = false;
+    //public ArrayList<String> messInd = new ArrayList<String>();
+    //private Thread ResvMessIndikacia;
+    //private boolean resvMessIndickaciaState = false;
     public Indikacia currIndikacia = new Indikacia(Indikacia.TypeInd.LOADING);
     private Indikacia newIndikacia = new Indikacia(Indikacia.TypeInd.LOADING);
     private Indikacia midIndikacia = new Indikacia(Indikacia.TypeInd.LOADING);
@@ -28,13 +28,13 @@ public class ParserResIndikacia {
 
     public void StartParsing() {
         ResTable.resTableEl.get(tablePlase).errorList.clear();
-        messInd.clear();
+       // messInd.clear();
         indList.clear();
-        resvMessIndickaciaState = true;
+        //resvMessIndickaciaState = true;
 
-        ResvMessIndikacia = new Thread(new ResvMessIndikaciaThread());
-        ResvMessIndikacia.setPriority(Thread.MAX_PRIORITY);
-        ResvMessIndikacia.start();
+       /* ResvMessIndikacia = new Thread(new ResvMessIndikaciaThread());
+        //ResvMessIndikacia.setPriority(Thread.MAX_PRIORITY);
+        ResvMessIndikacia.start();*/
 
         indikaciaCheckState =true;
         IndikaciaCheck = new Thread(new IndikaciaCheckThread());
@@ -52,9 +52,9 @@ public class ParserResIndikacia {
     public IndikaciaTime currIndTime = new IndikaciaTime();
 
     public void StopParsing() {
-        resvMessIndickaciaState = false;
+       // resvMessIndickaciaState = false;
         indikaciaCheckState = false;
-        messInd.clear();
+        //messInd.clear();
         indList.clear();
     }
     private ControllerTest controllerTest;
@@ -62,7 +62,24 @@ public class ParserResIndikacia {
         this.controllerTest = controllerTest;
     }
 
-    private class ResvMessIndikaciaThread implements Runnable {
+    public void AddInd(String mess) {
+        try {
+            //String messFromList = messInd.get(0);
+            IndikaciaTime indikaciaTimeBuf = new IndikaciaTime();
+            int ind = mess.indexOf("=");
+            if (ind > 0) {
+                indikaciaTimeBuf.state = mess.substring(ind + 1, ind + 2);
+                indikaciaTimeBuf.timeMC = System.currentTimeMillis();
+                indList.add(indikaciaTimeBuf);
+            }
+            //messInd.remove(0);
+        }catch (NoSuchElementException | NullPointerException xz){
+            System.out.println("Indikacia error : "+xz);
+           // messInd.clear();
+        }
+    }
+
+   /* private class ResvMessIndikaciaThread implements Runnable {
         @Override
         public void run() {
             System.out.println("ResvMessIndikaciaThread - begin");
@@ -97,7 +114,7 @@ public class ParserResIndikacia {
             }
             System.out.println("ResvMessIndikaciaThread - finish");
         }
-    }
+    }*/
 
 
 
